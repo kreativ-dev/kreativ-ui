@@ -255,10 +255,9 @@ export interface DesignTokens {
  * };
  * ```
  */
-export type ColorModeValue<T = string> = {
-  light: T;
-  dark: T;
-};
+export type ColorModeValue<T = string> =
+  | { sameForBothModes: true; value: T }
+  | { sameForBothModes?: false; light: T; dark: T };
 
 /**
  * A semantic token that can be either a static value or a mode‑dependent value.
@@ -276,7 +275,7 @@ export type ColorModeValue<T = string> = {
  * ```
  */
 export interface SemanticToken<T extends TokenValue = string> {
-  value: T | ColorModeValue<T>;
+  value: ColorModeValue<T>;
 }
 
 /**
