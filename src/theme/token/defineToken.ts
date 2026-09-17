@@ -17,18 +17,14 @@ export function defineTokens<T extends Record<string, TokenValue>>(tokens: T) {
 /**
  * Defines a semantic token that shares a single value across both light and dark modes.
  */
+
 export function defineSemanticToken<T extends TokenValue>(
   value: T,
 ): SemanticToken<T>;
-
-/**
- * Defines a semantic token with distinct light and dark values.
- */
 export function defineSemanticToken<T extends TokenValue>(
   light: T,
   dark: T,
 ): SemanticToken<T>;
-
 export function defineSemanticToken<T extends TokenValue>(
   lightOrValue: T,
   dark?: T,
@@ -51,32 +47,30 @@ export function defineSemanticToken<T extends TokenValue>(
   };
 }
 
-type SemanticTokenInput<T extends TokenValue> =
-  | T
-  | { light: T; dark: T };
+type SemanticTokenInput<T extends TokenValue> = T | { light: T; dark: T };
 
 export function defineSemanticTokens<
   T extends Record<string, SemanticTokenInput<TokenValue>>,
 >(
   tokens: T,
 ): {
-  [K in keyof T]: T[K] extends { light: infer L; dark: infer D }
-    ? SemanticToken<L & D extends TokenValue ? L & D : TokenValue>
+  [K in keyof T]: SemanticToken<T[K] extends { light: infer V; dark: infer _ }
+    ? V extends TokenValue
+      ? V
+      : never
     : T[K] extends TokenValue
-      ? SemanticToken<T[K]>
-      : never;
+      ? T[K]
+      : never>;
 } {
   return Object.fromEntries(
-    Object.entries(tokens).map(([key, entry]) => {
-      if (
-        entry !== null &&
-        typeof entry === "object" &&
-        "light" in entry &&
-        "dark" in entry
-      ) {
-        return [key, defineSemanticToken(entry.light, entry.dark)];
-      }
-      return [key, defineSemanticToken(entry as TokenValue)];
-    }),
-  ) as any;
+    Object.entries(tokens).map(([key, entry]) => [
+      key,
+      entry !== null &&
+      typeof entry === "object" &&
+      "light" in entry &&
+      "dark" in entry
+        ? defineSemanticToken(entry.light, entry.dark)
+        : defineSemanticToken(entry as TokenValue),
+    ]),
+  ) as ReturnType<typeof defineSemanticTokens<T>>;
 }
