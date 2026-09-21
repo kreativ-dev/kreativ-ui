@@ -29,35 +29,80 @@ export interface ThemeTogglerTransition {
 }
 
 /**
- * A collection of user-defined component recipes.
- *
- * Built-in Kreativ UI recipes are typed separately through
- * `RecipeCollection`, while custom component recipes can use
- * any string key.
- */
+ * Theme metadata 
+*/
+
+export interface ThemeMetadata {
+  /**
+   * Human-readable theme name.
+   *
+   * @example "Earthy & Warm"
+   */
+  name?: string;
+
+  /**
+   * Short description of the theme.
+   *
+   * @example "Natural • Cozy • Timeless"
+   */
+  description?: string;
+
+  /**
+   * Creator or source attribution.
+   *
+   * @example "pixel by sayeda"
+   */
+  author?: string;
+
+  /**
+   * Optional URL pointing to the original theme/source.
+   */
+  source?: string;
+}
 
 /**
  * The complete theme object provided by the design system.
  *
- * It combines primitive tokens, semantic tokens, typography,
- * component recipes, global intensity, and size scales.
- *
- * @property tokens - Raw design values (colors, spacing, radii, etc.).
- * @property semanticTokens - Role-based tokens that adapt to color mode.
- * @property typography - Reusable typography styles.
- * @property recipes - Component-specific styles.
- * @property intensity - A global multiplier for visual prominence.
- * @property sizes - Component size scales.
+ * It combines theme metadata, primitive tokens, semantic tokens,
+ * typography, component recipes, global intensity, and size scales.
  */
 export interface Theme {
+  /**
+   * Optional descriptive information about the theme.
+   * Used by tooling such as the Kreativ CLI and Playground.
+   */
+  metadata?: ThemeMetadata;
+
+  /**
+   * Raw design values (colors, spacing, radii, etc.).
+   */
   tokens: DesignTokens;
+
+  /**
+   * Role-based tokens that adapt to color mode.
+   */
   semanticTokens: SemanticTokens;
+
+  /**
+   * Reusable typography styles.
+   */
   typography: Typography;
+
+  /**
+   * Component-specific styles.
+   */
   recipes: RecipeCollection;
+
+  /**
+   * Global visual intensity.
+   */
   intensity: number;
+
+  /**
+   * Component size scales.
+   */
   sizes: SizeScale;
 }
-
 /**
  * A flat record of resolved token values, typically CSS-ready strings.
  * Used internally for injecting variables.
