@@ -11,4 +11,59 @@
   --kui-ease-default: cubic-bezier(0.4, 0, 0.2, 1);
   --kui-ease-in: cubic-bezier(0.4, 0, 1, 1);
   --kui-ease-out: cubic-bezier(0, 0, 0.2, 1);
+
+  --kui-inherit-bg: inherit;
+  --kui-inherit-fg: inherit;
+  --kui-inherit-border: currentColor;
+  --kui-inherit-soft-bg: transparent;
+}
+
+[data-kui-theme] {
+  font-family: var(--kui-font, system-ui, -apple-system, sans-serif);
+  min-height: 100vh;
+}
+
+[data-state-transition="error"] {
+  animation: var(--kui-animations-state-error);
+}
+
+[data-state-transition="success"] {
+  animation: var(--kui-animations-state-success);
+}
+
+[data-state-transition="warning"] {
+  animation: var(--kui-animations-state-warning);
+}
+
+.kui-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--kui-text-muted) / 0.45) transparent;
+}
+
+.kui-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.kui-scrollbar::-webkit-scrollbar-thumb {
+  background: rgb(var(--kui-text-muted) / 0.45);
+  border-radius: 999px;
+}
+
+.kui-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--kui-text-muted) / 0.65);
+}
+
+.kui-scrollbar:hover {
+  scrollbar-color: rgb(var(--kui-text-muted) / 0.65) transparent;
+}
+
+[data-kui-transitioning="true"] {
+  opacity: 0;
+  transition: opacity
+    var(--kui-theme-transition-duration, var(--duration-normal)) var(--ease-kui);
+}
+
+[data-kui-transitioning="true"][data-kreativ-theme="light"],
+[data-kui-transitioning="true"][data-kreativ-theme="dark"] {
+  opacity: 1;
 }

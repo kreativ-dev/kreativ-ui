@@ -1,3 +1,3 @@
 export * from './defineRecipe'
-export * from './mergeRecipes'
-export * from './resolveRecipe'
+export * from './extendRecipe'
+export * from './helpers'

@@ -1,28 +1,34 @@
-import type { ButtonProps } from "@/components/Button";
-import type { BaseColor, BaseProps, Orientation, ThemeTransition } from "@/types";
-import { ButtonVariant } from "../Button/Button.types";
+import type {
+  BaseColor,
+  BaseProps,
+  OrientationProps,
+  ThemeTogglerTransition,
+  VariantProps,
+} from "@/types";
+import type { ButtonVariant, ButtonProps } from "../Button/Button.types";
+import type { CSSProperties, ReactNode } from "react";
 
-export type ThemeTogglerVariant =  Exclude<ButtonVariant, 'link'>;
+export type ThemeTogglerVariant = Exclude<ButtonVariant, "link">;
 export type ThemeTogglerDisplay = "buttons" | "cycle";
 
 export type ThemeTogglerColor = Exclude<
   BaseColor,
-  "destructive" | "warning" | "success" | "white"| "info"
+  "destructive" | "warning" | "success" | "white" | "info"
 >;
 
-export interface ThemeTogglerProps extends Omit<BaseProps, "children"> {
-  variant?: ThemeTogglerVariant;
-  activeVariant?: ThemeTogglerVariant;
-
+export interface ThemeTogglerProps
+  extends
+    Omit<BaseProps, "style">,
+    OrientationProps,
+    VariantProps<ButtonVariant> {
+  variant?: ButtonVariant;
   color?: ButtonProps["color"];
+  activeVariant?: ButtonVariant;
   activeColor?: ButtonProps["color"];
 
   size?: ButtonProps["size"];
-
   iconOnly?: boolean;
   allowSystem?: boolean;
-
-  orientation?: Orientation;
 
   rounded?: boolean;
 
@@ -33,14 +39,18 @@ export interface ThemeTogglerProps extends Omit<BaseProps, "children"> {
   };
 
   icons?: {
-    light?: React.ReactNode;
-    dark?: React.ReactNode;
-    system?: React.ReactNode;
+    light?: ReactNode;
+    dark?: ReactNode;
+    system?: ReactNode;
   };
 
-  buttonProps?: Omit<ButtonProps, "variant" | "color" | "size" | "children">;
+  buttonProps?: ButtonProps;
 
-  display?: ThemeTogglerDisplay;
+  display?: "buttons" | "cycle";
 
-  transition?: ThemeTransition;
+  animated?: boolean;
+  transition?: ThemeTogglerTransition;
+
+  indicatorClassName?: string;
+  indicatorStyle?: CSSProperties;
 }

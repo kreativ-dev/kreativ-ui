@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { RadioGroup, Radio } from "@/components/RadioGroup";
-import { RadioSize } from "@/components/RadioGroup/Radio.types";
-import { FormField } from "@/components/FormField";
+import { RadioGroup, Radio } from "@/components/forms/RadioGroup";
+import { RadioSize } from "@/components/forms/RadioGroup/Radio.types";
+import { FormField } from "@/components/forms/FormField";
 import { Playground } from "./shared/Playground";
 import { SegmentedControl } from "./shared/SegmentedControl";
 import { Chip } from "./shared/Chip";
@@ -10,7 +10,7 @@ import { Orientation } from "@/types";
 type State = "none" | "error" | "success";
 const SIZES: RadioSize[] = ["sm", "md", "lg"];
 const STATES: State[] = ["none", "error", "success"];
-const ORIENTATIONS: Orientation[] = ["horizontal", "vertical"] ;
+const ORIENTATIONS: Orientation[] = ["horizontal", "vertical"];
 
 const OPTIONS = [
   { value: "option1", label: "Option 1", description: "First option" },
@@ -24,7 +24,9 @@ export function RadioGroupPlayground() {
   const [state, setState] = useState<State>("none");
   const [disabled, setDisabled] = useState(false);
   const [required, setRequired] = useState(false);
-  const [orientation, setOrientation] = useState<"horizontal" | "vertical">("vertical");
+  const [orientation, setOrientation] = useState<"horizontal" | "vertical">(
+    "vertical",
+  );
   const [useFormField, setUseFormField] = useState(true);
 
   const error = state === "error";
@@ -58,7 +60,7 @@ export function RadioGroupPlayground() {
       required={required}
     >
       <FormField.Label>Choose an option</FormField.Label>
- 
+
       {radioGroupElement}
     </FormField>
   ) : (
@@ -67,8 +69,18 @@ export function RadioGroupPlayground() {
 
   const controls = (
     <>
-      <SegmentedControl label="size" value={size} options={SIZES} onChange={setSize} />
-      <SegmentedControl label="state" value={state} options={STATES} onChange={setState} />
+      <SegmentedControl
+        label="size"
+        value={size}
+        options={SIZES}
+        onChange={setSize}
+      />
+      <SegmentedControl
+        label="state"
+        value={state}
+        options={STATES}
+        onChange={setState}
+      />
       <SegmentedControl
         label="orientation"
         value={orientation}
@@ -77,9 +89,15 @@ export function RadioGroupPlayground() {
       />
 
       <div className="flex flex-wrap gap-1.5">
-        <Chip active={disabled} onClick={() => setDisabled((v) => !v)}>disabled</Chip>
-        <Chip active={required} onClick={() => setRequired((v) => !v)}>required</Chip>
-        <Chip active={useFormField} onClick={() => setUseFormField((v) => !v)}>FormField</Chip>
+        <Chip active={disabled} onClick={() => setDisabled((v) => !v)}>
+          disabled
+        </Chip>
+        <Chip active={required} onClick={() => setRequired((v) => !v)}>
+          required
+        </Chip>
+        <Chip active={useFormField} onClick={() => setUseFormField((v) => !v)}>
+          FormField
+        </Chip>
       </div>
     </>
   );
@@ -103,7 +121,7 @@ export function RadioGroupPlayground() {
     value="${option.value}"
     label="${option.label}"
     description="${option.description}"
-  />`
+  />`,
   ).join("\n  ");
 
   const radioGroupJsx = `<RadioGroup${propsList ? `\n  ${propsList}` : ""}>
@@ -125,7 +143,7 @@ export function RadioGroupPlayground() {
       name: firstRadio?.getAttribute("name") ?? null,
       "aria-required": el?.getAttribute("aria-required") ?? null,
       "aria-invalid": el?.getAttribute("aria-invalid") ?? null,
-      disabled: firstRadio?.getAttribute('disabled') ? "true" : null,
+      disabled: firstRadio?.getAttribute("disabled") ? "true" : null,
     };
   };
 

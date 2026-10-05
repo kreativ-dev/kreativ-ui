@@ -4,11 +4,13 @@ import { MailIcon, PlusIcon, SearchIcon } from "lucide-react";
 import { SegmentedControl } from "./shared/SegmentedControl";
 import { Chip } from "./shared/Chip";
 import { Playground } from "./shared/Playground";
-import { useTheme } from "@/hooks";
+import type { ResponsiveValue } from "@/types";
 import { ButtonColor, ButtonVariant } from "@/components/Button/Button.types";
-import { buttonColors, buttonVariants } from "@/theme";
+import { getAttrs } from "./shared/getAttributes";
+import { buttonColors, buttonVariants } from "@/theme/defaults/recipes/button";
+import { useSizes } from "@/hooks";
 
-type Size = "sm" | "md" | "lg";
+type Size = string;
 
 const VARIANTS = Object.keys(buttonVariants) as ButtonVariant[];
 const COLORS = Object.keys(buttonColors) as ButtonColor[];
@@ -16,7 +18,14 @@ const COLORS = Object.keys(buttonColors) as ButtonColor[];
 export function ButtonPlayground() {
   const [variant, setVariant] = useState<ButtonVariant>("solid");
   const [color, setColor] = useState<ButtonColor>("brand");
+
+  const [responsive, setResponsive] = useState(false);
+
   const [size, setSize] = useState<Size>("md");
+  const [baseSize, setBaseSize] = useState<Size>("sm");
+  const [mdSize, setMdSize] = useState<Size>("md");
+  const [lgSize, setLgSize] = useState<Size>("lg");
+
   const [isLoading, setIsLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [fullWidth, setFullWidth] = useState(false);
@@ -25,9 +34,18 @@ export function ButtonPlayground() {
   const [iconOnly, setIconOnly] = useState(false);
   const [useRender, setUseRender] = useState(false);
 
-  const { theme } = useTheme();
 
-  const availableSizes = Object.keys(theme.sizes ?? {}) as Size[];
+  const availableSizes = useSizes();
+
+  const responsiveSize: ResponsiveValue<Size> = {
+    base: baseSize,
+    md: mdSize,
+    lg: lgSize,
+  };
+
+  const resolvedSize: ResponsiveValue<Size> = responsive
+    ? responsiveSize
+    : size;
 
   const controls = (
     <>
@@ -45,12 +63,51 @@ export function ButtonPlayground() {
         onChange={setColor}
       />
 
-      <SegmentedControl
-        label="size"
-        value={size}
-        options={availableSizes}
-        onChange={setSize}
-      />
+      <div className="mb-5">
+        <p className="mb-2 font-mono text-[11px] text-text-muted">size</p>
+
+        <div className="mb-2 flex gap-2">
+          <Chip active={!responsive} onClick={() => setResponsive(false)}>
+            fixed
+          </Chip>
+
+          <Chip active={responsive} onClick={() => setResponsive(true)}>
+            responsive
+          </Chip>
+        </div>
+
+        {!responsive ? (
+          <SegmentedControl
+            label=""
+            value={size}
+            options={availableSizes}
+            onChange={setSize}
+          />
+        ) : (
+          <div className="space-y-3">
+            <SegmentedControl
+              label="base"
+              value={baseSize}
+              options={availableSizes}
+              onChange={setBaseSize}
+            />
+
+            <SegmentedControl
+              label="md"
+              value={mdSize}
+              options={availableSizes}
+              onChange={setMdSize}
+            />
+
+            <SegmentedControl
+              label="lg"
+              value={lgSize}
+              options={availableSizes}
+              onChange={setLgSize}
+            />
+          </div>
+        )}
+      </div>
 
       <div className="mb-5">
         <p className="mb-2 font-mono text-[11px] text-text-muted">flags</p>
@@ -90,7 +147,7 @@ export function ButtonPlayground() {
 
   const buttonProps = {
     variant,
-    size,
+    size: resolvedSize,
     isLoading,
     disabled,
     color,
@@ -115,10 +172,16 @@ export function ButtonPlayground() {
     </Button>
   );
 
+  const sizeCode = responsiveSize
+    ? `size={${JSON.stringify(responsiveSize)}}`
+    : size !== "md"
+      ? `size="${size}"`
+      : undefined;
+
   const attrLines = [
     variant !== "solid" && `variant="${variant}"`,
     color !== "brand" && `color="${color}"`,
-    size !== "md" && `size="${size}"`,
+    sizeCode,
     isLoading && "isLoading",
     disabled && "disabled",
     fullWidth && "fullWidth",
@@ -138,14 +201,15 @@ export function ButtonPlayground() {
     .filter(Boolean)
     .join("\n");
 
-  const getAttributes = (el: HTMLElement | null) => ({
-    tag: el?.tagName.toLowerCase() ?? null,
-    disabled: el?.getAttribute("disabled") ?? null,
-    "aria-busy": el?.getAttribute("aria-busy") ?? null,
-    "aria-disabled": el?.getAttribute("aria-disabled") ?? null,
-    type: el?.getAttribute("type") ?? null,
-    href: el?.getAttribute("href") ?? null,
-  });
+  const extraAttributes = [
+    "tag",
+    "aria-disabled",
+    "aria-busy",
+    "aria-pressed",
+    "type",
+  ];
+
+  const excludeAttributes = ["aria-invalid", "aria-describedby"];
 
   return (
     <Playground
@@ -154,7 +218,7 @@ export function ButtonPlayground() {
       controls={controls}
       preview={preview}
       code={code}
-      getAttributes={getAttributes}
+      getAttributes={(el) => getAttrs(el, extraAttributes, excludeAttributes)}
     />
   );
 }

@@ -1,22 +1,45 @@
+import { InputField } from "@/components";
+import type { ComponentProps } from "react";
+
+type InputFieldProps = ComponentProps<typeof InputField>;
+
+export interface TextFieldProps extends Omit<
+  InputFieldProps,
+  | "onChange"
+  | "value"
+  | "label"
+  | "onBlur"
+> {
+  label?: string;
+  value: any;
+  onChange: (value: any) => void;
+  onBlur?: () => void;
+}
+
 export function TextField({
   label,
   value,
   onChange,
-}: {
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-}) {
+  onBlur,
+  placeholder = "",
+  size = "sm",
+  clearable = true,
+  undoable = true,
+  labelClassName = "text-text-muted font-normal text-xs font-mono",
+  ...rest
+}: TextFieldProps) {
   return (
-    <div className="mb-2">
-      <label className="mb-1 block font-mono text-[11px] text-text-muted">
-        {label}
-      </label>
-      <input
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-(--kui-radii-sm) border border-border bg-bg px-2 py-1.5 text-sm text-text outline-none focus:border-brand"
-      />
-    </div>
+    <InputField
+      className="mb-2"
+      onChange={(e) => onChange(e.target.value)}
+      label={label}
+      value={value}
+      placeholder={placeholder}
+      size={size}
+      clearable={clearable}
+      labelClassName={labelClassName}
+      onBlur={onBlur}
+      {...rest}
+    />
   );
 }

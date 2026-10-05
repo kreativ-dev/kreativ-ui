@@ -1,4 +1,5 @@
 import { Button } from "@/components/Button/Button";
+import { cn } from "@/utils";
 
 export function Chip({
   active,
@@ -20,7 +21,10 @@ export function Chip({
       color={active ? "brand" : "neutral"}
       disabled={disabled}
       onClick={onClick}
-      className="rounded-full font-mono transition-colors"
+      className={cn(
+        "rounded-full font-mono transition-colors",
+        !active && "text-text-muted",
+      )}
     >
       {children}
     </Button>

@@ -9,9 +9,11 @@ export const defaultSemanticTokens: SemanticTokens = {
 
     brandFg: defineToken("{colors.white}"),
 
-    surface: defineSemanticToken("{colors.gray.50}", "{colors.gray.900}"),
+    background: defineSemanticToken("{colors.gray.50}", "{colors.gray.950}"),
 
-    surfaceRaised: defineSemanticToken("{colors.white}", "{colors.gray.800}"),
+    surface: defineSemanticToken("{colors.white}", "{colors.gray.900}"),
+
+    surfaceRaised: defineSemanticToken("{colors.gray.50}", "{colors.gray.800}"),
 
     surfaceSunken: defineSemanticToken(
       "{colors.gray.100}",
@@ -56,5 +58,7 @@ export const defaultSemanticTokens: SemanticTokens = {
     infoFg: defineToken("{colors.white}"),
 
     infoHover: defineSemanticToken("{colors.cyan.600}", "{colors.cyan.300}"),
+
+    shadowColor: defineSemanticToken("{colors.gray.200}", "{colors.gray.600}"),
   },
 };

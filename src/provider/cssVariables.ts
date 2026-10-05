@@ -3,7 +3,7 @@ import type {
   ResolvedTokens,
   SemanticTokens,
   TokenDefinition,
-} from "@/types/theme";
+} from "@/types";
 
 
 export function toKebabCase(str: string): string {
@@ -258,20 +258,45 @@ export function resolveSemanticTokenReferences(
   tokens: DesignTokens,
   semanticTokens: SemanticTokens,
 ): SemanticTokens {
-  function resolveSemanticValue(value: unknown): unknown {
+  function resolveValue(value: unknown, seen = new Set<string>()): unknown {
     if (typeof value === "string") {
-      if (value.startsWith("{") && value.endsWith("}")) {
-        return resolveReference(value, tokens) ?? value;
+      if (!value.startsWith("{") || !value.endsWith("}")) {
+        return value;
       }
 
-      return value;
+      if (seen.has(value)) {
+        console.error(
+          `[kreativ-ui] Circular token reference detected: ${value}`,
+        );
+
+        return value;
+      }
+
+      const resolved = getTokenValue(value, tokens);
+
+      if (resolved === undefined) {
+        console.warn(
+          `[kreativ-ui] Unable to resolve token reference: ${value}`,
+        );
+
+        return value;
+      }
+
+      const nextSeen = new Set(seen);
+      nextSeen.add(value);
+
+      return resolveValue(resolved, nextSeen);
+    }
+
+    if (Array.isArray(value)) {
+      return value.map((item) => resolveValue(item, seen));
     }
 
     if (typeof value === "object" && value !== null) {
       return Object.fromEntries(
         Object.entries(value).map(([key, child]) => [
           key,
-          resolveSemanticValue(child),
+          resolveValue(child, seen),
         ]),
       );
     }
@@ -279,7 +304,7 @@ export function resolveSemanticTokenReferences(
     return value;
   }
 
-  return resolveSemanticValue(semanticTokens) as SemanticTokens;
+  return resolveValue(semanticTokens) as SemanticTokens;
 }
 
 export function tokensToCssVars(

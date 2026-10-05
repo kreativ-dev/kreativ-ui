@@ -1,46 +1,62 @@
-const HEX_RE = /^#(?:[0-9a-f]{3}|[0-9a-f]{6})$/i;
-/**
- * Converts an RGB color string to a hex color.
- *
- * Supports:
- * - "26 128 230"
- * - "26, 128, 230"
- * - "rgb(26, 128, 230)"
- *
- * Returns an empty string when the value is not a valid RGB color.
- */
+const HEX_RE = /^#?([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/;
 
+/**
+ * Converts an RGB colour string to a 6‑digit uppercase hex string.
+ * Supports the following input formats:
+ * - Hex: `"#fff"`, `"#FFFFFF"`
+ * - CSS rgb/rgba: `"rgb(255, 0, 0)"`, `"rgba(255, 0, 0, 0.5)"`
+ * - Space‑separated numbers: `"255 0 0"`
+ * - Comma‑separated numbers: `"255,0,0"`
+ *
+ * @param value - The colour string to convert.
+ * @returns A 6‑digit uppercase hex string (e.g. `"#FF0000"`).
+ *          If the input cannot be parsed, returns `"#000000"`.
+ */
 export function rgbToHex(value: string): string {
   const trimmed = value.trim();
 
-  // Already HEX
   if (HEX_RE.test(trimmed)) {
-    if (trimmed.length === 4) {
-      return (
-        "#" + [...trimmed.slice(1)].map((char) => char + char).join("")
-      ).toUpperCase();
+    if (
+      trimmed.length === 4 ||
+      (trimmed.length === 3 && !trimmed.startsWith("#"))
+    ) {
+      const clean = trimmed.replace("#", "");
+      const expanded = clean
+        .split("")
+        .map((ch) => ch + ch)
+        .join("");
+      return `#${expanded.toUpperCase()}`;
     }
-
-    return trimmed.toUpperCase();
+    return trimmed.startsWith("#")
+      ? trimmed.toUpperCase()
+      : `#${trimmed.toUpperCase()}`;
   }
 
-  // rgb(...) / rgba(...)
-  const values = trimmed
-    .replace(/[^\d,]/g, "")
-    .split(",")
-    .map(Number);
+  const stripped = trimmed
+    .replace(/^rgba?\(/i, "")
+    .replace(/\)$/, "")
+    .trim();
 
-  if (values.length !== 3 || values.some(Number.isNaN)) {
+  const parts = stripped.split(/[\s,]+/).filter(Boolean);
+
+  const numbers = parts
+    .slice(0, 3)
+    .map((p) => {
+      const cleaned = p.replace(/%$/, "");
+      return Number(cleaned);
+    })
+    .filter((n) => Number.isFinite(n) && n >= 0 && n <= 255);
+
+  if (numbers.length !== 3) {
     return "#000000";
   }
 
-  return (
-    "#" +
-    values
-      .map((x) => x.toString(16).padStart(2, "0"))
-      .join("")
-      .toUpperCase()
-  );
+  const hex = numbers
+    .map((n) => Math.round(n).toString(16).padStart(2, "0"))
+    .join("")
+    .toUpperCase();
+
+  return `#${hex}`;
 }
 
 export function hexToRgbString(hex: string): string | null {

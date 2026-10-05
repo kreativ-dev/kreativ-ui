@@ -96,6 +96,30 @@
   }
 }
 
+@keyframes kui-slide-in-next {
+  from {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes kui-slide-in-prev {
+  from {
+    opacity: 0;
+    transform: translateX(-14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 @keyframes kui-bounce {
   0%,
   100% {
@@ -193,5 +217,16 @@
 
   50% {
     box-shadow: 0 0 0 4px rgb(34 197 94 / 0.25);
+  }
+}
+
+@keyframes kui-state-warning {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgb(245 158 11 / 0);
+  }
+
+  50% {
+    box-shadow: 0 0 0 4px rgb(245 158 11 / 0.25);
   }
 }

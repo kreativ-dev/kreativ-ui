@@ -1,4 +1,5 @@
-export * from './defaults/recipes'
-export * from './recipes'
-export * from './typography'
-export * from './token'
+export * from "./recipes";
+export * from "./typography";
+export * from "./token";
+export { extendTheme } from "./extendTheme";
+export { defineTheme } from "./defineTheme";

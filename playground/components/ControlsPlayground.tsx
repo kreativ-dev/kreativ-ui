@@ -5,6 +5,7 @@ import {
   MultiSelect,
   type InputVariant,
   type InputSize,
+  SwitchSize,
 } from "../../src";
 import { Playground } from "./shared/Playground";
 import { SegmentedControl } from "./shared/SegmentedControl";
@@ -13,7 +14,7 @@ import { TextField } from "./shared/TextField";
 import { getAttrs } from "./shared/getAttributes";
 
 const VARIANTS: InputVariant[] = ["outline", "filled", "ghost"];
-const SIZES: InputSize[] = ["sm", "md", "lg"];
+const SIZES: SwitchSize[] = ["xs", "sm", "md", "lg"];
 
 const PEOPLE = [
   "Ada Lovelace",
@@ -32,11 +33,8 @@ const TAGS = [
   "docs",
 ];
 
-// ------------------------------------------------------------------------------
-// Switch Playground
-// ------------------------------------------------------------------------------
 export function SwitchDemo() {
-  const [size, setSize] = useState<InputSize>("md");
+  const [size, setSize] = useState<SwitchSize>("md");
   const [disabled, setDisabled] = useState(false);
   const [checked, setChecked] = useState(true);
   const [error, setError] = useState(false);
@@ -142,6 +140,7 @@ export function ComboboxDemo() {
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [required, setRequired] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [rounded, setRounded] = useState(false);
   const [placeholder, setPlaceholder] = useState("Search people...");
   const [value, setValue] = useState<string | undefined>(undefined);
@@ -184,6 +183,9 @@ export function ComboboxDemo() {
           <Chip active={required} onClick={() => setRequired((v) => !v)}>
             required
           </Chip>
+          <Chip active={loading} onClick={() => setLoading((v) => !v)}>
+            loading
+          </Chip>
           <Chip active={rounded} onClick={() => setRounded((v) => !v)}>
             rounded
           </Chip>
@@ -209,6 +211,7 @@ export function ComboboxDemo() {
       success={success}
       required={required}
       rounded={rounded}
+      defaultInputValue="Ada  Lovelace"
     >
       <Combobox.Input
         variant={variant}
@@ -224,6 +227,7 @@ export function ComboboxDemo() {
             {p}
           </Combobox.Item>
         ))}
+        {loading && <Combobox.Loading />}
       </Combobox.Content>
     </Combobox>
   );
@@ -338,7 +342,7 @@ export function MultiSelectDemo() {
             max={10}
             value={maxChips}
             onChange={(e) => setMaxChips(Number(e.target.value))}
-            className="w-full rounded-[var(--kui-radii-md)] border border-border bg-bg px-2 py-1.5 text-sm text-text outline-none focus:border-brand"
+            className="w-full rounded-(--kui-radii-md) border border-border bg-bg px-2 py-1.5 text-sm text-text outline-none focus:border-brand"
           />
         </div>
       )}

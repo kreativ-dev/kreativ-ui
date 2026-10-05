@@ -1,231 +1,122 @@
-"use client";
-
+// ThemeToggler.tsx
 import { useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { Sun, Moon, Monitor } from "lucide-react";
-
-import { Button } from "@/components/Button";
 import { useTheme } from "@/hooks/useTheme";
+import { useSizeToken } from "@/hooks";
+import { resolveRecipe } from "@/theme/recipes/resolveRecipe";
+import { defaultTransition } from "./ThemeToggler.constants";
+import { CycleMode } from "./ThemeTogglerCycleMode";
+import { ButtonsMode } from "./ThemeTogglerButtonsMode";
 import type { ThemeTogglerProps } from "./ThemeToggler.types";
-import { cn } from "@/utils";
-
-const defaultTransition = {
-  type: "none",
-  duration: 300,
-  delay: 0,
-  easing: "ease-in-out",
-} as const;
-
-const getIconVariants = (type: string) => {
-  switch (type) {
-    case "fade":
-      return {
-        initial: { opacity: 0 },
-        animate: { opacity: 1 },
-        exit: { opacity: 0 },
-      };
-
-    case "slide":
-      return {
-        initial: { opacity: 0, x: -20 },
-        animate: { opacity: 1, x: 0 },
-        exit: { opacity: 0, x: 20 },
-      };
-
-    case "scale":
-      return {
-        initial: { opacity: 0, scale: 0.5 },
-        animate: { opacity: 1, scale: 1 },
-        exit: { opacity: 0, scale: 1.5 },
-      };
-
-    case "rotate":
-      return {
-        initial: { opacity: 0, rotate: -90 },
-        animate: { opacity: 1, rotate: 0 },
-        exit: { opacity: 0, rotate: 90 },
-      };
-
-    case "none":
-    default:
-      return {
-        initial: { opacity: 1 },
-        animate: { opacity: 1 },
-        exit: { opacity: 1 },
-      };
-  }
-};
+import { getModeIcons } from "./ThemeToggler.icons";
 
 export function ThemeToggler({
   variant = "ghost",
-  activeVariant = "solid",
-
   color = "neutral",
+  activeVariant = "solid",
   activeColor = "brand",
-
   size = "sm",
   iconOnly = false,
   allowSystem = false,
-
   orientation = "horizontal",
   rounded = false,
   unstyled = false,
-
   labels,
   icons,
   className,
   buttonProps = {},
-
   display = "buttons",
+  animated = false,
   transition = defaultTransition,
 }: ThemeTogglerProps) {
-  const { mode, setMode, resolvedMode } = useTheme();
+  const { mode, setMode, resolvedMode, theme } = useTheme();
+
+  const resolvedSize = size;
+  const wrapperRadius = useSizeToken(resolvedSize, "radius");
+  const indicatorRadius = useSizeToken(resolvedSize, "radius", "4px");
+  const buttonWidth = useSizeToken(resolvedSize, "width");
 
   const activeMode = allowSystem ? mode : resolvedMode;
-
-  const modes = [
-    {
-      key: "light" as const,
-      label: labels?.light ?? "Light",
-      icon: icons?.light ?? <Sun size={16} />,
-    },
-    {
-      key: "dark" as const,
-      label: labels?.dark ?? "Dark",
-      icon: icons?.dark ?? <Moon size={16} />,
-    },
-    ...(allowSystem
-      ? [
-          {
-            key: "system" as const,
-            label: labels?.system ?? "System",
-            icon: icons?.system ?? <Monitor size={16} />,
-          },
-        ]
-      : []),
-  ];
-
+  const modes = getModeIcons(allowSystem, labels, icons);
   const allowedModes = modes.map((item) => item.key);
 
   const currentMode = modes.find(({ key }) => key === activeMode) ?? modes[0];
 
+  const indicatorClasses = resolveRecipe(theme.recipes.Button, {
+    variant: activeVariant,
+    color: activeColor,
+  });
+
   const effectiveRounded =
-    rounded && !(orientation === "vertical" && !iconOnly);
+    rounded && !(orientation === "vertical" && !iconOnly && !unstyled);
 
   useEffect(() => {
-    if (rounded && !effectiveRounded) {
+    if (!rounded || effectiveRounded) return;
+    const reasons: string[] = [];
+    if (orientation === "vertical" && !iconOnly) {
+      reasons.push("orientation='vertical' with iconOnly={false}");
+    }
+    if (unstyled) reasons.push("unstyled={true}");
+    if (reasons.length > 0) {
       console.warn(
-        "[kreativ-ui/ThemeToggler] `rounded` is ignored when orientation='vertical' and iconOnly={false}.",
+        `[kreativ-ui/ThemeToggler] \`rounded\` is ignored when ${reasons.join(" and ")}.`,
       );
     }
-  }, [rounded, effectiveRounded]);
+  }, [rounded, effectiveRounded, orientation, iconOnly, unstyled]);
 
   const handleCycle = () => {
-    const index = allowedModes.indexOf(
-      activeMode as (typeof allowedModes)[number],
-    );
-
+    const index = allowedModes.indexOf(activeMode as any);
     setMode(allowedModes[(index + 1) % allowedModes.length]);
   };
 
-  const isActive = (key: (typeof allowedModes)[number]) =>
+  const isActive = (key: string) =>
     key === "system" ? mode === "system" : activeMode === key;
 
-  const containerClasses = cn(
-    "inline-flex gap-1",
+  const containerStyle = {
+    ...(!effectiveRounded && {
+      "--kui-theme-toggler-radius": wrapperRadius,
+    }),
+  } as React.CSSProperties;
 
-    orientation === "vertical" && "flex-col",
-
-    !unstyled && [
-      "border border-border bg-surface p-1",
-      effectiveRounded ? "rounded-full" : "rounded-lg",
-    ],
-
-    className,
-  );
-
-  const buttonRadius = effectiveRounded ? "rounded-full" : "rounded-lg";
-
-  const animateIcon = display === "cycle" && transition.type !== "none";
-
-  const iconVariants = getIconVariants(transition.type || "none");
-
-  const motionTransition = {
-    duration: (transition.duration || 300) / 1000,
-    delay: (transition.delay || 0) / 1000,
-    ease: (transition.easing || "ease-in-out") as any,
-  };
+  const indicatorTransition = animated
+    ? { type: "spring", stiffness: 300, damping: 30, mass: 0.8 }
+    : { duration: 0 };
 
   if (display === "cycle") {
     return (
-      <Button
-        size={size}
+      <CycleMode
+        size={resolvedSize}
         variant={variant}
         color={color}
-        onClick={handleCycle}
-        aria-label={`Current theme: ${currentMode.label}`}
-        className={cn(
-          effectiveRounded && "rounded-full",
-          buttonProps.className,
-        )}
-        {...buttonProps}
-      >
-        <AnimatePresence mode="wait">
-          <motion.span
-            key={currentMode.key}
-            initial={animateIcon ? iconVariants.initial : undefined}
-            animate={animateIcon ? iconVariants.animate : undefined}
-            exit={animateIcon ? iconVariants.exit : undefined}
-            transition={motionTransition}
-          >
-            {currentMode.icon}
-          </motion.span>
-        </AnimatePresence>
-
-        {!iconOnly && currentMode.label}
-      </Button>
-    );
-  }
-
-  const buttons = modes.map(({ key, label, icon }) => {
-    const active = isActive(key);
-
-    return (
-      <Button
-        key={key}
-        size={size}
-        variant={active ? activeVariant : variant}
-        color={active ? activeColor : color}
-        onClick={() => setMode(key)}
-        className={cn(buttonRadius, buttonProps.className)}
-        leftIcon={icon}
-        aria-pressed={active}
-        {...buttonProps}
-      >
-        {!iconOnly && label}
-      </Button>
-    );
-  });
-
-  if (unstyled) {
-    return (
-      <div
-        role="group"
-        aria-label="Theme selector"
-        className={cn(
-          "inline-flex gap-1",
-          orientation === "vertical" && "flex-col",
-          className,
-        )}
-      >
-        {buttons}
-      </div>
+        iconOnly={iconOnly}
+        buttonProps={buttonProps}
+        animated={animated}
+        transition={transition}
+        rounded={effectiveRounded}
+        currentMode={currentMode}
+        onCycle={handleCycle}
+      />
     );
   }
 
   return (
-    <div role="group" aria-label="Theme selector" className={containerClasses}>
-      {buttons}
-    </div>
+    <ButtonsMode
+      size={resolvedSize}
+      color={color}
+      iconOnly={iconOnly}
+      buttonProps={buttonProps}
+      rounded={rounded}
+      unstyled={unstyled}
+      className={className}
+      modes={modes}
+      activeMode={activeMode}
+      onSelect={setMode}
+      containerStyle={containerStyle}
+      isActive={isActive}
+      orientation={orientation}
+      indicatorClasses={indicatorClasses}
+      indicatorRadius={indicatorRadius!}
+      buttonWidth={buttonWidth!}
+      indicatorTransition={indicatorTransition}
+    />
   );
 }

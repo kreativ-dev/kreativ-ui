@@ -4,19 +4,21 @@ export const buttonBase =
   "inline-flex items-center justify-center " +
   "rounded-[var(--kui-button-radius,var(--kui-radius))] " +
   "font-medium " +
-  "transition-colors duration-150 " +
+  "transition-[background-color,border-color,color,transform,opacity] " +
+  "duration-200 " +
+  "will-change-transform " +
   "focus-visible:outline-none focus-visible:ring-2 " +
   "focus-visible:ring-brand " +
   "focus-visible:ring-offset-2 " +
   "focus-visible:ring-offset-surface " +
-  "disabled:opacity-60 disabled:pointer-events-none";
+  "disabled:opacity-60 disabled:pointer-events-none disabled:active:scale-100";
 
 export const buttonVariants = {
-  solid: "",
-  outline: "border bg-transparent",
-  ghost: "bg-transparent",
-  soft: "",
-  link: "bg-transparent p-0 h-auto hover:underline",
+  solid: "ease-[cubic-bezier(0.34,1.56,0.64,1)] active:scale-[0.97]",
+  soft: "ease-[cubic-bezier(0.34,1.56,0.64,1)] active:scale-[0.97]",
+  outline: "border bg-transparent ease-out active:scale-[0.98]",
+  ghost: "bg-transparent ease-out active:scale-[0.98]",
+  link: "bg-transparent p-0 h-auto hover:underline ease-out",
 } as const;
 
 export const buttonColors = {
@@ -68,6 +70,24 @@ export const buttonColors = {
     ghost: "text-text hover:bg-surface-raised",
     soft: "bg-surface-raised text-text hover:bg-surface-sunken",
     link: "text-text",
+  },
+  inherit: {
+    solid:
+      "[background-color:var(--kui-inherit-bg)] " +
+      "[color:var(--kui-inherit-fg)]",
+
+    outline:
+      "[border-color:var(--kui-inherit-border)] " +
+      "[color:var(--kui-inherit-fg)] " +
+      "bg-transparent",
+
+    ghost: "[color:var(--kui-inherit-fg)] " + "bg-transparent",
+
+    soft:
+      "[background-color:var(--kui-inherit-soft-bg)] " +
+      "[color:var(--kui-inherit-fg)]",
+
+    link: "[color:var(--kui-inherit-fg)] " + "bg-transparent",
   },
 } as const;
 

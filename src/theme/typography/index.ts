@@ -1,2 +1,2 @@
-export * from './resolveTypography'
 export * from './defineTypography'
+export * from './extendTypography'

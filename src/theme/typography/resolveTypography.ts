@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import type { DesignTokens, TypographyStyle } from "@/types";
-import { resolveTokenReference } from "@/utils";
+import { resolveTokenReference } from "@/utils/resolveTokenReference";
 
 
 export function resolveTypography(

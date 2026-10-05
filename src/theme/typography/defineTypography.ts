@@ -1,5 +1,5 @@
-import type { TypographyStyle } from "@/types";
+import type { Typography } from "@/types";
 
-export function defineTypography(typography: TypographyStyle): TypographyStyle {
+export function defineTypography<T extends Typography>(typography: T): T {
   return typography;
 }

@@ -1,4 +1,4 @@
-import type {  SizeToken } from "@/types/theme";
+import { SizeToken } from "@/types";
 
 export const COLOR_KEYS = [
   "brand",
@@ -52,4 +52,5 @@ export const SIZE_KEYS = [
   "gap",
   "iconSize",
   "radius",
+  "width"
 ] as const satisfies readonly (keyof SizeToken)[];

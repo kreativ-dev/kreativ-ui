@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
-import type { SizeToken, ThemeOverride } from "@/types/theme";
+import { useEffect, useMemo, useState } from "react";
+import type { SizeToken, ThemeOverride } from "@/types";
 import { cn } from "@/utils/cn";
 import { SIZE_KEYS } from "./theme.constants";
 import { Input, Select } from "../../../src";
+import { TextField } from "../shared/TextField";
+import {  ChevronDown, Plus, Trash2 } from "lucide-react";
 
 interface SizeEditorProps {
   theme: ThemeOverride;
@@ -10,6 +12,7 @@ interface SizeEditorProps {
 }
 
 const KEYWORDS = ["auto", "min-content", "max-content", "fit-content"] as const;
+
 const REAL_UNITS = [
   "px",
   "rem",
@@ -29,9 +32,6 @@ const REAL_UNITS = [
   "fr",
 ] as const;
 
-// Leading-dot decimals (".5") and trailing-dot ("2.") are both real,
-// valid CSS lengths — the old /^([\d.]+)(.*)$/ split accepted either
-// but never validated them; this is stricter on purpose.
 const NUMERIC_RE = /^-?(\d+\.?\d*|\.\d+)$/;
 
 function parseSizeValue(raw: string): {
@@ -39,14 +39,37 @@ function parseSizeValue(raw: string): {
   unit: string;
   isKeyword: boolean;
 } {
-  if (!raw) return { value: "", unit: "rem", isKeyword: false };
-  if ((KEYWORDS as readonly string[]).includes(raw)) {
-    return { value: "", unit: raw, isKeyword: true };
+  if (!raw) {
+    return {
+      value: "",
+      unit: "rem",
+      isKeyword: false,
+    };
   }
+
+  if ((KEYWORDS as readonly string[]).includes(raw)) {
+    return {
+      value: "",
+      unit: raw,
+      isKeyword: true,
+    };
+  }
+
   const match = raw.match(/^(-?\d*\.?\d+)([a-z%]*)$/i);
-  if (match)
-    return { value: match[1], unit: match[2] || "rem", isKeyword: false };
-  return { value: "", unit: "rem", isKeyword: false };
+
+  if (match) {
+    return {
+      value: match[1],
+      unit: match[2] || "rem",
+      isKeyword: false,
+    };
+  }
+
+  return {
+    value: "",
+    unit: "rem",
+    isKeyword: false,
+  };
 }
 
 function SizeValueField({
@@ -63,62 +86,78 @@ function SizeValueField({
   onCommitUnit: (unit: string) => void;
 }) {
   const parsed = parseSizeValue(raw);
+
   const [draft, setDraft] = useState(parsed.value);
-  useEffect(() => setDraft(parsed.value), [parsed.value]);
+
+  useEffect(() => {
+    setDraft(parsed.value);
+  }, [parsed.value]);
 
   const isValid = draft.trim() === "" || NUMERIC_RE.test(draft.trim());
-  const fieldId = `${sizeName}-${keyName}`;
+
+  const fieldId = `${sizeName}-${String(keyName)}`;
 
   function commit() {
-    if (isValid) onCommitValue(draft);
-    else setDraft(parsed.value); // revert a bad manual entry rather than write garbage into the theme
+    if (isValid) {
+      onCommitValue(draft);
+    } else {
+      setDraft(parsed.value);
+    }
   }
 
   return (
-    <div className="mb-2 flex items-center gap-2">
+    <div className="grid grid-cols-[5.5rem_minmax(0,1fr)_6rem] items-center gap-2">
       <label
         htmlFor={fieldId}
-        className="w-20 shrink-0 text-xs text-text-muted"
+        className="truncate font-mono text-[11px] text-text-muted"
       >
-        {keyName}
+        {String(keyName)}
       </label>
 
-      <input
+      <TextField
         id={fieldId}
         type="text"
         inputMode="decimal"
         placeholder="0"
         value={draft}
         disabled={parsed.isKeyword}
-        onChange={(e) => setDraft(e.target.value)}
+        onChange={setDraft}
         onBlur={commit}
-        onKeyDown={(e) => e.key === "Enter" && commit()}
-        className={cn(
-          "w-full flex-1 rounded border bg-transparent px-2 py-1 text-sm outline-none disabled:opacity-50",
-          isValid
-            ? "border-border focus:border-brand"
-            : "border-danger text-danger",
-        )}
+        onKeyDown={(event) => {
+          if (event.key === "Enter") {
+            event.preventDefault();
+            commit();
+          }
+        }}
+        status={!isValid ? "error" : "none"}
+        size="sm"
+        fullWidth
+        className="font-mono"
       />
 
       <Select
         id={`${fieldId}-unit`}
         size="sm"
         value={parsed.unit}
-        onValueChange={(u) => u && onCommitUnit(u)}
-        className="w-24 shrink-0"
+        onValueChange={(unit) => {
+          if (unit) onCommitUnit(unit);
+        }}
+        className="w-full"
       >
         <Select.Trigger>{parsed.unit || "unit"}</Select.Trigger>
+
         <Select.Content>
-          {REAL_UNITS.map((u) => (
-            <Select.Item key={u} value={u}>
-              {u}
+          {REAL_UNITS.map((unit) => (
+            <Select.Item key={unit} value={unit}>
+              {unit}
             </Select.Item>
           ))}
+
           <div className="my-1 border-t border-border" aria-hidden="true" />
-          {KEYWORDS.map((k) => (
-            <Select.Item key={k} value={k}>
-              {k}
+
+          {KEYWORDS.map((keyword) => (
+            <Select.Item key={keyword} value={keyword}>
+              {keyword}
             </Select.Item>
           ))}
         </Select.Content>
@@ -127,112 +166,315 @@ function SizeValueField({
   );
 }
 
+function SizePreview({ size }: { size: SizeToken }) {
+  const height = size.height;
+  const paddingX = size.paddingX;
+  const fontSize = size.fontSize;
+  const radius = size.radius;
+
+  return (
+    <div className="flex h-26 items-center justify-center rounded-md bg-surface">
+      <span
+        className="inline-flex items-center justify-center border border-brand/40 bg-brand/10 px-3 text-brand"
+        style={{
+          height,
+          paddingInline: paddingX,
+          fontSize,
+          borderRadius: radius,
+        }}
+      >
+        Aa
+      </span>
+    </div>
+  );
+}
+
+function SizeCard({
+  name,
+  size,
+  isOpen,
+  onToggle,
+  onRemove,
+  onCommitValue,
+  onCommitUnit,
+}: {
+  name: string;
+  size: SizeToken;
+  isOpen: boolean;
+  onToggle(): void;
+  onRemove(): void;
+  onCommitValue(key: keyof SizeToken, value: string): void;
+  onCommitUnit(key: keyof SizeToken, currentValue: string, unit: string): void;
+}) {
+  const definedCount = SIZE_KEYS.filter(
+    (key) => size[key] !== undefined,
+  ).length;
+
+  return (
+    <div
+      className={cn(
+        "overflow-hidden rounded-lg border transition-colors",
+        isOpen ? "border-brand/50" : "border-border hover:border-brand/50",
+      )}
+    >
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={isOpen}
+        className="group flex w-full items-center gap-3 p-3 text-left"
+      >
+        {/* Preview */}
+        <div className="w-30 shrink-0 overflow-hidden rounded-md border border-border">
+          <SizePreview size={size} />
+        </div>
+
+        {/* Information */}
+        <span className="min-w-0 flex-1">
+          <span className="flex items-center gap-2">
+            <span className="font-medium text-text">{name}</span>
+
+            {isOpen && (
+              <span className="rounded-full bg-brand/10 px-1.5 py-0.5 font-mono text-[9px] uppercase text-brand">
+                editing
+              </span>
+            )}
+          </span>
+
+          <span className="mt-1 block font-mono text-[10px] text-text-muted">
+            {definedCount}/{SIZE_KEYS.length} properties
+          </span>
+        </span>
+
+        {/* Actions */}
+        <span className="flex shrink-0 items-center gap-2">
+          <span
+            role="button"
+            tabIndex={0}
+            aria-label={`Remove ${name}`}
+            onClick={(event) => {
+              event.stopPropagation();
+              onRemove();
+            }}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                event.stopPropagation();
+                onRemove();
+              }
+            }}
+            className="flex h-7 w-7 items-center justify-center rounded-md text-text-muted opacity-0 transition-colors group-hover:opacity-100 hover:bg-destructive/10 hover:text-destructive"
+          >
+            <Trash2 size={13} />
+          </span>
+
+          <ChevronDown
+            size={16}
+            className={cn(
+              "text-text-muted transition-transform",
+              isOpen && "rotate-180 text-brand",
+            )}
+          />
+        </span>
+      </button>
+
+      {isOpen && (
+        <div className="border-t border-border bg-surface/30 p-3">
+          <div className="space-y-2">
+            {SIZE_KEYS.map((key) => (
+              <SizeValueField
+                key={key}
+                sizeName={name}
+                keyName={key}
+                raw={size[key] ?? ""}
+                onCommitValue={(value) => onCommitValue(key, value)}
+                onCommitUnit={(unit) =>
+                  onCommitUnit(key, parseSizeValue(size[key] ?? "").value, unit)
+                }
+              />
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function SizeEditor({ theme, onChange }: SizeEditorProps) {
   const sizes = theme.sizes ?? {};
+
+  const [openSize, setOpenSize] = useState<string | null>(null);
+
   const [newName, setNewName] = useState("");
 
-  function commitValue(
-    sizeName: string,
-    key: keyof SizeToken,
-    rawValue: string,
-    unit: string,
-  ) {
-    const nextToken = { ...sizes[sizeName] };
-    const trimmed = rawValue.trim();
-    if (trimmed === "") delete nextToken[key];
-    else nextToken[key] = `${trimmed}${unit}`;
-    onChange({ ...theme, sizes: { ...sizes, [sizeName]: nextToken } });
+  const sizeEntries = useMemo(() => Object.entries(sizes), [sizes]);
+
+  function updateSize(name: string, updater: (token: SizeToken) => SizeToken) {
+    const current = sizes[name] ?? {};
+
+    onChange({
+      ...theme,
+      sizes: {
+        ...sizes,
+        [name]: updater({ ...current }),
+      },
+    });
   }
 
-  // Keyword and numeric+unit are mutually exclusive representations of
-  // the same token — picking a keyword replaces the value outright
-  // rather than concatenating with whatever number was there before.
+  function commitValue(name: string, key: keyof SizeToken, rawValue: string) {
+    const current = sizes[name] ?? {};
+    const { unit } = parseSizeValue(current[key] ?? "");
+
+    const trimmed = rawValue.trim();
+
+    updateSize(name, (token) => {
+      if (trimmed === "") {
+        delete token[key];
+      } else {
+        token[key] = `${trimmed}${unit}`;
+      }
+
+      return token;
+    });
+  }
+
   function commitUnit(
-    sizeName: string,
+    name: string,
     key: keyof SizeToken,
     currentValue: string,
     nextUnit: string,
   ) {
-    const nextToken = { ...sizes[sizeName] };
-    if ((KEYWORDS as readonly string[]).includes(nextUnit)) {
-      nextToken[key] = nextUnit;
-    } else if (currentValue.trim() === "") {
-      delete nextToken[key]; // no number to attach a unit to yet
-    } else {
-      nextToken[key] = `${currentValue}${nextUnit}`;
-    }
-    onChange({ ...theme, sizes: { ...sizes, [sizeName]: nextToken } });
+    updateSize(name, (token) => {
+      if ((KEYWORDS as readonly string[]).includes(nextUnit)) {
+        token[key] = nextUnit;
+      } else if (currentValue.trim() === "") {
+        delete token[key];
+      } else {
+        token[key] = `${currentValue}${nextUnit}`;
+      }
+
+      return token;
+    });
   }
 
   function addSize() {
     const name = newName.trim();
+
     if (!name || sizes[name]) return;
-    onChange({ ...theme, sizes: { ...sizes, [name]: {} } });
+
+    onChange({
+      ...theme,
+      sizes: {
+        ...sizes,
+        [name]: {},
+      },
+    });
+
+    setNewName(name);
+    setOpenSize(name);
     setNewName("");
   }
 
   function removeSize(name: string) {
     const { [name]: _, ...rest } = sizes;
-    onChange({ ...theme, sizes: rest });
+
+    onChange({
+      ...theme,
+      sizes: rest,
+    });
+
+    setOpenSize((current) => (current === name ? null : current));
   }
 
   return (
-    <div className="space-y-4">
-      <h3 className="font-mono text-xs uppercase text-text-muted">Sizes</h3>
+    <section className="space-y-4">
+      {/* Header */}
+      <div>
+        <h3 className="font-mono text-xs uppercase text-text-muted">Sizes</h3>
 
-      {Object.keys(sizes).length === 0 && (
-        <p className="text-sm text-text-muted">
-          No override sizes defined yet — add one below.
+        <p className="mt-1 text-xs text-text-muted">
+          Configure the dimensions and spacing used by component size recipes.
         </p>
-      )}
+      </div>
 
-      {Object.entries(sizes).map(([name, size]) => (
-        <div key={name} className="rounded-md border border-border p-3">
-          <div className="mb-2 flex items-center justify-between">
-            <p className="font-medium">{name}</p>
-            <button
-              type="button"
-              onClick={() => removeSize(name)}
-              className="font-mono text-xs text-text-muted hover:text-danger"
-            >
-              remove
-            </button>
-          </div>
-
-          {SIZE_KEYS.map((key) => (
-            <SizeValueField
-              key={key}
-              sizeName={name}
-              keyName={key}
-              raw={size[key] ?? ""}
-              onCommitValue={(v) =>
-                commitValue(name, key, v, parseSizeValue(size[key] ?? "").unit)
+      {/* Sizes */}
+      {sizeEntries.length > 0 && (
+        <div className="space-y-2">
+          {sizeEntries.map(([name, size]) => (
+            <SizeCard
+              key={name}
+              name={name}
+              size={size}
+              isOpen={openSize === name}
+              onToggle={() =>
+                setOpenSize((current) => (current === name ? null : name))
               }
-              onCommitUnit={(u) =>
-                commitUnit(name, key, parseSizeValue(size[key] ?? "").value, u)
+              onRemove={() => removeSize(name)}
+              onCommitValue={(key, value) => commitValue(name, key, value)}
+              onCommitUnit={(key, value, unit) =>
+                commitUnit(name, key, value, unit)
               }
             />
           ))}
         </div>
-      ))}
+      )}
 
-      <div className="flex gap-2">
-        <Input
-          size="sm"
-          value={newName}
-          onChange={(e) => setNewName(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && addSize()}
-          placeholder="New size name (e.g. xl)"
-        />
-        <button
-          type="button"
-          onClick={addSize}
-          disabled={!newName.trim() || !!sizes[newName.trim()]}
-          className="rounded border border-border px-3 py-1 text-sm text-text-muted transition-colors hover:border-brand hover:text-brand disabled:pointer-events-none disabled:opacity-50"
-        >
-          Add
-        </button>
+      {/* Empty state */}
+      {sizeEntries.length === 0 && (
+        <div className="rounded-lg border border-dashed border-border p-6 text-center">
+          <p className="text-sm text-text-muted">
+            No override sizes defined yet.
+          </p>
+
+          <p className="mt-1 text-xs text-text-muted">
+            Add a size below to start customizing it.
+          </p>
+        </div>
+      )}
+
+      {/* Add size */}
+      <div className="rounded-lg border border-border bg-surface/30 p-3">
+        <div className="mb-2">
+          <p className="text-sm font-medium text-text">Add size</p>
+
+          <p className="text-xs text-text-muted">
+            Create a custom size such as <code className="font-mono">xl</code>{" "}
+            or <code className="font-mono">compact</code>.
+          </p>
+        </div>
+
+        <div className="flex gap-2">
+          <Input
+            size="sm"
+            value={newName}
+            onChange={(event) => setNewName(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                event.preventDefault();
+                addSize();
+              }
+            }}
+            placeholder="Size name"
+            className="flex-1"
+          />
+
+          <button
+            type="button"
+            onClick={addSize}
+            disabled={!newName.trim() || Boolean(sizes[newName.trim()])}
+            className={cn(
+              "inline-flex items-center gap-1.5",
+              "rounded-md border border-border",
+              "px-3 text-sm text-text-muted",
+              "transition-colors",
+              "hover:border-brand hover:text-brand",
+              "disabled:pointer-events-none disabled:opacity-50",
+            )}
+          >
+            <Plus size={14} />
+            Add
+          </button>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

@@ -1,36 +1,39 @@
+@import "tailwindcss";
 @import "./variables.css";
 @import "./animations.css";
-@import "tailwindcss";
+@import "./utilities.css";
+@import "./components.css";
 
 @theme inline {
-  --color-brand: rgb(var(--kui-brand));
-  --color-brand-hover: rgb(var(--kui-brand-hover));
-  --color-brand-fg: rgb(var(--kui-brand-fg));
+  --color-kui-brand: rgb(var(--kui-brand));
+  --color-kui-brand-hover: rgb(var(--kui-brand-hover));
+  --color-kui-brand-fg: rgb(var(--kui-brand-fg));
 
-  --color-surface: rgb(var(--kui-surface));
-  --color-surface-raised: rgb(var(--kui-surface-raised));
-  --color-surface-sunken: rgb(var(--kui-surface-sunken));
+  --color-kui-surface: rgb(var(--kui-surface));
+  --color-kui-surface-raised: rgb(var(--kui-surface-raised));
+  --color-kui-surface-sunken: rgb(var(--kui-surface-sunken));
+  --color-kui-background: rgb(var(--kui-background));
 
-  --color-border: rgb(var(--kui-border));
+  --color-kui-border: rgb(var(--kui-border));
 
-  --color-text: rgb(var(--kui-text));
-  --color-text-muted: rgb(var(--kui-text-muted));
+  --color-kui-text: rgb(var(--kui-text));
+  --color-kui-text-muted: rgb(var(--kui-text-muted));
 
-  --color-destructive: rgb(var(--kui-destructive));
-  --color-destructive-fg: rgb(var(--kui-destructive-fg));
-  --color-destructive-hover: rgb(var(--kui-destructive-hover));
+  --color-kui-destructive: rgb(var(--kui-destructive));
+  --color-kui-destructive-fg: rgb(var(--kui-destructive-fg));
+  --color-kui-destructive-hover: rgb(var(--kui-destructive-hover));
 
-  --color-success: rgb(var(--kui-success));
-  --color-success-fg: rgb(var(--kui-success-fg));
-  --color-success-hover: rgb(var(--kui-success-hover));
+  --color-kui-success: rgb(var(--kui-success));
+  --color-kui-success-fg: rgb(var(--kui-success-fg));
+  --color-kui-success-hover: rgb(var(--kui-success-hover));
 
-  --color-warning: rgb(var(--kui-warning));
-  --color-warning-fg: rgb(var(--kui-warning-fg));
-  --color-warning-hover: rgb(var(--kui-warning-hover));
+  --color-kui-warning: rgb(var(--kui-warning));
+  --color-kui-warning-fg: rgb(var(--kui-warning-fg));
+  --color-kui-warning-hover: rgb(var(--kui-warning-hover));
 
-  --color-info: rgb(var(--kui-info));
-  --color-info-fg: rgb(var(--kui-info-fg));
-  --color-info-hover: rgb(var(--kui-info-hover));
+  --color-kui-info: rgb(var(--kui-info));
+  --color-kui-info-fg: rgb(var(--kui-info-fg));
+  --color-kui-info-hover: rgb(var(--kui-info-hover));
 
   --radius: var(--kui-radii-md);
   --font-sans: var(--kui-font);
@@ -44,55 +47,35 @@
   --ease-kui-out: var(--kui-ease-out);
 }
 
-@theme {
-  --animate-kui-spin: kui-spin 0.6s linear infinite;
+@theme inline {
+  --animate-kui-spin: var(--kui-animations-spin);
 
-  --animate-kui-fade-in: kui-fade-in 0.15s ease-out;
+  --animate-kui-fade-in: var(--kui-animations-fade-in);
+  --animate-kui-fade-out: var(--kui-animations-fade-out);
 
-  --animate-kui-scale-in: kui-scale-in 0.15s ease-out;
-  --animate-kui-scale-out: kui-scale-out 0.15s ease-in;
+  --animate-kui-scale-in: var(--kui-animations-scale-in);
+  --animate-kui-scale-out: var(--kui-animations-scale-out);
 
-  --animate-kui-slide-up: kui-slide-up 0.2s ease-out;
-  --animate-kui-slide-down: kui-slide-down 0.2s ease-out;
-  --animate-kui-slide-left: kui-slide-left 0.2s ease-out;
-  --animate-kui-slide-right: kui-slide-right 0.2s ease-out;
+  --animate-kui-slide-up: var(--kui-animations-slide-up);
+  --animate-kui-slide-down: var(--kui-animations-slide-down);
+  --animate-kui-slide-left: var(--kui-animations-slide-left);
+  --animate-kui-slide-right: var(--kui-animations-slide-right);
+  --animate-kui-slide-in-next: var(--kui-animations-slide-in-next);
+  --animate-kui-slide-in-prev: var(--kui-animations-slide-in-prev);
 
-  --animate-kui-bounce: kui-bounce 0.8s infinite;
-  --animate-kui-pulse: kui-pulse 1.5s ease-in-out infinite;
+  --animate-kui-bounce: var(--kui-animations-bounce);
+  --animate-kui-pulse: var(--kui-animations-pulse);
+  --animate-kui-shake: var(--kui-animations-shake);
+  --animate-kui-shimmer: var(--kui-animations-shimmer);
 
-  --animate-kui-shake: kui-shake 0.25s ease-in-out;
+  --animate-kui-expand: var(--kui-animations-expand);
+  --animate-kui-collapse: var(--kui-animations-collapse);
 
-  --animate-kui-shimmer: kui-shimmer 1.5s linear infinite;
+  --animate-kui-ping: var(--kui-animations-ping);
 
-  --animate-kui-expand: kui-expand 0.2s ease-out;
-  --animate-kui-collapse: kui-collapse 0.2s ease-in;
-
-  --animate-kui-ping: kui-ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  background: rgb(var(--kui-surface, 255 255 255));
-  color: rgb(var(--kui-text, 0 0 0));
-}
-
-[data-kreativ-theme] {
-  font-family: var(--kui-font, system-ui, -apple-system, sans-serif);
-  color: rgb(var(--kui-text, 0 0 0));
-  background: rgb(var(--kui-surface, 255 255 255));
-  min-height: 100vh;
-}
-
-[data-state-transition="error"] {
-  animation: kui-state-error 500ms ease-out 3;
-  animation-delay: 500ms;
-}
-
-[data-state-transition="success"] {
-  animation: kui-state-success 500ms ease-out 2;
-  animation-delay: 500ms;
+  --animate-kui-state-error: var(--kui-animations-state-error);
+  --animate-kui-state-success: var(--kui-animations-state-success);
+  --animate-kui-state-warning: var(--kui-animations-state-warning);
 }
 
 input:-webkit-autofill,

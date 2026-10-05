@@ -6,7 +6,7 @@ export const inputBase =
   "bg-transparent border-0 outline-none " +
   "transition-colors duration-[var(--kui-duration-fast)] " +
   "placeholder:text-text-muted " +
-  "disabled:pointer-events-none disabled:cursor-not-allowed";
+  "disabled:cursor-not-allowed";
 
 export const inputRecipe = defineRecipe({
   base: inputBase,

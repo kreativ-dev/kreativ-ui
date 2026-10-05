@@ -1,0 +1,189 @@
+@utility shadow-kui {
+  box-shadow: var(--kui-shadow-x, 0px) var(--kui-shadow-y, 0px)
+    var(--kui-shadow-blur, 0px) var(--kui-shadow-spread, 0px)
+    var(--kui-shadow-color, currentColor);
+}
+
+@utility shadow-brand {
+  --kui-shadow-color: rgb(var(--kui-brand));
+}
+
+@utility shadow-destructive {
+  --kui-shadow-color: rgb(var(--kui-destructive));
+}
+
+@utility shadow-success {
+  --kui-shadow-color: rgb(var(--kui-success));
+}
+
+@utility shadow-warning {
+  --kui-shadow-color: rgb(var(--kui-warning));
+}
+
+@utility shadow-info {
+  --kui-shadow-color: rgb(var(--kui-info));
+}
+
+@utility shadow-border {
+  --kui-shadow-color: rgb(var(--kui-border));
+}
+
+@utility shadow-r-1 {
+  --kui-shadow-x: 1px;
+  --kui-shadow-y: 0px;
+}
+
+@utility shadow-r-2 {
+  --kui-shadow-x: 2px;
+  --kui-shadow-y: 0px;
+}
+
+@utility shadow-r-4 {
+  --kui-shadow-x: 4px;
+  --kui-shadow-y: 0px;
+}
+
+@utility shadow-r-8 {
+  --kui-shadow-x: 8px;
+  --kui-shadow-y: 0px;
+}
+
+@utility shadow-l-1 {
+  --kui-shadow-x: -1px;
+  --kui-shadow-y: 0px;
+}
+
+@utility shadow-l-2 {
+  --kui-shadow-x: -2px;
+  --kui-shadow-y: 0px;
+}
+
+@utility shadow-l-4 {
+  --kui-shadow-x: -4px;
+  --kui-shadow-y: 0px;
+}
+
+@utility shadow-l-8 {
+  --kui-shadow-x: -8px;
+  --kui-shadow-y: 0px;
+}
+
+@utility shadow-t-1 {
+  --kui-shadow-x: 0px;
+  --kui-shadow-y: -1px;
+}
+
+@utility shadow-t-2 {
+  --kui-shadow-x: 0px;
+  --kui-shadow-y: -2px;
+}
+
+@utility shadow-t-4 {
+  --kui-shadow-x: 0px;
+  --kui-shadow-y: -4px;
+}
+
+@utility shadow-t-8 {
+  --kui-shadow-x: 0px;
+  --kui-shadow-y: -8px;
+}
+
+@utility shadow-b-1 {
+  --kui-shadow-x: 0px;
+  --kui-shadow-y: 1px;
+}
+
+@utility shadow-b-2 {
+  --kui-shadow-x: 0px;
+  --kui-shadow-y: 2px;
+}
+
+@utility shadow-b-4 {
+  --kui-shadow-x: 0px;
+  --kui-shadow-y: 4px;
+}
+
+@utility shadow-b-8 {
+  --kui-shadow-x: 0px;
+  --kui-shadow-y: 8px;
+}
+
+@utility shadow-tr-1 {
+  --kui-shadow-x: 1px;
+  --kui-shadow-y: -1px;
+}
+
+@utility shadow-tr-2 {
+  --kui-shadow-x: 2px;
+  --kui-shadow-y: -2px;
+}
+
+@utility shadow-tr-4 {
+  --kui-shadow-x: 4px;
+  --kui-shadow-y: -4px;
+}
+
+@utility shadow-tr-8 {
+  --kui-shadow-x: 8px;
+  --kui-shadow-y: -8px;
+}
+
+@utility shadow-tl-1 {
+  --kui-shadow-x: -1px;
+  --kui-shadow-y: -1px;
+}
+
+@utility shadow-tl-2 {
+  --kui-shadow-x: -2px;
+  --kui-shadow-y: -2px;
+}
+
+@utility shadow-tl-4 {
+  --kui-shadow-x: -4px;
+  --kui-shadow-y: -4px;
+}
+
+@utility shadow-tl-8 {
+  --kui-shadow-x: -8px;
+  --kui-shadow-y: -8px;
+}
+
+@utility shadow-br-1 {
+  --kui-shadow-x: 1px;
+  --kui-shadow-y: 1px;
+}
+
+@utility shadow-br-2 {
+  --kui-shadow-x: 2px;
+  --kui-shadow-y: 2px;
+}
+
+@utility shadow-br-4 {
+  --kui-shadow-x: 4px;
+  --kui-shadow-y: 4px;
+}
+
+@utility shadow-br-8 {
+  --kui-shadow-x: 8px;
+  --kui-shadow-y: 8px;
+}
+
+@utility shadow-bl-1 {
+  --kui-shadow-x: -1px;
+  --kui-shadow-y: 1px;
+}
+
+@utility shadow-bl-2 {
+  --kui-shadow-x: -2px;
+  --kui-shadow-y: 2px;
+}
+
+@utility shadow-bl-4 {
+  --kui-shadow-x: -4px;
+  --kui-shadow-y: 4px;
+}
+
+@utility shadow-bl-8 {
+  --kui-shadow-x: -8px;
+  --kui-shadow-y: 8px;
+}
