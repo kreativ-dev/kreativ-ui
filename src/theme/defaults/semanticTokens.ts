@@ -1,5 +1,5 @@
 import { SemanticTokens } from "@/types";
-import { defineToken, defineSemanticToken } from "@/theme";
+import { defineSemanticToken } from "@/theme";
 
 export const defaultSemanticTokens: SemanticTokens = {
   colors: {
@@ -7,7 +7,7 @@ export const defaultSemanticTokens: SemanticTokens = {
 
     brandHover: defineSemanticToken("{colors.blue.600}", "{colors.blue.300}"),
 
-    brandFg: defineToken("{colors.white}"),
+    brandFg: defineSemanticToken("{colors.white}"),
 
     background: defineSemanticToken("{colors.gray.50}", "{colors.gray.950}"),
 
@@ -28,7 +28,7 @@ export const defaultSemanticTokens: SemanticTokens = {
 
     destructive: defineSemanticToken("{colors.red.500}", "{colors.red.400}"),
 
-    destructiveFg: defineToken("{colors.white}"),
+    destructiveFg: defineSemanticToken("{colors.white}"),
 
     destructiveHover: defineSemanticToken(
       "{colors.red.600}",
@@ -37,7 +37,7 @@ export const defaultSemanticTokens: SemanticTokens = {
 
     success: defineSemanticToken("{colors.green.500}", "{colors.green.400}"),
 
-    successFg: defineToken("{colors.white}"),
+    successFg: defineSemanticToken("{colors.white}"),
 
     successHover: defineSemanticToken(
       "{colors.green.600}",
@@ -46,7 +46,7 @@ export const defaultSemanticTokens: SemanticTokens = {
 
     warning: defineSemanticToken("{colors.amber.500}", "{colors.amber.400}"),
 
-    warningFg: defineToken("{colors.black}"),
+    warningFg: defineSemanticToken("{colors.black}"),
 
     warningHover: defineSemanticToken(
       "{colors.amber.600}",
@@ -55,7 +55,7 @@ export const defaultSemanticTokens: SemanticTokens = {
 
     info: defineSemanticToken("{colors.cyan.500}", "{colors.cyan.400}"),
 
-    infoFg: defineToken("{colors.white}"),
+    infoFg: defineSemanticToken("{colors.white}"),
 
     infoHover: defineSemanticToken("{colors.cyan.600}", "{colors.cyan.300}"),
 
