@@ -1,4 +1,4 @@
-import { defineRecipe } from "@/theme";
+import { defineRecipe } from "@splenddev/kreativ-core";
 
 export const containerReccipe = defineRecipe({
   base: "w-full",

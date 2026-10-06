@@ -1,25 +1,15 @@
-import {
-    useFormField,
-} from "./FormField.context";
-
+import { useFormField } from "./FormField.context";
 
 export function FormFieldDescription({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
+  const { descriptionId } = useFormField();
 
-    const {
-        descriptionId,
-    } = useFormField();
-
-
-    return (
-        <p
-            id={descriptionId}
-            className="text-sm text-text-muted"
-        >
-            {children}
-        </p>
-    );
+  return (
+    <p id={descriptionId} className="text-sm text-kui-text-muted">
+      {children}
+    </p>
+  );
 }

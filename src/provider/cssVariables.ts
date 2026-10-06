@@ -3,15 +3,13 @@ import type {
   ResolvedTokens,
   SemanticTokens,
   TokenDefinition,
-} from "@/types";
-
+} from "@splenddev/kreativ-core/types";
 
 export function toKebabCase(str: string): string {
   return str.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
 }
 function colorToRgbChannels(value: string): string {
   const trimmed = value.trim();
-
 
   const rgbMatch = trimmed.match(
     /^rgba?\(\s*(\d+(?:\.\d+)?)\s*[,\s]\s*(\d+(?:\.\d+)?)\s*[,\s]\s*(\d+(?:\.\d+)?)(?:\s*[/,]\s*[\d.]+%?)?\s*\)$/i,
@@ -20,7 +18,6 @@ function colorToRgbChannels(value: string): string {
   if (rgbMatch) {
     return `${rgbMatch[1]} ${rgbMatch[2]} ${rgbMatch[3]}`;
   }
-
 
   if (trimmed.startsWith("#")) {
     const hex = trimmed.slice(1);
@@ -33,7 +30,6 @@ function colorToRgbChannels(value: string): string {
       return `${r} ${g} ${b}`;
     }
 
-
     if (hex.length === 6) {
       const r = parseInt(hex.slice(0, 2), 16);
       const g = parseInt(hex.slice(2, 4), 16);
@@ -42,7 +38,6 @@ function colorToRgbChannels(value: string): string {
       return `${r} ${g} ${b}`;
     }
   }
-
 
   if (/^\d+(?:\.\d+)?\s+\d+(?:\.\d+)?\s+\d+(?:\.\d+)?$/.test(trimmed)) {
     return trimmed;
@@ -82,7 +77,6 @@ function getTokenValue(
   return undefined;
 }
 
-
 function resolveReference(
   reference: string,
   tokens: DesignTokens,
@@ -90,7 +84,7 @@ function resolveReference(
 ): string | undefined {
   if (seen.has(reference)) {
     console.error(
-      `[kreativ-ui] Circular token reference detected: ${reference}`,
+      `[kreativ-core] Circular token reference detected: ${reference}`,
     );
 
     return undefined;
@@ -103,7 +97,7 @@ function resolveReference(
 
   if (value === undefined) {
     console.warn(
-      `[kreativ-ui] Unable to resolve token reference: ${reference}`,
+      `[kreativ-core] Unable to resolve token reference: ${reference}`,
     );
 
     return undefined;
@@ -119,7 +113,6 @@ function resolveReference(
 
   return value;
 }
-
 
 function resolveValue(
   value: unknown,
@@ -139,7 +132,6 @@ function resolveValue(
 
   return value;
 }
-
 
 function flattenTokens(
   value: unknown,
@@ -168,13 +160,11 @@ function flattenTokens(
   }
 }
 
-
 function resolveSemanticValue(
   value: unknown,
   mode: "light" | "dark",
   tokens: DesignTokens,
 ): string | undefined {
-
   if (
     typeof value === "object" &&
     value !== null &&
@@ -190,7 +180,6 @@ function resolveSemanticValue(
 
     return resolveValue(modeValue, tokens);
   }
-
 
   return resolveValue(value, tokens);
 }
@@ -231,7 +220,6 @@ function resolveSemanticTokens(
   return result;
 }
 
-
 export function resolveTokens(
   tokens: DesignTokens,
   semanticTokens: SemanticTokens,
@@ -246,7 +234,6 @@ export function resolveTokens(
     tokens,
     mode,
   );
-
 
   return {
     ...primitiveTokens,
@@ -266,7 +253,7 @@ export function resolveSemanticTokenReferences(
 
       if (seen.has(value)) {
         console.error(
-          `[kreativ-ui] Circular token reference detected: ${value}`,
+          `[kreativ-core] Circular token reference detected: ${value}`,
         );
 
         return value;
@@ -276,7 +263,7 @@ export function resolveSemanticTokenReferences(
 
       if (resolved === undefined) {
         console.warn(
-          `[kreativ-ui] Unable to resolve token reference: ${value}`,
+          `[kreativ-core] Unable to resolve token reference: ${value}`,
         );
 
         return value;
@@ -311,6 +298,7 @@ export function tokensToCssVars(
   tokens: ResolvedTokens,
   mode: "light" | "dark",
   intensity: number,
+  prefix = "kui",
 ): Record<string, string> {
   const cssVars: Record<string, string> = {};
 
@@ -322,8 +310,8 @@ export function tokensToCssVars(
     const isPrimitiveColor = parts.length >= 3 && parts[0] === "colors";
 
     const varName = isSemanticColor
-      ? `--kui-${toKebabCase(parts[1])}`
-      : `--kui-${parts.map(toKebabCase).join("-")}`;
+      ? `--${prefix}-${toKebabCase(parts[1])}`
+      : `--${prefix}-${parts.map(toKebabCase).join("-")}`;
 
     const outputValue =
       isSemanticColor || isPrimitiveColor ? colorToRgbChannels(value) : value;
@@ -334,7 +322,7 @@ export function tokensToCssVars(
   return {
     ...cssVars,
 
-    "--kui-mode": mode,
-    "--kui-intensity": String(intensity),
+    [`--${prefix}-mode`]: mode,
+    [`--${prefix}-intensity`]: String(intensity),
   };
 }

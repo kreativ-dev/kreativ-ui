@@ -1,4 +1,4 @@
-import { SizeToken } from "@/types";
+import { SizeToken } from "@splenddev/kreativ-core/types";
 
 const CSS_SIZE =
   /^-?\d*\.?\d+(px|rem|em|%|vh|vw|vmin|vmax|ch|ex|cm|mm|in|pt|pc|fr)$|^(auto|min-content|max-content|fit-content)$/;

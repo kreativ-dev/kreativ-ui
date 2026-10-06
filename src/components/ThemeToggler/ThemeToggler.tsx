@@ -1,13 +1,12 @@
-// ThemeToggler.tsx
 import { useEffect } from "react";
-import { useTheme } from "@/hooks/useTheme";
-import { useSizeToken } from "@/hooks";
 import { resolveRecipe } from "@/theme/recipes/resolveRecipe";
 import { defaultTransition } from "./ThemeToggler.constants";
 import { CycleMode } from "./ThemeTogglerCycleMode";
 import { ButtonsMode } from "./ThemeTogglerButtonsMode";
 import type { ThemeTogglerProps } from "./ThemeToggler.types";
 import { getModeIcons } from "./ThemeToggler.icons";
+import { useTheme } from "@splenddev/kreativ-core";
+import { useSizeToken } from "@splenddev/kreativ-core/hooks";
 
 export function ThemeToggler({
   variant = "ghost",

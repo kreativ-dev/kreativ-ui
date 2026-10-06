@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { Styleable } from "@/types/common";
+import type { Styleable } from "@splenddev/kreativ-core/types";
 import type { InputVariant, InputSize } from "../Input/Input.types";
 
 export interface MultiSelectProps extends Styleable {

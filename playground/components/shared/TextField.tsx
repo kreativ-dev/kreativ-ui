@@ -25,7 +25,7 @@ export function TextField({
   size = "sm",
   clearable = true,
   undoable = true,
-  labelClassName = "text-text-muted font-normal text-xs font-mono",
+  labelClassName = "text-kui-text-muted font-normal text-xs font-mono",
   ...rest
 }: TextFieldProps) {
   return (

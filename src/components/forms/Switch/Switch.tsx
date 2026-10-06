@@ -5,13 +5,11 @@ import { forwardRef, useId, useState } from "react";
 import { cn } from "@/utils/cn";
 
 import { useOptionalFormField } from "../FormField/FormField.context";
-
 import { switchThumbConfig } from "./Switch.constants";
-
 import type { SwitchProps } from "./Switch.types";
-
 import { resolveRecipe } from "@/theme/recipes/resolveRecipe";
-import { useSizeToken, useTheme } from "@/hooks";
+import { useTheme } from "@splenddev/kreativ-core";
+import { useSizeToken } from "@splenddev/kreativ-core/hooks";
 
 export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
   (
@@ -115,7 +113,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
             {label && (
               <label
                 htmlFor={id}
-                className={cn("text-text", !disabled && "cursor-pointer")}
+                className={cn("text-kui-text", !disabled && "cursor-pointer")}
                 style={{ fontSize }}
               >
                 {label}
@@ -125,7 +123,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
             {description && (
               <p
                 id={descriptionId}
-                className="text-text-muted"
+                className="text-kui-text-muted"
                 style={{
                   fontSize: fontSize ? `calc(${fontSize} - 3px)` : undefined,
                 }}
@@ -138,7 +136,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
         {children && (
           <label
             htmlFor={id}
-            className={cn("text-text inline-flex items-center", !disabled && "cursor-pointer")}
+            className={cn("text-kui-text inline-flex items-center", !disabled && "cursor-pointer")}
             style={{ fontSize }}
           >
             {children}

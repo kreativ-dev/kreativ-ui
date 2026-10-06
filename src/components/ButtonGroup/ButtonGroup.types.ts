@@ -1,4 +1,8 @@
-import { BaseProps, OrientationProps, SizeProps } from "@/types";
+import {
+  BaseProps,
+  OrientationProps,
+  SizeProps,
+} from "@splenddev/kreativ-core/types";
 import type { HTMLAttributes } from "react";
 
 export type ButtonGroupSpacing = "none" | "sm" | "md" | "lg";

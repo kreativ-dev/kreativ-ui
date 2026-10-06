@@ -51,8 +51,8 @@ export function MultiSelectItem({
       onMouseEnter={() => !disabled && ctx.setActiveValue(value)}
       onClick={() => !disabled && ctx.toggleValue(value)}
       className={cn(
-        "flex cursor-pointer items-center justify-between rounded-[calc(var(--kui-radii-md)-2px)] px-2.5 py-1.5 text-sm text-text transition-colors",
-        active && "bg-brand/15 text-brand",
+        "flex cursor-pointer items-center justify-between rounded-[calc(var(--kui-radii-md)-2px)] px-2.5 py-1.5 text-sm text-kui-text transition-colors",
+        active && "bg-kui-brand/15 text-kui-brand",
         disabled && "pointer-events-none cursor-not-allowed opacity-50",
         className,
       )}

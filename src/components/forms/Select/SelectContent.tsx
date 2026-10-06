@@ -55,7 +55,7 @@ export function SelectContent({
       data-state={ctx.open ? "open" : "closed"}
       data-side={side}
       className={cn(
-        "absolute z-50 max-h-64 w-full overflow-auto rounded-(--kui-radii-md) border border-border bg-surface p-1 shadow-lg kui-scrollbar space-y-0.75",
+        "absolute z-50 max-h-64 w-full overflow-auto rounded-(--kui-radii-md) border border-kui-border bg-kui-surface p-1 shadow-lg kui-scrollbar space-y-0.75",
         "pointer-events-none opacity-0 scale-95",
         "data-[state=open]:pointer-events-auto data-[state=open]:opacity-100 data-[state=open]:scale-100",
         "transition-[opacity,transform] duration-150 ease-out",

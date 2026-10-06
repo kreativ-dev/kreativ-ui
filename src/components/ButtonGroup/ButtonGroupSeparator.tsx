@@ -21,7 +21,7 @@ export const ButtonGroupSeparator = forwardRef<
       data-kui-button-group-separator=""
       data-orientation={orientation}
       className={cn(
-        "bg-border",
+        "bg-kui-border",
         className,
       )}
       {...rest}

@@ -1,3 +1,3 @@
-export { UIProvider } from "./UIProvider";
-export type { UIProviderProps } from "./UIProvider";
-export { ThemeContext } from "./ThemeContext";
+export { UIProvider } from "./KreativUIProvider";
+export type { UIProviderProps } from "./KreativUIProvider";
+export { ThemeContext } from "@splenddev/kreativ-core";

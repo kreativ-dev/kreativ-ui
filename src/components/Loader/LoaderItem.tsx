@@ -1,5 +1,5 @@
 import { isValidElement, useMemo, type ElementType } from "react";
-import { useTheme } from "@/hooks";
+import { useTheme } from "@splenddev/kreativ-core";
 import { resolveLoaderRepresentation } from "@/components/internal/loader/resolveLoaderRepresentation";
 import { LoaderSkeleton } from "./LoaderSkeleton";
 import { LoaderFallback } from "./LoaderFallback";

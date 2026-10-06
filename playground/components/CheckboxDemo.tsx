@@ -2,13 +2,14 @@ import { useState } from "react";
 
 import { Checkbox } from "@/components/forms/Checkbox";
 import { InputSize } from "@/components/forms/Input/Input.types";
-import { FormField, FormFieldStatus } from "@/components/forms/FormField";
+import { FormField, } from "@/components/forms/FormField";
 
 import { Playground } from "./shared/Playground";
 import { SegmentedControl } from "./shared/SegmentedControl";
 import { Chip } from "./shared/Chip";
 import { TextField } from "./shared/TextField";
 import { getAttrs } from "./shared/getAttributes";
+import { FormFieldStatus } from "@splenddev/kreativ-core";
 
 const SIZES: InputSize[] = ["xs", "sm", "md", "lg"];
 const STATES: FormFieldStatus[] = ["none", "error", "success", "warning"];

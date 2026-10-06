@@ -1,11 +1,11 @@
 "use client";
 
 import { forwardRef } from "react";
-import { useTheme } from "@/hooks/useTheme";
+import { useTheme } from "@splenddev/kreativ-core";
 import { resolveResponsiveValue } from "@/utils/responsive";
-import { useResponsiveStyles } from "@/hooks/useResponsiveStyles";
+import { useResponsiveStyles } from "@/hooks";
 import type { ContainerProps } from "./Container.types";
-import type { ResponsiveStyles } from "@/types";
+import type { ResponsiveStyles } from "@splenddev/kreativ-core/types";
 import { cn } from "@/utils";
 import { ResponsiveStyle } from "@/components/internal/ResponsiveStyle";
 import { resolveRecipe } from "@/theme/recipes/resolveRecipe";

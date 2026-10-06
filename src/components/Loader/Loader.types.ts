@@ -1,5 +1,5 @@
 import type { ComponentType, ReactNode } from "react";
-import type { Size } from "@/types";
+import type { Size } from "@splenddev/kreativ-core/types";
 
 /** What shape the loading placeholder takes. */
 export type LoaderRepresentation =

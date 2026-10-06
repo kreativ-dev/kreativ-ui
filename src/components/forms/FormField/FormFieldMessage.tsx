@@ -1,11 +1,12 @@
 import { cn } from "@/utils";
 import { useFormField } from "./FormField.context";
-import type { FormFieldMessageProps, FormFieldStatus } from "./FormField.types";
+import type { FormFieldMessageProps } from "./FormField.types";
+import type { FormFieldStatus } from "@splenddev/kreativ-core/types";
 
 const statusClasses: Record<Exclude<FormFieldStatus, "none">, string> = {
-  error: "text-destructive animate-kui-shake [animation-delay:500ms]",
-  success: "text-success",
-  warning: "text-warning",
+  error: "text-kui-destructive animate-kui-shake [animation-delay:500ms]",
+  success: "text-kui-success",
+  warning: "text-kui-warning",
 };
 
 export function FormFieldMessage({ children }: FormFieldMessageProps) {

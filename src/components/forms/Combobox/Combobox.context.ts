@@ -1,6 +1,9 @@
 "use client";
 
-import type { RequiredStateControlProps, ValueProps } from "@/types";
+import type {
+  RequiredStateControlProps,
+  ValueProps,
+} from "@splenddev/kreativ-core/types";
 import { createContext, useContext, type RefObject } from "react";
 
 export interface ComboboxItemMeta {

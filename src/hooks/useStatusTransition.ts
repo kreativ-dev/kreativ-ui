@@ -1,6 +1,6 @@
 "use client";
 
-import { FormFieldStatus } from "@/components/forms/FormField/FormField.types";
+import type { FormFieldStatus } from "@splenddev/kreativ-core/types";
 import { useEffect, useRef, useState } from "react";
 
 type TransitionStatus = Exclude<FormFieldStatus, "none"> | undefined;

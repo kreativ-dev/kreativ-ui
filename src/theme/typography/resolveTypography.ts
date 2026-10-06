@@ -1,7 +1,9 @@
 import type { CSSProperties } from "react";
-import type { DesignTokens, TypographyStyle } from "@/types";
+import type {
+  DesignTokens,
+  TypographyStyle,
+} from "@splenddev/kreativ-core/types";
 import { resolveTokenReference } from "@/utils/resolveTokenReference";
-
 
 export function resolveTypography(
   typography: TypographyStyle | undefined,

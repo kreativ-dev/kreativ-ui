@@ -1,5 +1,5 @@
 import { isValidElement, type ComponentType, type ReactNode } from "react";
-import type { Theme } from "@/types";
+import type { Theme } from "@splenddev/kreativ-core/types";
 import { getRegisteredSkeleton } from "./skeletonRegistry";
 import { generateSkeletonFromProps } from "./generateSkeletonFromProps";
 import { resolveSkeleton } from "@/components/Loader/defineSkeleton";

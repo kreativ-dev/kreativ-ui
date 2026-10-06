@@ -3,14 +3,12 @@ import {
   useEffect,
   useMemo,
   useState,
-  type CSSProperties,
   type JSX,
   type ReactNode,
 } from "react";
-import { ThemeContext } from "./ThemeContext";
 import { resolveTokens, tokensToCssVars } from "./cssVariables";
-import type { ColorMode, ThemeOverride } from "@/types/theme";
 import { isDev } from "@/utils/env";
+import { ColorMode, ThemeContext, ThemeOverride } from "@splenddev/kreativ-core";
 import { extendTheme } from "@/theme";
 
 export interface UIProviderProps {

@@ -4,7 +4,7 @@ import { cn } from "@/utils";
 
 import { useIndicator } from "./hooks/useIndicator";
 import type { ThemeTogglerProps } from "./ThemeToggler.types";
-import { ColorMode } from "@/types";
+import { ColorMode } from "@splenddev/kreativ-core/types";
 
 interface ButtonsModeProps extends Pick<
   ThemeTogglerProps,
@@ -76,7 +76,7 @@ export const ButtonsMode = ({
     orientation === "vertical" && "flex-col",
 
     !unstyled && [
-      "border border-border bg-surface p-1",
+      "border border-kui-border bg-kui-surface p-1",
       effectiveRounded
         ? "rounded-full"
         : "rounded-[var(--kui-theme-toggler-radius)]",
@@ -120,7 +120,7 @@ export const ButtonsMode = ({
 
             effectiveRounded && "rounded-full",
 
-            active && "text-brand-fg",
+            active && "text-kui-brand-fg",
 
             iconOnly && "aspect-square",
 

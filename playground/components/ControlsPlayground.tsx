@@ -55,7 +55,7 @@ export function SwitchDemo() {
         onChange={setSize}
       />
       <div className="mb-5">
-        <p className="mb-2 font-mono text-[11px] text-text-muted">flags</p>
+        <p className="mb-2 font-mono text-[11px] text-kui-text-muted">flags</p>
         <div className="flex flex-wrap gap-1.5">
           <Chip active={disabled} onClick={() => setDisabled((v) => !v)}>
             disabled
@@ -160,7 +160,7 @@ export function ComboboxDemo() {
         onChange={setSize}
       />
       <div className="mb-5">
-        <p className="mb-2 font-mono text-[11px] text-text-muted">flags</p>
+        <p className="mb-2 font-mono text-[11px] text-kui-text-muted">flags</p>
         <div className="flex flex-wrap gap-1.5">
           <Chip active={disabled} onClick={() => setDisabled((v) => !v)}>
             disabled
@@ -196,7 +196,7 @@ export function ComboboxDemo() {
         value={placeholder}
         onChange={setPlaceholder}
       />
-      <p className="font-mono text-[10px] text-text-muted">
+      <p className="font-mono text-[10px] text-kui-text-muted">
         type to filter — arrows to move, enter to select
       </p>
     </>
@@ -306,7 +306,7 @@ export function MultiSelectDemo() {
         onChange={setSize}
       />
       <div className="mb-5">
-        <p className="mb-2 font-mono text-[11px] text-text-muted">flags</p>
+        <p className="mb-2 font-mono text-[11px] text-kui-text-muted">flags</p>
         <div className="flex flex-wrap gap-1.5">
           <Chip active={disabled} onClick={() => setDisabled((v) => !v)}>
             disabled
@@ -333,7 +333,7 @@ export function MultiSelectDemo() {
       </div>
       {capChips && (
         <div className="mb-4">
-          <label className="mb-1 block font-mono text-[11px] text-text-muted">
+          <label className="mb-1 block font-mono text-[11px] text-kui-text-muted">
             maxVisibleChips
           </label>
           <input
@@ -342,7 +342,7 @@ export function MultiSelectDemo() {
             max={10}
             value={maxChips}
             onChange={(e) => setMaxChips(Number(e.target.value))}
-            className="w-full rounded-(--kui-radii-md) border border-border bg-bg px-2 py-1.5 text-sm text-text outline-none focus:border-brand"
+            className="w-full rounded-(--kui-radii-md) border border-kui-border bg-bg px-2 py-1.5 text-sm text-kui-text outline-none focus:border-kui-brand"
           />
         </div>
       )}
@@ -351,7 +351,7 @@ export function MultiSelectDemo() {
         value={placeholder}
         onChange={setPlaceholder}
       />
-      <p className="font-mono text-[10px] text-text-muted">
+      <p className="font-mono text-[10px] text-kui-text-muted">
         chip removal is mouse-only for now — see the open design note on the
         trigger nesting
       </p>

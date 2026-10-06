@@ -1,7 +1,7 @@
 import { TextareaHTMLAttributes } from "react";
 import { InputVariant } from "../Input/Input.types";
 import type { MarkdownEditorProps } from "../MarkdownEditor/MarkdownEditor.types";
-import {
+import type {
   BaseProps,
   ClearableProps,
   EmbeddedProps,
@@ -13,7 +13,7 @@ import {
   ValidateProps,
   ValueProps,
   VariantProps,
-} from "@/types";
+} from "@splenddev/kreativ-core/types";
 
 export type TextareaResize = "none" | "both" | "horizontal" | "vertical";
 

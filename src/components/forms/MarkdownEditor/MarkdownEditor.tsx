@@ -21,10 +21,10 @@ import {
   Link as LinkIcon,
 } from "lucide-react";
 import { isDev } from "@/utils/env";
-import { useTheme } from "@/hooks";
 import { resolveRecipe } from "@/theme/recipes/resolveRecipe";
 import { useOptionalFormField } from "../FormField/FormField.context";
 import { TextareaCore } from "../Textarea/Textarea.core";
+import { useTheme } from "@splenddev/kreativ-core";
 
 type Action = (value: string, start: number, end: number) => TextEdit;
 
@@ -179,7 +179,7 @@ export const MarkdownEditor = forwardRef<
           role="tablist"
           aria-label="Markdown editor mode"
           id={tablistId}
-          className="flex items-center gap-4 border-b border-border px-3"
+          className="flex items-center gap-4 border-b border-kui-border px-3"
         >
           {(["write", "preview"] as const).map((t) => (
             <button
@@ -195,8 +195,8 @@ export const MarkdownEditor = forwardRef<
                 "border-b-2 py-2.5 text-sm capitalize transition-colors",
                 "disabled:pointer-events-none disabled:cursor-not-allowed",
                 tab === t
-                  ? "border-brand text-text"
-                  : "border-transparent text-text-muted hover:text-text",
+                  ? "border-kui-brand text-kui-text"
+                  : "border-transparent text-kui-text-muted hover:text-kui-text",
               )}
             >
               {t}
@@ -212,7 +212,7 @@ export const MarkdownEditor = forwardRef<
                   aria-label={label}
                   onClick={() => runAction(action)}
                   disabled={disabled}
-                  className="rounded-(--kui-radii-sm) p-1.5 text-text-muted transition-colors hover:bg-surface-raised hover:text-text disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+                  className="rounded-(--kui-radii-sm) p-1.5 text-kui-text-muted transition-colors hover:bg-kui-surface-raised hover:text-kui-text disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <Icon size={15} />
                 </button>
@@ -252,18 +252,18 @@ export const MarkdownEditor = forwardRef<
           role="tabpanel"
           aria-labelledby={`${baseId}-preview-tab`}
           hidden={tab !== "preview"}
-          className="min-h-32 p-3 text-sm text-text"
+          className="min-h-32 p-3 text-sm text-kui-text"
         >
           {renderMarkdown ? (
             renderedPreview
           ) : (
-            <span className="text-text-muted">
+            <span className="text-kui-text-muted">
               No renderMarkdown provided — showing raw text.
             </span>
           )}
         </div>
 
-        <div className="flex items-center gap-2 border-t border-border px-3 py-2 text-xs z-1">
+        <div className="flex items-center gap-2 border-t border-kui-border px-3 py-2 text-xs z-1">
           {footerMessage}
         </div>
       </div>

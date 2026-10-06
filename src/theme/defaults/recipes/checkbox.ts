@@ -1,4 +1,4 @@
-import { defineRecipe } from "@/theme/recipes";
+import { defineRecipe } from "@splenddev/kreativ-core";
 
 export const checkboxRecipe = defineRecipe({
   base:
@@ -6,19 +6,19 @@ export const checkboxRecipe = defineRecipe({
     "border transition-colors " +
     "duration-[var(--kui-duration-fast)] " +
     "peer-focus-visible:ring-2 " +
-    "peer-focus-visible:ring-brand " +
+    "peer-focus-visible:ring-kui-brand " +
     "peer-focus-visible:ring-offset-1",
 
   variants: {
     state: {
-      none: "border-border",
-      error: "border-destructive",
-      success: "border-success",
-      warning: "border-warning",
+      none: "border-kui-border",
+      error: "border-kui-destructive",
+      success: "border-kui-success",
+      warning: "border-kui-warning",
     },
 
     checked: {
-      true: "border-brand bg-brand text-brand-fg",
+      true: "border-kui-brand bg-kui-brand text-kui-brand-fg",
       false: "bg-transparent",
     },
 
@@ -39,7 +39,7 @@ export const checkboxRecipe = defineRecipe({
         checked: false,
         state: "error",
       },
-      className: "border-destructive",
+      className: "border-kui-destructive",
     },
 
     {
@@ -47,14 +47,14 @@ export const checkboxRecipe = defineRecipe({
         checked: false,
         state: "success",
       },
-      className: "border-success",
+      className: "border-kui-success",
     },
     {
       conditions: {
         checked: false,
         state: "warning",
       },
-      className: "border-warning",
+      className: "border-kui-warning",
     },
   ],
 

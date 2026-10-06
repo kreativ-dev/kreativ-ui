@@ -14,7 +14,7 @@ export function ComboboxLoading({
             role="status"
             aria-live="polite"
             className={cn(
-                "px-2 py-3 text-center text-sm text-text-muted",
+                "px-2 py-3 text-center text-sm text-kui-text-muted",
                 className
             )}
         >

@@ -1,4 +1,4 @@
-import type { ThemeOverride, SizeScale } from "@/types";
+import type { ThemeOverride, SizeScale } from "@splenddev/kreativ-core/types";
 import { defaultSizes } from "../defaults/sizes";
 
 export function extendSizes(override?: ThemeOverride["sizes"]): SizeScale {

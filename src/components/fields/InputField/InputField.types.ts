@@ -1,5 +1,5 @@
-import { FormFieldStatus } from "@/components/forms/FormField";
 import { InputProps } from "@/components/forms/Input";
+import { FormFieldStatus } from "@splenddev/kreativ-core";
 import { ReactNode, LabelHTMLAttributes } from "react";
 
 /**

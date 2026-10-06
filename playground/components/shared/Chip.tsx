@@ -23,7 +23,7 @@ export function Chip({
       onClick={onClick}
       className={cn(
         "rounded-full font-mono transition-colors",
-        !active && "text-text-muted",
+        !active && "text-kui-text-muted",
       )}
     >
       {children}

@@ -10,7 +10,7 @@ import type {
   StatusProps,
   ValueProps,
   VariantProps,
-} from "@/types/common";
+} from "@splenddev/kreativ-core/types";
 import type { InputProps } from "../Input/Input.types";
 
 export interface ComboboxProps

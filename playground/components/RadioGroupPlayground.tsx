@@ -5,7 +5,7 @@ import { FormField } from "@/components/forms/FormField";
 import { Playground } from "./shared/Playground";
 import { SegmentedControl } from "./shared/SegmentedControl";
 import { Chip } from "./shared/Chip";
-import { Orientation } from "@/types";
+import { Orientation } from "@splenddev/kreativ-core/types";
 
 type State = "none" | "error" | "success";
 const SIZES: RadioSize[] = ["sm", "md", "lg"];

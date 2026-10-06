@@ -5,7 +5,7 @@ import type {
   RecipeDefinition,
   RecipeVariantValue,
   DefaultRecipeCollection,
-} from "@/types";
+} from "@splenddev/kreativ-core/types";
 
 import { SectionHeader } from "../../../../shared/SectionHeader";
 import { EmptyState } from "../../../../shared/EmptyState";
@@ -90,7 +90,7 @@ export function DefaultVariantsEditor({
                   onChange={() => {}}
                   readOnly
                   size="xs"
-                  className="min-w-0 rounded border border-border bg-surface/30 px-2 py-1.5 font-mono text-xs text-text"
+                  className="min-w-0 rounded border border-kui-border bg-kui-surface/30 px-2 py-1.5 font-mono text-xs text-kui-text"
                 />
                 <TextField
                   size="xs"
@@ -101,7 +101,7 @@ export function DefaultVariantsEditor({
                 <button
                   type="button"
                   onClick={() => remove(name)}
-                  className="px-1 text-text-muted hover:text-destructive"
+                  className="px-1 text-kui-text-muted hover:text-kui-destructive"
                   aria-label={`Remove default ${name}`}
                 >
                   <Trash2 size={13} />

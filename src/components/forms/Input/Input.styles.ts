@@ -9,7 +9,7 @@ export const inputBase = [
   "duration-[var(--kui-duration-fast)]",
   "outline-none",
 
-  "placeholder:text-text-muted",
+  "placeholder:text-kui-text-muted",
 
   "disabled:opacity-50",
   "disabled:pointer-events-none",
@@ -22,18 +22,18 @@ export const inputWrapperVariants = cva(
     variants: {
       variant: {
         outline:
-          "border border-border bg-transparent text-text hover:border-brand",
+          "border border-kui-border bg-transparent text-kui-text hover:border-kui-brand",
         filled:
-          "border border-transparent bg-surface-raised text-text hover:bg-surface",
+          "border border-transparent bg-kui-surface-raised text-kui-text hover:bg-kui-surface",
         ghost:
-          "border border-transparent bg-transparent text-text hover:bg-surface-raised",
+          "border border-transparent bg-transparent text-kui-text hover:bg-kui-surface-raised",
       },
       state: {
-        none: "focus-within:ring-2 focus-within:ring-brand/20",
+        none: "focus-within:ring-2 focus-within:ring-kui-brand/20",
         error:
-          "border-destructive focus-within:ring-2 focus-within:ring-destructive/20",
+          "border-kui-destructive focus-within:ring-2 focus-within:ring-kui-destructive/20",
         success:
-          "border-success focus-within:ring-2 focus-within:ring-success/20",
+          "border-kui-success focus-within:ring-2 focus-within:ring-kui-success/20",
       },
       rounded: {
         true: "rounded-full",

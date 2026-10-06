@@ -1,21 +1,21 @@
-import type { RecipeCollection } from "@/types";
+import type { RecipeCollection, Theme } from "@splenddev/kreativ-core/types";
 import { defaultTokens } from "./tokens";
 import { defaultSemanticTokens } from "./semanticTokens";
 import { defaultTypography } from "./typography";
+import { defaultSizes } from "./sizes";
 import { buttonRecipe } from "./recipes/button";
 import { formControlRecipe } from "./recipes/formControl";
 import { inputRecipe } from "./recipes/input";
 import { textareaRecipe } from "./recipes/textarea";
 import { markdownEditorRecipe } from "./recipes/markdownEditor";
-import { defaultSizes } from "./sizes";
 import { checkboxRecipe } from "./recipes/checkbox";
 import { buttonGroupRecipe } from "./recipes/buttonGroup";
 import { switchRecipe } from "./recipes/switch";
-import { defineTheme } from "../defineTheme";
 import { containerReccipe } from "./recipes/container";
 import { linkRecipe } from "./recipes/link";
+import { defineTheme } from "@splenddev/kreativ-core";
 
-export const defaultRecipes: RecipeCollection = {
+export const defaultRecipes = {
   Button: buttonRecipe,
   FormControl: formControlRecipe,
   Input: inputRecipe,
@@ -26,7 +26,7 @@ export const defaultRecipes: RecipeCollection = {
   Switch: switchRecipe,
   Container: containerReccipe,
   Link: linkRecipe,
-};
+} satisfies RecipeCollection;
 
 export const defaultTheme = defineTheme({
   tokens: defaultTokens,
@@ -35,4 +35,4 @@ export const defaultTheme = defineTheme({
   recipes: defaultRecipes,
   intensity: 50,
   sizes: defaultSizes,
-});
+} as const satisfies Theme);

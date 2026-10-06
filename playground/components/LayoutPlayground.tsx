@@ -3,7 +3,7 @@ import { Container, Flex, Stack, Grid } from "@/components";
 
 function DemoBox({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex h-16 items-center justify-center rounded-lg border border-border bg-bg font-mono text-xs text-text-muted transition-colors">
+    <div className="flex h-16 items-center justify-center rounded-lg border border-kui-border bg-bg font-mono text-xs text-kui-text-muted transition-colors">
       {children}
     </div>
   );
@@ -19,7 +19,7 @@ function ControlGroup({
 }) {
   return (
     <div className="flex items-center gap-3">
-      <span className="w-20 text-xs font-medium text-text-muted">{label}</span>
+      <span className="w-20 text-xs font-medium text-kui-text-muted">{label}</span>
       <div className="flex flex-wrap items-center gap-2">{children}</div>
     </div>
   );
@@ -70,15 +70,15 @@ export function LayoutPlaygroundPage() {
       <Stack gap="xl">
         {/* ===== Stack Section ===== */}
         <section>
-          <h2 className="mb-3 font-mono text-xs text-brand">
+          <h2 className="mb-3 font-mono text-xs text-kui-brand">
             Stack (interactive)
           </h2>
-          <div className="mb-4 flex flex-wrap items-center gap-4 rounded-lg border border-border p-3">
+          <div className="mb-4 flex flex-wrap items-center gap-4 rounded-lg border border-kui-border p-3">
             <ControlGroup label="Orientation">
               <select
                 value={stackOrientation}
                 onChange={(e) => setStackOrientation(e.target.value as any)}
-                className="rounded border-border bg-bg px-2 py-1 text-sm"
+                className="rounded border-kui-border bg-bg px-2 py-1 text-sm"
               >
                 <option value="vertical">Vertical</option>
                 <option value="horizontal">Horizontal</option>
@@ -88,7 +88,7 @@ export function LayoutPlaygroundPage() {
               <select
                 value={stackGap}
                 onChange={(e) => setStackGap(e.target.value as any)}
-                className="rounded border-border bg-bg px-2 py-1 text-sm"
+                className="rounded border-kui-border bg-bg px-2 py-1 text-sm"
               >
                 <option value="sm">Small</option>
                 <option value="md">Medium</option>
@@ -110,7 +110,7 @@ export function LayoutPlaygroundPage() {
             gap={stackGap}
             divider={
               stackShowDivider ? (
-                <div className="w-px self-stretch bg-border" />
+                <div className="w-px self-stretch bg-kui-border" />
               ) : undefined
             }
           >
@@ -122,10 +122,10 @@ export function LayoutPlaygroundPage() {
 
         {/* ===== Flex Section ===== */}
         <section>
-          <h2 className="mb-3 font-mono text-xs text-brand">
+          <h2 className="mb-3 font-mono text-xs text-kui-brand">
             Flex (interactive)
           </h2>
-          <div className="mb-4 flex flex-wrap items-center gap-4 rounded-lg border border-border p-3">
+          <div className="mb-4 flex flex-wrap items-center gap-4 rounded-lg border border-kui-border p-3">
             <ControlGroup label="Direction">
               <select
                 value={flexDirection.base}
@@ -135,12 +135,12 @@ export function LayoutPlaygroundPage() {
                     base: e.target.value as any,
                   })
                 }
-                className="rounded border-border bg-bg px-2 py-1 text-sm"
+                className="rounded border-kui-border bg-bg px-2 py-1 text-sm"
               >
                 <option value="column">Column</option>
                 <option value="row">Row</option>
               </select>
-              <span className="text-xs text-text-muted">
+              <span className="text-xs text-kui-text-muted">
                 (md: {flexDirection.md})
               </span>
             </ControlGroup>
@@ -148,7 +148,7 @@ export function LayoutPlaygroundPage() {
               <select
                 value={flexWrap}
                 onChange={(e) => setFlexWrap(e.target.value as any)}
-                className="rounded border-border bg-bg px-2 py-1 text-sm"
+                className="rounded border-kui-border bg-bg px-2 py-1 text-sm"
               >
                 <option value="wrap">Wrap</option>
                 <option value="nowrap">No Wrap</option>
@@ -158,7 +158,7 @@ export function LayoutPlaygroundPage() {
               <select
                 value={flexJustify}
                 onChange={(e) => setFlexJustify(e.target.value as any)}
-                className="rounded border-border bg-bg px-2 py-1 text-sm"
+                className="rounded border-kui-border bg-bg px-2 py-1 text-sm"
               >
                 <option value="flex-start">Start</option>
                 <option value="center">Center</option>
@@ -170,7 +170,7 @@ export function LayoutPlaygroundPage() {
               <select
                 value={flexAlign}
                 onChange={(e) => setFlexAlign(e.target.value as any)}
-                className="rounded border-border bg-bg px-2 py-1 text-sm"
+                className="rounded border-kui-border bg-bg px-2 py-1 text-sm"
               >
                 <option value="stretch">Stretch</option>
                 <option value="center">Center</option>
@@ -182,7 +182,7 @@ export function LayoutPlaygroundPage() {
               <select
                 value={flexGap}
                 onChange={(e) => setFlexGap(e.target.value as any)}
-                className="rounded border-border bg-bg px-2 py-1 text-sm"
+                className="rounded border-kui-border bg-bg px-2 py-1 text-sm"
               >
                 <option value="sm">Small</option>
                 <option value="md">Medium</option>
@@ -207,10 +207,10 @@ export function LayoutPlaygroundPage() {
 
         {/* ===== Grid Section ===== */}
         <section>
-          <h2 className="mb-3 font-mono text-xs text-brand">
+          <h2 className="mb-3 font-mono text-xs text-kui-brand">
             Grid (interactive)
           </h2>
-          <div className="mb-4 flex flex-wrap items-center gap-4 rounded-lg border border-border p-3">
+          <div className="mb-4 flex flex-wrap items-center gap-4 rounded-lg border border-kui-border p-3">
             <ControlGroup label="Columns (base/sm/lg)">
               <input
                 type="number"
@@ -221,7 +221,7 @@ export function LayoutPlaygroundPage() {
                     base: Number(e.target.value),
                   })
                 }
-                className="w-14 rounded border-border bg-bg px-1 py-1 text-sm"
+                className="w-14 rounded border-kui-border bg-bg px-1 py-1 text-sm"
                 min={1}
                 max={6}
               />
@@ -231,7 +231,7 @@ export function LayoutPlaygroundPage() {
                 onChange={(e) =>
                   setGridColumns({ ...gridColumns, sm: Number(e.target.value) })
                 }
-                className="w-14 rounded border-border bg-bg px-1 py-1 text-sm"
+                className="w-14 rounded border-kui-border bg-bg px-1 py-1 text-sm"
                 min={1}
                 max={6}
               />
@@ -241,7 +241,7 @@ export function LayoutPlaygroundPage() {
                 onChange={(e) =>
                   setGridColumns({ ...gridColumns, lg: Number(e.target.value) })
                 }
-                className="w-14 rounded border-border bg-bg px-1 py-1 text-sm"
+                className="w-14 rounded border-kui-border bg-bg px-1 py-1 text-sm"
                 min={1}
                 max={6}
               />
@@ -250,7 +250,7 @@ export function LayoutPlaygroundPage() {
               <select
                 value={gridGap}
                 onChange={(e) => setGridGap(e.target.value as any)}
-                className="rounded border-border bg-bg px-2 py-1 text-sm"
+                className="rounded border-kui-border bg-bg px-2 py-1 text-sm"
               >
                 <option value="sm">Small</option>
                 <option value="md">Medium</option>
@@ -262,7 +262,7 @@ export function LayoutPlaygroundPage() {
                 type="text"
                 value={gridTemplateAreas}
                 onChange={(e) => setGridTemplateAreas(e.target.value)}
-                className="w-48 rounded border-border bg-bg px-2 py-1 text-sm font-mono"
+                className="w-48 rounded border-kui-border bg-bg px-2 py-1 text-sm font-mono"
                 placeholder='e.g. "sidebar main"'
               />
             </ControlGroup>
@@ -287,7 +287,7 @@ export function LayoutPlaygroundPage() {
         </section>
 
         {/* ===== Reset / Info ===== */}
-        <div className="mt-4 flex justify-end gap-3 text-xs text-text-muted">
+        <div className="mt-4 flex justify-end gap-3 text-xs text-kui-text-muted">
           <button
             onClick={() => {
               setStackOrientation("vertical");
@@ -302,7 +302,7 @@ export function LayoutPlaygroundPage() {
               setGridGap("md");
               setGridTemplateAreas(`"sidebar main" "sidebar footer"`);
             }}
-            className="rounded border-border px-3 py-1 hover:bg-bg-hover"
+            className="rounded border-kui-border px-3 py-1 hover:bg-bg-hover"
           >
             Reset All
           </button>

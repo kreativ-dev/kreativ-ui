@@ -4,7 +4,7 @@ import type {
   DefaultRecipeCollection,
   RecipeCompoundVariant,
   RecipeDefinition,
-} from "@/types";
+} from "@splenddev/kreativ-core/types";
 
 import { SectionHeader } from "../../../../shared/SectionHeader";
 import { EmptyState } from "../../../../shared/EmptyState";

@@ -1,5 +1,4 @@
-
-import type { DefaultRecipeCollection } from "@/types";
+import type { DefaultRecipeCollection } from "@splenddev/kreativ-core/types";
 import { Textarea } from "@/components";
 import { SectionHeader } from "../../../../shared/SectionHeader";
 

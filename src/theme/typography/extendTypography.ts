@@ -1,5 +1,7 @@
-import type { ThemeOverride, Typography } from "@/types";
+import type { ThemeOverride, Typography } from "@splenddev/kreativ-core/types";
 import { defaultTypography } from "../defaults/typography";
+
+type TypographyKeys = Extract<keyof typeof defaultTypography, string>;
 
 export function extendTypography(
   override?: ThemeOverride["typography"],
@@ -10,8 +12,8 @@ export function extendTypography(
 
   const result: Typography = { ...defaultTypography };
 
-  for (const key of Object.keys(override)) {
-    const variant = key as keyof typeof defaultTypography;
+  for (const key of Object.keys(override) as TypographyKeys[]) {
+    const variant = key as TypographyKeys;
 
     result[variant] = {
       ...defaultTypography[variant],

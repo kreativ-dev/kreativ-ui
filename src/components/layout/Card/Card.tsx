@@ -8,11 +8,11 @@ import type {
 import { cn } from "@/utils/cn";
 
 const cardVariants: Record<NonNullable<CardProps["variant"]>, string> = {
-  solid: "bg-surface",
-  outline: "border border-border bg-surface",
+  solid: "bg-kui-surface",
+  outline: "border border-kui-border bg-kui-surface",
   ghost: "bg-transparent",
-  elevated: "bg-surface shadow-md",
-  compact: "bg-surface",
+  elevated: "bg-kui-surface shadow-md",
+  compact: "bg-kui-surface",
 };
 
 const cardSizes: Record<NonNullable<CardProps["size"]>, string> = {

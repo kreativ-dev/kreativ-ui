@@ -6,8 +6,9 @@ import { cn } from "@/utils/cn";
 import { ClearIcon } from "../Input/Input.icons";
 import { useSelectContext } from "./Select.context";
 import type { SelectTriggerProps } from "./Select.types";
-import { useSizeStyle, useTheme } from "@/hooks";
+import {  useTheme } from "@splenddev/kreativ-core";
 import { resolveRecipe } from "@/theme/recipes/resolveRecipe";
+import { useSizeStyle } from "@splenddev/kreativ-core/hooks";
 
 function orderedEnabledValues(
   items: Map<string, { label: React.ReactNode; disabled?: boolean }>,
@@ -148,7 +149,7 @@ export const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
           {children}
           <span
             aria-hidden
-            className="pointer-events-none absolute right-0 top-1/2 flex -translate-y-1/2 items-center gap-1.5 text-text-muted"
+            className="pointer-events-none absolute right-0 top-1/2 flex -translate-y-1/2 items-center gap-1.5 text-kui-text-muted"
           >
             <ChevronDown
               size={14}
@@ -174,7 +175,7 @@ export const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
               e.preventDefault();
               e.stopPropagation();
             }}
-            className="flex h-4 w-4 items-center justify-center text-text-muted transition-colors hover:text-text"
+            className="flex h-4 w-4 items-center justify-center text-kui-text-muted transition-colors hover:text-kui-text"
           >
             <ClearIcon size={Number(iconSize) || 14} />
           </button>

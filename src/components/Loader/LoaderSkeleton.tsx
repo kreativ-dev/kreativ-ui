@@ -61,7 +61,7 @@ export function LoaderSkeleton({
       {avatarConfig && (
         <span
           className={[
-            "kui-skeleton-block shrink-0 bg-surface-sunken",
+            "kui-skeleton-block shrink-0 bg-kui-surface-sunken",
             avatarSizeClass[avatarSize],
             avatarShape === "circle"
               ? "rounded-full"

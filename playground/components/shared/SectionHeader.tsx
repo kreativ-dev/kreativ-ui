@@ -19,8 +19,8 @@ export function SectionHeader({
   return (
     <div className="mb-3 flex items-start justify-between gap-3">
       <div className="flex-1 min-w-0">
-        <h4 className="text-xs font-medium text-text">{title}</h4>
-        <p className="mt-0.5 text-[10px] text-text-muted">{description}</p>
+        <h4 className="text-xs font-medium text-kui-text">{title}</h4>
+        <p className="mt-0.5 text-[10px] text-kui-text-muted">{description}</p>
       </div>
       <div className="flex shrink-0 items-center gap-2">
         {hasValue && <ResetButton onClick={onReset} />}

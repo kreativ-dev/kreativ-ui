@@ -18,9 +18,9 @@ export function AdornmentItem({
   const className = cn(
     "flex shrink-0 items-center justify-center",
     interactive && [
-      "text-text-muted",
+      "text-kui-text-muted",
       "transition-colors",
-      "hover:text-text",
+      "hover:text-kui-text",
       "focus-visible:outline",
       "focus-visible:outline-2",
       "focus-visible:outline-offset-2",

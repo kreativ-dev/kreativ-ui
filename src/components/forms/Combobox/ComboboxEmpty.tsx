@@ -15,7 +15,7 @@ export function ComboboxEmpty({ children }: ComboboxEmptyProps) {
     if (visibleCount > 0) return null;
 
     return (
-        <div className="px-2 py-3 text-center text-sm text-text-muted">
+        <div className="px-2 py-3 text-center text-sm text-kui-text-muted">
             {children ?? "No results found"}
         </div>
     );

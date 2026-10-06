@@ -1,4 +1,4 @@
-import { ColorMode } from "@/types";
+import type { ColorMode } from "@splenddev/kreativ-core/types";
 import { Sun, Moon, Monitor } from "lucide-react";
 import { ReactNode } from "react";
 

@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
-import type { SizeToken, ThemeOverride } from "@/types";
+import type { SizeToken, ThemeOverride } from "@splenddev/kreativ-core/types";
 import { cn } from "@/utils/cn";
 import { SIZE_KEYS } from "./theme.constants";
 import { Input, Select } from "../../../src";
 import { TextField } from "../shared/TextField";
-import {  ChevronDown, Plus, Trash2 } from "lucide-react";
+import { ChevronDown, Plus, Trash2 } from "lucide-react";
 
 interface SizeEditorProps {
   theme: ThemeOverride;
@@ -109,7 +109,7 @@ function SizeValueField({
     <div className="grid grid-cols-[5.5rem_minmax(0,1fr)_6rem] items-center gap-2">
       <label
         htmlFor={fieldId}
-        className="truncate font-mono text-[11px] text-text-muted"
+        className="truncate font-mono text-[11px] text-kui-text-muted"
       >
         {String(keyName)}
       </label>
@@ -153,7 +153,7 @@ function SizeValueField({
             </Select.Item>
           ))}
 
-          <div className="my-1 border-t border-border" aria-hidden="true" />
+          <div className="my-1 border-t border-kui-border" aria-hidden="true" />
 
           {KEYWORDS.map((keyword) => (
             <Select.Item key={keyword} value={keyword}>
@@ -173,9 +173,9 @@ function SizePreview({ size }: { size: SizeToken }) {
   const radius = size.radius;
 
   return (
-    <div className="flex h-26 items-center justify-center rounded-md bg-surface">
+    <div className="flex h-26 items-center justify-center rounded-md bg-kui-surface">
       <span
-        className="inline-flex items-center justify-center border border-brand/40 bg-brand/10 px-3 text-brand"
+        className="inline-flex items-center justify-center border border-kui-brand/40 bg-kui-brand/10 px-3 text-kui-brand"
         style={{
           height,
           paddingInline: paddingX,
@@ -214,7 +214,9 @@ function SizeCard({
     <div
       className={cn(
         "overflow-hidden rounded-lg border transition-colors",
-        isOpen ? "border-brand/50" : "border-border hover:border-brand/50",
+        isOpen
+          ? "border-kui-brand/50"
+          : "border-kui-border hover:border-kui-brand/50",
       )}
     >
       <button
@@ -224,23 +226,23 @@ function SizeCard({
         className="group flex w-full items-center gap-3 p-3 text-left"
       >
         {/* Preview */}
-        <div className="w-30 shrink-0 overflow-hidden rounded-md border border-border">
+        <div className="w-30 shrink-0 overflow-hidden rounded-md border border-kui-border">
           <SizePreview size={size} />
         </div>
 
         {/* Information */}
         <span className="min-w-0 flex-1">
           <span className="flex items-center gap-2">
-            <span className="font-medium text-text">{name}</span>
+            <span className="font-medium text-kui-text">{name}</span>
 
             {isOpen && (
-              <span className="rounded-full bg-brand/10 px-1.5 py-0.5 font-mono text-[9px] uppercase text-brand">
+              <span className="rounded-full bg-kui-brand/10 px-1.5 py-0.5 font-mono text-[9px] uppercase text-kui-brand">
                 editing
               </span>
             )}
           </span>
 
-          <span className="mt-1 block font-mono text-[10px] text-text-muted">
+          <span className="mt-1 block font-mono text-[10px] text-kui-text-muted">
             {definedCount}/{SIZE_KEYS.length} properties
           </span>
         </span>
@@ -262,7 +264,7 @@ function SizeCard({
                 onRemove();
               }
             }}
-            className="flex h-7 w-7 items-center justify-center rounded-md text-text-muted opacity-0 transition-colors group-hover:opacity-100 hover:bg-destructive/10 hover:text-destructive"
+            className="flex h-7 w-7 items-center justify-center rounded-md text-kui-text-muted opacity-0 transition-colors group-hover:opacity-100 hover:bg-kui-destructive/10 hover:text-kui-destructive"
           >
             <Trash2 size={13} />
           </span>
@@ -270,15 +272,15 @@ function SizeCard({
           <ChevronDown
             size={16}
             className={cn(
-              "text-text-muted transition-transform",
-              isOpen && "rotate-180 text-brand",
+              "text-kui-text-muted transition-transform",
+              isOpen && "rotate-180 text-kui-brand",
             )}
           />
         </span>
       </button>
 
       {isOpen && (
-        <div className="border-t border-border bg-surface/30 p-3">
+        <div className="border-t border-kui-border bg-kui-surface/30 p-3">
           <div className="space-y-2">
             {SIZE_KEYS.map((key) => (
               <SizeValueField
@@ -389,9 +391,11 @@ export function SizeEditor({ theme, onChange }: SizeEditorProps) {
     <section className="space-y-4">
       {/* Header */}
       <div>
-        <h3 className="font-mono text-xs uppercase text-text-muted">Sizes</h3>
+        <h3 className="font-mono text-xs uppercase text-kui-text-muted">
+          Sizes
+        </h3>
 
-        <p className="mt-1 text-xs text-text-muted">
+        <p className="mt-1 text-xs text-kui-text-muted">
           Configure the dimensions and spacing used by component size recipes.
         </p>
       </div>
@@ -420,23 +424,23 @@ export function SizeEditor({ theme, onChange }: SizeEditorProps) {
 
       {/* Empty state */}
       {sizeEntries.length === 0 && (
-        <div className="rounded-lg border border-dashed border-border p-6 text-center">
-          <p className="text-sm text-text-muted">
+        <div className="rounded-lg border border-dashed border-kui-border p-6 text-center">
+          <p className="text-sm text-kui-text-muted">
             No override sizes defined yet.
           </p>
 
-          <p className="mt-1 text-xs text-text-muted">
+          <p className="mt-1 text-xs text-kui-text-muted">
             Add a size below to start customizing it.
           </p>
         </div>
       )}
 
       {/* Add size */}
-      <div className="rounded-lg border border-border bg-surface/30 p-3">
+      <div className="rounded-lg border border-kui-border bg-kui-surface/30 p-3">
         <div className="mb-2">
-          <p className="text-sm font-medium text-text">Add size</p>
+          <p className="text-sm font-medium text-kui-text">Add size</p>
 
-          <p className="text-xs text-text-muted">
+          <p className="text-xs text-kui-text-muted">
             Create a custom size such as <code className="font-mono">xl</code>{" "}
             or <code className="font-mono">compact</code>.
           </p>
@@ -463,10 +467,10 @@ export function SizeEditor({ theme, onChange }: SizeEditorProps) {
             disabled={!newName.trim() || Boolean(sizes[newName.trim()])}
             className={cn(
               "inline-flex items-center gap-1.5",
-              "rounded-md border border-border",
-              "px-3 text-sm text-text-muted",
+              "rounded-md border border-kui-border",
+              "px-3 text-sm text-kui-text-muted",
               "transition-colors",
-              "hover:border-brand hover:text-brand",
+              "hover:border-kui-brand hover:text-kui-brand",
               "disabled:pointer-events-none disabled:opacity-50",
             )}
           >

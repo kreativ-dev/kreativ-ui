@@ -1,5 +1,10 @@
 import type { ElementType, ReactNode, CSSProperties } from "react";
-import type { BaseProps, ResponsiveValue, Size, Orientation } from "@/types";
+import type {
+  BaseProps,
+  ResponsiveValue,
+  Size,
+  Orientation,
+} from "@splenddev/kreativ-core/types";
 
 export interface StackProps extends BaseProps {
   /**

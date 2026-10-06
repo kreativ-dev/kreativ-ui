@@ -1,6 +1,9 @@
 import { useCallback, useState } from "react";
 
-import type { RecipeDefinition, DefaultRecipeCollection } from "@/types";
+import type {
+  RecipeDefinition,
+  DefaultRecipeCollection,
+} from "@splenddev/kreativ-core/types";
 
 import { SectionHeader } from "../../../../shared/SectionHeader";
 import { EmptyState } from "../../../../shared/EmptyState";
@@ -96,7 +99,6 @@ export function VariantsEditor({
     },
     [variants, onChange, onReset],
   );
-
 
   return (
     <div className="p-3">

@@ -14,10 +14,7 @@ import { resolveRecipe } from "@/theme/recipes/resolveRecipe";
 import {
   useClearableField,
   useKeyboardShortcuts,
-  useSizeStyle,
   useStatusTransition,
-  useTheme,
-  useTypography,
 } from "@/hooks";
 
 import { ClearIcon, Eye, EyeOff, inputKindIcons, Spinner } from "./Input.icons";
@@ -31,6 +28,8 @@ import {
   useOptionalButtonGroupItemContext,
 } from "../../ButtonGroup/ButtonGroup.context";
 import { Adornment } from "../../Adornment";
+import { useTheme } from "@splenddev/kreativ-core";
+import { useSizeStyle, useTypography } from "@splenddev/kreativ-core/hooks";
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
@@ -170,9 +169,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           aria-pressed={visible}
           className="
             flex items-center justify-center
-            text-text-muted
+            text-kui-text-muted
             transition-colors
-            hover:text-text
+            hover:text-kui-text
             focus-visible:outline
             focus-visible:outline-2
             focus-visible:outline-offset-2
@@ -206,9 +205,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           aria-label="Clear input"
           className="
             flex items-center justify-center
-            text-text-muted
+            text-kui-text-muted
             transition-colors
-            hover:text-text
+            hover:text-kui-text
             focus-visible:outline
             focus-visible:outline-2
             focus-visible:outline-offset-2

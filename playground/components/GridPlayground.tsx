@@ -6,7 +6,7 @@ import { Grid2X2 } from "lucide-react";
 
 function DemoBox({ label }: { label: string }) {
   return (
-    <div className="flex h-16 items-center justify-center rounded-lg border border-border bg-bg font-mono text-xs text-text-muted">
+    <div className="flex h-16 items-center justify-center rounded-lg border border-kui-border bg-bg font-mono text-xs text-kui-text-muted">
       {label}
     </div>
   );

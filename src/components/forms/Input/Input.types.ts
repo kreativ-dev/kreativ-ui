@@ -12,7 +12,7 @@ import type {
   UndoRedoProps,
   ValueProps,
   VariantProps,
-} from "@/types";
+} from "@splenddev/kreativ-core/types";
 
 export type InputVariant = "outline" | "filled" | "ghost";
 

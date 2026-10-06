@@ -43,7 +43,7 @@ export function CardPlayground() {
     `    <p className="text-sm text-muted">Card body content goes here.</p>`,
     `  </Card.Body>`,
     withFooter &&
-      `  <Card.Footer>\n    <button className="text-sm text-brand">Action</button>\n  </Card.Footer>`,
+      `  <Card.Footer>\n    <button className="text-sm text-kui-brand">Action</button>\n  </Card.Footer>`,
     `</Card>`,
   ]
     .filter(Boolean)
@@ -137,7 +137,7 @@ export function CardPlayground() {
 
           {withFooter && (
             <Card.Footer>
-              <button className="text-sm text-brand">Action</button>
+              <button className="text-sm text-kui-brand">Action</button>
             </Card.Footer>
           )}
         </Card>

@@ -93,14 +93,14 @@ export const MultiSelectTrigger = forwardRef<
         className="flex flex-1 flex-wrap items-center gap-1 bg-transparent text-left outline-none cursor-pointer disabled:cursor-not-allowed"
       >
         {ctx.value.length === 0 && (
-          <span className="text-text-muted">{ctx.placeholder}</span>
+          <span className="text-kui-text-muted">{ctx.placeholder}</span>
         )}
         {visible.map((v) => {
           const meta = ctx.items.get(v);
           return (
             <span
               key={v}
-              className={cn(chipSizeVariants({}), "bg-brand/15 text-brand")}
+              className={cn(chipSizeVariants({}), "bg-kui-brand/15 text-kui-brand")}
             >
               {meta?.label ?? v}
               <span
@@ -123,7 +123,7 @@ export const MultiSelectTrigger = forwardRef<
         {overflow > 0 && (
           <span
             className={cn(
-              "text-text-muted",
+              "text-kui-text-muted",
               ctx.size === "sm"
                 ? "text-[10px]"
                 : ctx.size === "md"
@@ -146,7 +146,7 @@ export const MultiSelectTrigger = forwardRef<
             e.stopPropagation();
             ctx.onClear();
           }}
-          className="flex h-4 w-4 shrink-0 items-center justify-center text-text-muted transition-colors hover:text-text"
+          className="flex h-4 w-4 shrink-0 items-center justify-center text-kui-text-muted transition-colors hover:text-kui-text"
         >
           <ClearIcon size={14} />
         </button>

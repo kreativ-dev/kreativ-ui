@@ -1,4 +1,4 @@
-import { defineRecipe } from "@/theme/recipes";
+import { defineRecipe } from "@splenddev/kreativ-core";
 
 export const switchRecipe = defineRecipe({
   base: [
@@ -8,22 +8,22 @@ export const switchRecipe = defineRecipe({
     "duration-[var(--kui-duration-fast)]",
 
     "peer-focus-visible:ring-2",
-    "peer-focus-visible:ring-brand",
+    "peer-focus-visible:ring-kui-brand",
     "peer-focus-visible:ring-offset-1",
     "peer-focus-visible:ring-offset-surface",
   ].join(" "),
 
   variants: {
     checked: {
-      true: "bg-brand",
-      false: "bg-border",
+      true: "bg-kui-brand",
+      false: "bg-kui-border",
     },
 
     state: {
       none: "",
-      error: "bg-destructive",
-      success: "bg-success",
-      warning: "bg-warning",
+      error: "bg-kui-destructive",
+      success: "bg-kui-success",
+      warning: "bg-kui-warning",
     },
 
     disabled: {

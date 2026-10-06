@@ -1,4 +1,4 @@
-import { defineRecipe } from "@/theme/recipes";
+import { defineRecipe } from "@splenddev/kreativ-core";
 
 export const formControlBase =
   "group relative inline-flex items-center " +
@@ -9,27 +9,27 @@ export const formControlBase =
   "focus-within:ring-offset-surface";
 
 export const formControlVariants = {
-  outline: "border border-border bg-transparent text-text",
+  outline: "border border-kui-border bg-transparent text-kui-text",
 
-  filled: "border border-transparent bg-surface-raised text-text",
+  filled: "border border-transparent bg-kui-surface-raised text-kui-text",
 
-  ghost: "border border-transparent bg-transparent text-text",
+  ghost: "border border-transparent bg-transparent text-kui-text",
 } as const;
 
 const standaloneStates = {
-  none: "hover:border-brand focus-within:ring-2 focus-within:ring-brand/20",
+  none: "hover:border-kui-brand focus-within:ring-2 focus-within:ring-kui-brand/20",
 
   error:
-    "border-destructive hover:border-destructive " +
-    "focus-within:ring-2 focus-within:ring-destructive/20",
+    "border-kui-destructive hover:border-kui-destructive " +
+    "focus-within:ring-2 focus-within:ring-kui-destructive/20",
 
   success:
-    "border-success hover:border-success " +
-    "focus-within:ring-2 focus-within:ring-success/20",
+    "border-kui-success hover:border-kui-success " +
+    "focus-within:ring-2 focus-within:ring-kui-success/20",
 
   warning:
-    "border-warning hover:border-warning " +
-    "focus-within:ring-2 focus-within:ring-warning/20",
+    "border-kui-warning hover:border-kui-warning " +
+    "focus-within:ring-2 focus-within:ring-kui-warning/20",
 } as const;
 
 const borderlessControl =
@@ -69,8 +69,8 @@ export const formControlRecipe = defineRecipe({
       true:
         "cursor-not-allowed " +
         "opacity-50 " +
-        "border-border " +
-        "hover:border-border " +
+        "border-kui-border " +
+        "hover:border-kui-border " +
         "focus-within:ring-0",
 
       false: "",
@@ -157,7 +157,8 @@ export const formControlRecipe = defineRecipe({
         disabled: true,
         state: "error",
       },
-      className: "border-border hover:border-border focus-within:ring-0",
+      className:
+        "border-kui-border hover:border-kui-border focus-within:ring-0",
     },
 
     {
@@ -165,7 +166,8 @@ export const formControlRecipe = defineRecipe({
         disabled: true,
         state: "success",
       },
-      className: "border-border hover:border-border focus-within:ring-0",
+      className:
+        "border-kui-border hover:border-kui-border focus-within:ring-0",
     },
 
     {
@@ -173,7 +175,8 @@ export const formControlRecipe = defineRecipe({
         disabled: true,
         state: "warning",
       },
-      className: "border-border hover:border-border focus-within:ring-0",
+      className:
+        "border-kui-border hover:border-kui-border focus-within:ring-0",
     },
 
     {

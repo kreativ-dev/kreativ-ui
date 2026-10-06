@@ -1,6 +1,6 @@
 import type { InputHTMLAttributes, ReactNode } from "react";
 
-import type { Styleable } from "@/types/common";
+import type { Styleable } from "@splenddev/kreativ-core/types";
 
 export type SwitchSize = "xs" | "sm" | "md" | "lg";
 

@@ -1,69 +1,74 @@
-<<<<<<< HEAD
-import { Typography } from "@/types";
-
-export const defaultTypography: Typography = {
-  body: {
-    fontFamily: "{fonts.body}",
-    fontSize: "{fontSizes.md}",
-=======
-import { defineTypography } from "../typography";
+import { defineTypography } from "@splenddev/kreativ-core";
 
 export const defaultTypography = defineTypography({
   body: {
     fontFamily: "{fonts.body}",
->>>>>>> refactoring
     fontWeight: "{fontWeights.normal}",
     lineHeight: "{lineHeights.normal}",
   },
-
   bodySmall: {
     fontFamily: "{fonts.body}",
-<<<<<<< HEAD
-    fontSize: "{fontSizes.sm}",
-=======
->>>>>>> refactoring
     fontWeight: "{fontWeights.normal}",
     lineHeight: "{lineHeights.normal}",
   },
-
   heading: {
     fontFamily: "{fonts.heading}",
     fontSize: "{fontSizes.2xl}",
     fontWeight: "{fontWeights.bold}",
     lineHeight: "{lineHeights.tight}",
   },
-
   headingSmall: {
     fontFamily: "{fonts.heading}",
     fontSize: "{fontSizes.xl}",
     fontWeight: "{fontWeights.semibold}",
     lineHeight: "{lineHeights.tight}",
   },
-
-<<<<<<< HEAD
-=======
   label: {
     fontFamily: "{fonts.body}",
     fontWeight: "{fontWeights.medium}",
     lineHeight: "{lineHeights.normal}",
   },
-
->>>>>>> refactoring
   caption: {
     fontFamily: "{fonts.body}",
     fontSize: "{fontSizes.xs}",
     fontWeight: "{fontWeights.normal}",
     lineHeight: "{lineHeights.normal}",
   },
-
   mono: {
     fontFamily: "{fonts.mono}",
     fontSize: "{fontSizes.xs}",
     fontWeight: "{fontWeights.normal}",
     lineHeight: "{lineHeights.normal}",
   },
-<<<<<<< HEAD
-};
-=======
+
+  sizeXs: {
+    fontFamily: "{fonts.body}",
+    fontSize: "{fontSizes.xs}",
+    fontWeight: "{fontWeights.normal}",
+    lineHeight: "{lineHeights.normal}",
+  },
+  sizeSm: {
+    fontFamily: "{fonts.body}",
+    fontSize: "{fontSizes.sm}",
+    fontWeight: "{fontWeights.normal}",
+    lineHeight: "{lineHeights.normal}",
+  },
+  sizeMd: {
+    fontFamily: "{fonts.body}",
+    fontSize: "{fontSizes.sm}",
+    fontWeight: "{fontWeights.normal}",
+    lineHeight: "{lineHeights.normal}",
+  },
+  sizeLg: {
+    fontFamily: "{fonts.body}",
+    fontSize: "{fontSizes.md}",
+    fontWeight: "{fontWeights.normal}",
+    lineHeight: "{lineHeights.normal}",
+  },
+  sizeXl: {
+    fontFamily: "{fonts.body}",
+    fontSize: "{fontSizes.xl}",
+    fontWeight: "{fontWeights.medium}",
+    lineHeight: "{lineHeights.tight}",
+  },
 });
->>>>>>> refactoring

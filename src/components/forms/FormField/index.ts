@@ -5,6 +5,5 @@ export { FormFieldMessage } from "./FormFieldMessage";
 export { FormFieldControl } from "./FormFieldControl";
 export type {
   FormFieldProps,
-  FormFieldStatus,
   FormFieldMessageProps,
 } from "./FormField.types";

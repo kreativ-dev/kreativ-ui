@@ -14,7 +14,7 @@ export function SelectLabel({ children, className }: SelectLabelProps) {
     }, [group, id]);
 
     return (
-        <div id={id} className={cn("px-2.5 py-1.5 font-mono text-[11px] text-text-muted", className)}>
+        <div id={id} className={cn("px-2.5 py-1.5 font-mono text-[11px] text-kui-text-muted", className)}>
             {children}
         </div>
     );

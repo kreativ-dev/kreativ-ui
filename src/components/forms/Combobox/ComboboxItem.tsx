@@ -45,9 +45,9 @@ export function ComboboxItem({
       onMouseDown={(e) => e.preventDefault()}
       onClick={() => !disabled && ctx.onValueChange(value)}
       className={cn(
-        "flex cursor-pointer items-center rounded-[calc(var(--kui-radii-md)-2px)] px-2.5 py-1.5 text-sm text-text transition-colors",
-        active && "bg-brand/15 text-brand",
-        selected && !active && "bg-surface-raised",
+        "flex cursor-pointer items-center rounded-[calc(var(--kui-radii-md)-2px)] px-2.5 py-1.5 text-sm text-kui-text transition-colors",
+        active && "bg-kui-brand/15 text-kui-brand",
+        selected && !active && "bg-kui-surface-raised",
         disabled && "pointer-events-none cursor-not-allowed opacity-50",
         className,
       )}

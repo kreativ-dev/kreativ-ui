@@ -1,5 +1,5 @@
+import { RecipeDefinition, RecipeStyle, RecipeVariantValue } from "@splenddev/kreativ-core";
 import { cn } from "../../utils/cn";
-import type { RecipeDefinition, RecipeVariantValue } from "@/types";
 
 export interface RecipeProps {
   [key: string]: RecipeVariantValue | undefined;
@@ -25,7 +25,7 @@ export function resolveRecipe(
     ...props,
   };
 
-  const classes: string[] = [];
+  const classes: RecipeStyle[] = [];
 
   if (recipe.base) {
     classes.push(recipe.base);

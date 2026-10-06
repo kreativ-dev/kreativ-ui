@@ -23,7 +23,7 @@ export function ComboboxContent({
       aria-labelledby={ctx.triggerId}
       data-side={side}
       className={cn(
-        "animate-kui-scale-in absolute z-50 max-h-64 w-full overflow-auto rounded-[var(--kui-radii-md)] border border-border bg-surface p-1 shadow-lg",
+        "animate-kui-scale-in absolute z-50 max-h-64 w-full overflow-auto rounded-[var(--kui-radii-md)] border border-kui-border bg-kui-surface p-1 shadow-lg",
         side === "bottom" ? "top-full mt-1" : "bottom-full mb-1",
         className,
       )}

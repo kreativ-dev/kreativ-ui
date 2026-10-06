@@ -39,22 +39,22 @@ export function Radio({
           aria-hidden="true"
           className={cn(
             radioBubbleVariants({ size: group.size, state: group.state, checked, disabled }),
-            "peer-focus-visible:ring-2 peer-focus-visible:ring-brand peer-focus-visible:ring-offset-1"
+            "peer-focus-visible:ring-2 peer-focus-visible:ring-kui-brand peer-focus-visible:ring-offset-1"
           )}
         >
-          {checked && <div className={cn("rounded-full bg-brand", radioDotSizes[group.size])} />}
+          {checked && <div className={cn("rounded-full bg-kui-brand", radioDotSizes[group.size])} />}
         </div>
       </div>
 
       {(label || description) && (
         <div className="flex flex-col gap-0.5">
           {label && (
-            <label htmlFor={id} className={cn("text-sm text-text", !disabled && "cursor-pointer", group.size==='sm' && "text-xs")}>
+            <label htmlFor={id} className={cn("text-sm text-kui-text", !disabled && "cursor-pointer", group.size==='sm' && "text-xs")}>
               {label}
             </label>
           )}
           {description && (
-            <p id={descriptionId} className={cn("text-xs text-text-muted", group.size==='sm' && "text-[10px]")}>
+            <p id={descriptionId} className={cn("text-xs text-kui-text-muted", group.size==='sm' && "text-[10px]")}>
               {description}
             </p>
           )}

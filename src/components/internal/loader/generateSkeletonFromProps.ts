@@ -1,5 +1,5 @@
 import type { ComponentType } from "react";
-import type { Theme } from "@/types";
+import type { Theme } from "@splenddev/kreativ-core/types";
 import { isResponsiveValue } from "@/utils/responsive";
 import {
   isKreativComponent,

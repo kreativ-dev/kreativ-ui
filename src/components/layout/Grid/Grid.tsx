@@ -1,8 +1,7 @@
 "use client";
 
 import { forwardRef } from "react";
-import { useMergedResponsiveStyles } from "@/hooks/useMergedResponsiveStyles";
-import { useResponsiveStyles } from "@/hooks/useResponsiveStyles";
+import { useMergedResponsiveStyles, useResponsiveStyles } from "@/hooks/";
 import { ResponsiveStyle } from "@/components/internal/ResponsiveStyle";
 import type { GridProps } from "./Grid.types";
 import { cn } from "@/utils/cn";

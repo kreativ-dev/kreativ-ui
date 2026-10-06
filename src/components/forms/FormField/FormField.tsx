@@ -22,7 +22,7 @@ import {
 
 import { cn } from "@/utils";
 import { isDev } from "@/utils/env";
-import { ReportedValidity } from "@/types";
+import { ReportedValidity } from "@splenddev/kreativ-core/types";
 
 export function FormField({
   id: externalId,

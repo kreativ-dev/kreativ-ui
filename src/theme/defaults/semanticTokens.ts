@@ -1,7 +1,7 @@
-import { SemanticTokens } from "@/types";
-import { defineSemanticToken } from "@/theme";
+import type { SemanticTokens } from "@splenddev/kreativ-core/types";
+import { defineSemanticToken } from "@splenddev/kreativ-core";
 
-export const defaultSemanticTokens: SemanticTokens = {
+export const defaultSemanticTokens = {
   colors: {
     brand: defineSemanticToken("{colors.blue.500}", "{colors.blue.400}"),
 
@@ -61,4 +61,4 @@ export const defaultSemanticTokens: SemanticTokens = {
 
     shadowColor: defineSemanticToken("{colors.gray.200}", "{colors.gray.600}"),
   },
-};
+} satisfies SemanticTokens;

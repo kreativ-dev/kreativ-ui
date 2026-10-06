@@ -1,7 +1,10 @@
 import React from "react";
 import { Trash2 } from "lucide-react";
 
-import type { RecipeCompoundVariant, RecipeVariantValue } from "@/types";
+import type {
+  RecipeCompoundVariant,
+  RecipeVariantValue,
+} from "@splenddev/kreativ-core/types";
 import { ConditionList } from "../../../../shared/ConditionList";
 import { TextField } from "../../../../shared/TextField";
 
@@ -19,15 +22,15 @@ export const CompoundItem = React.memo(function CompoundItem({
   onRemove,
 }: CompoundItemProps) {
   return (
-    <div className="space-y-3 rounded-lg border border-border bg-linear-to-br from-surface/40 to-surface/20 p-4">
+    <div className="space-y-3 rounded-lg border border-kui-border bg-linear-to-br from-kui-surface/40 to-kui-surface/20 p-4">
       <div className="flex items-center justify-between">
-        <span className="text-sm font-semibold text-text">
+        <span className="text-sm font-semibold text-kui-text">
           Compound {index + 1}
         </span>
         <button
           type="button"
           onClick={() => onRemove(index)}
-          className="text-text-muted hover:text-destructive transition-colors"
+          className="text-kui-text-muted hover:text-kui-destructive transition-colors"
           aria-label={`Remove compound ${index + 1}`}
         >
           <Trash2 size={16} />
@@ -35,7 +38,7 @@ export const CompoundItem = React.memo(function CompoundItem({
       </div>
 
       <div>
-        <label className="block text-xs font-medium text-text-muted mb-2">
+        <label className="block text-xs font-medium text-kui-text-muted mb-2">
           Conditions
         </label>
         <ConditionList
@@ -69,7 +72,7 @@ export const CompoundItem = React.memo(function CompoundItem({
       </div>
 
       <div>
-        <label className="block text-xs font-medium text-text-muted mb-2">
+        <label className="block text-xs font-medium text-kui-text-muted mb-2">
           Applied class
         </label>
         <TextField

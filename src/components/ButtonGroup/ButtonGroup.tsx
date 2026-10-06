@@ -2,15 +2,15 @@
 
 import { type CSSProperties, forwardRef, useMemo } from "react";
 import { cn } from "@/utils/cn";
-import { useTheme } from "@/hooks/useTheme";
 import { resolveRecipe } from "@/theme/recipes/resolveRecipe";
 import { ButtonGroupContext } from "./ButtonGroup.context";
 import type { ButtonGroupProps } from "./ButtonGroup.types";
 import { ButtonGroupSeparator } from "./ButtonGroupSeparator";
 import { ButtonGroupText } from "./ButtonGroupText";
 import { ButtonGroupLabel } from "./ButtonGroupLabel";
-import { useSizeToken } from "@/hooks";
 import { ButtonGroupItem } from "./ButtonGroupItem";
+import { useTheme } from "@splenddev/kreativ-core";
+import { useSizeToken } from "@splenddev/kreativ-core/hooks";
 
 const ButtonGroupRoot = forwardRef<HTMLDivElement, ButtonGroupProps>(
   (
@@ -52,10 +52,7 @@ const ButtonGroupRoot = forwardRef<HTMLDivElement, ButtonGroupProps>(
           data-kui-button-group=""
           data-orientation={orientation}
           data-attached={attached || undefined}
-          className={cn(
-            recipeClasses,
-            className,
-          )}
+          className={cn(recipeClasses, className)}
           style={
             {
               "--kui-button-group-separator-size": separatorSizeToken,

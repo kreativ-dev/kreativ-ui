@@ -11,7 +11,11 @@ import { SegmentedControl } from "./shared/SegmentedControl";
 import { Chip } from "./shared/Chip";
 import { Playground } from "./shared/Playground";
 
-import type { ThemeAnimation, Orientation, Size } from "@/types";
+import type {
+  ThemeAnimation,
+  Orientation,
+  Size,
+} from "@splenddev/kreativ-core/types";
 
 const SIZES: Size[] = ["xs", "sm", "md", "lg", "xl"];
 
@@ -88,7 +92,7 @@ export function ThemeTogglerPlayground() {
       />
 
       <div className="mb-5">
-        <p className="mb-2 font-mono text-[11px] text-text-muted">flags</p>
+        <p className="mb-2 font-mono text-[11px] text-kui-text-muted">flags</p>
 
         <div className="flex flex-wrap gap-1.5">
           <Chip

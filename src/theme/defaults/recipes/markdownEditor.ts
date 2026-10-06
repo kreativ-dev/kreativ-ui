@@ -1,4 +1,4 @@
-import { defineRecipe } from "@/theme/recipes";
+import { defineRecipe } from "@splenddev/kreativ-core";
 
 export const markdownEditorRecipe = defineRecipe({
   base:
@@ -8,28 +8,28 @@ export const markdownEditorRecipe = defineRecipe({
 
   variants: {
     variant: {
-      outline: "border border-border bg-transparent",
-      filled: "border border-transparent bg-surface-raised",
+      outline: "border border-kui-border bg-transparent",
+      filled: "border border-transparent bg-kui-surface-raised",
       ghost: "border border-transparent bg-transparent",
     },
 
     state: {
-      none: "hover:border-brand focus-within:ring-2 focus-within:ring-brand/20",
+      none: "hover:border-kui-brand focus-within:ring-2 focus-within:ring-kui-brand/20",
 
       error:
-        "border-destructive focus-within:ring-2 focus-within:ring-destructive/20",
+        "border-kui-destructive focus-within:ring-2 focus-within:ring-kui-destructive/20",
 
       success:
-        "border-success focus-within:ring-2 focus-within:ring-success/20",
+        "border-kui-success focus-within:ring-2 focus-within:ring-kui-success/20",
 
       warning:
-        "border-warning focus-within:ring-2 focus-within:ring-warning/20",
+        "border-kui-warning focus-within:ring-2 focus-within:ring-kui-warning/20",
     },
-    
+
     disabled: {
       true:
         "cursor-not-allowed opacity-50 " +
-        "border-border hover:border-border " +
+        "border-kui-border hover:border-kui-border " +
         "focus-within:ring-0",
       false: "",
     },

@@ -24,10 +24,10 @@ export const VariantItem = React.memo(function VariantItem({
   const optionEntries = Object.entries(options);
 
   return (
-    <div className="space-y-3 rounded-lg border border-border bg-linear-to-br from-surface/40 to-surface/20 p-4">
+    <div className="space-y-3 rounded-lg border border-kui-border bg-linear-to-br from-kui-surface/40 to-kui-surface/20 p-4">
       <div className="flex items-center justify-between gap-3">
         <div className="flex-1 min-w-0">
-          <label className="block text-xs font-medium text-text-muted mb-1.5">
+          <label className="block text-xs font-medium text-kui-text-muted mb-1.5">
             Variant name
           </label>
           <TextField
@@ -40,7 +40,7 @@ export const VariantItem = React.memo(function VariantItem({
         <button
           type="button"
           onClick={onRemove}
-          className="mt-6 text-text-muted hover:text-destructive transition-colors"
+          className="mt-6 text-kui-text-muted hover:text-kui-destructive transition-colors"
           aria-label={`Remove ${name}`}
         >
           <Trash2 size={16} />
@@ -48,7 +48,7 @@ export const VariantItem = React.memo(function VariantItem({
       </div>
 
       <div>
-        <label className="block text-xs font-medium text-text-muted mb-2">
+        <label className="block text-xs font-medium text-kui-text-muted mb-2">
           Options ({optionEntries.length})
         </label>
         <div className="space-y-2">
@@ -63,7 +63,7 @@ export const VariantItem = React.memo(function VariantItem({
                 onChange={() => {}}
                 clearable={false}
                 aria-label="Variant option"
-                className="bg-surface/50"
+                className="bg-kui-surface/50"
                 size="xs"
               />
               <TextField
@@ -75,7 +75,7 @@ export const VariantItem = React.memo(function VariantItem({
               <button
                 type="button"
                 onClick={() => onOptionRemove(optName)}
-                className="px-2 py-1.5 text-text-muted hover:text-destructive transition-colors"
+                className="px-2 py-1.5 text-kui-text-muted hover:text-kui-destructive transition-colors"
                 aria-label={`Remove ${optName}`}
               >
                 <Trash2 size={13} />

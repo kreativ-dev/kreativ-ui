@@ -1,6 +1,6 @@
 import { Trash2 } from "lucide-react";
 
-import type { RecipeVariantValue } from "@/types";
+import type { RecipeVariantValue } from "@splenddev/kreativ-core/types";
 import { TextField } from "./TextField";
 import { AddInput } from "./AddInput";
 
@@ -45,7 +45,7 @@ export function ConditionList({
               <button
                 type="button"
                 onClick={() => onRemoveCondition(key)}
-                className="px-1 py-1.5 text-text-muted hover:text-destructive transition-colors"
+                className="px-1 py-1.5 text-kui-text-muted hover:text-kui-destructive transition-colors"
                 aria-label={`Remove ${key} condition`}
               >
                 <Trash2 size={13} />

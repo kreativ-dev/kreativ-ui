@@ -1,13 +1,13 @@
-import { defineRecipe } from "@/theme/recipes";
+import { defineRecipe } from "@splenddev/kreativ-core";
 
 export const linkRecipe = defineRecipe({
   base: "kui-link",
   variants: {
     variant: {
-      solid: "text-brand hover:text-brand-hover",
-      outline: "text-text-secondary hover:text-brand",
-      ghost: "text-text-secondary hover:text-text",
-      soft: "text-brand hover:text-brand-hover",
+      solid: "text-kui-brand hover:text-kui-brand-hover",
+      outline: "text-kui-text-secondary hover:text-kui-brand",
+      ghost: "text-kui-text-secondary hover:text-kui-text",
+      soft: "text-kui-brand hover:text-kui-brand-hover",
     },
     underline: {
       always: "underline",

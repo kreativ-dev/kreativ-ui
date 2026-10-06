@@ -1,5 +1,5 @@
 import type { ElementType, ReactNode, CSSProperties } from "react";
-import type { BaseColor, TypographyProps } from "@/types";
+import type { BaseColor, TypographyProps } from "@splenddev/kreativ-core/types";
 
 export interface TextProps extends TypographyProps {
   as?: ElementType;

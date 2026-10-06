@@ -1,4 +1,4 @@
-import type { SemanticToken, TokenValue } from "@/types";
+import type { SemanticToken, TokenValue } from "@splenddev/kreativ-core/types";
 
 export function defineToken<T extends TokenValue>(value: T) {
   return {
@@ -54,13 +54,15 @@ export function defineSemanticTokens<
 >(
   tokens: T,
 ): {
-  [K in keyof T]: SemanticToken<T[K] extends { light: infer V; dark: infer _ }
-    ? V extends TokenValue
-      ? V
-      : never
-    : T[K] extends TokenValue
-      ? T[K]
-      : never>;
+  [K in keyof T]: SemanticToken<
+    T[K] extends { light: infer V; dark: infer _ }
+      ? V extends TokenValue
+        ? V
+        : never
+      : T[K] extends TokenValue
+        ? T[K]
+        : never
+  >;
 } {
   return Object.fromEntries(
     Object.entries(tokens).map(([key, entry]) => [

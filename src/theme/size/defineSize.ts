@@ -1,4 +1,4 @@
-import type { SizeScale, SizeToken } from "@/types";
+import type { SizeScale, SizeToken } from "@splenddev/kreativ-core/types";
 
 export function defineSize<T extends SizeToken>(size: T): T {
   return size;

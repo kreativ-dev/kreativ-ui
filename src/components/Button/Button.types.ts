@@ -15,7 +15,7 @@ import type {
   FullWidthProps,
   BaseColor,
   TypographyProps,
-} from "@/types/common";
+} from "@splenddev/kreativ-core/types";
 
 export type ButtonSize = SizeValue | "icon";
 

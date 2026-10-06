@@ -10,7 +10,7 @@ export function ResetButton({ onClick }: ResetButtonProps) {
     <button
       type="button"
       onClick={onClick}
-      className="flex items-center gap-1 font-mono text-[10px] text-text-muted hover:text-destructive transition-colors"
+      className="flex items-center gap-1 font-mono text-[10px] text-kui-text-muted hover:text-kui-destructive transition-colors"
     >
       <RotateCcw size={11} />
       <span>Reset</span>

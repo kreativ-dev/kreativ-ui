@@ -1,11 +1,11 @@
-import { defineRecipe } from "@/theme/recipes";
+import { defineRecipe } from "@splenddev/kreativ-core";
 
 export const inputBase =
   "flex min-w-0 flex-1 " +
   "font-sans " +
   "bg-transparent border-0 outline-none " +
   "transition-colors duration-[var(--kui-duration-fast)] " +
-  "placeholder:text-text-muted " +
+  "placeholder:text-kui-text-muted " +
   "disabled:cursor-not-allowed";
 
 export const inputRecipe = defineRecipe({

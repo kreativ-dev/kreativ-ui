@@ -1,4 +1,7 @@
-import type { BaseBreakpoint, ResponsiveValue } from "@/types";
+import type {
+  BaseBreakpoint,
+  ResponsiveValue,
+} from "@splenddev/kreativ-core/types";
 
 export function isResponsiveValue<T>(
   value: ResponsiveValue<T>,

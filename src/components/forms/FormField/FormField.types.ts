@@ -1,7 +1,6 @@
-import { type BaseProps } from "@/types";
+import { FormFieldStatus, type BaseProps } from "@splenddev/kreativ-core/types";
 import { type ReactNode } from "react";
 
-export type FormFieldStatus = "none" | "error" | "success" | "warning";
 
 export interface FormFieldProps extends Omit<BaseProps, "unstyled"> {
   id?: string;

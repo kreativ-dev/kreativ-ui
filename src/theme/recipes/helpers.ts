@@ -1,4 +1,4 @@
-import { DefaultRecipeCollection } from "@/types";
+import { DefaultRecipeCollection } from "@splenddev/kreativ-core/types";
 import { defaultRecipes } from "../defaults/theme";
 
 export function getRecipeNames(): (keyof DefaultRecipeCollection)[] {

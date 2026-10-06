@@ -74,18 +74,18 @@ export function ComponentsPlayground() {
   }, [handleScroll]);
 
   return (
-    <div className="space-y-8 text-text">
+    <div className="space-y-8 text-kui-text">
       <header
         ref={headerRef}
         className={`
           sticky top-0 z-10 
           transition-colors duration-200 
-          ${isScrolled ? "bg-background" : "bg-transparent"}
-          mb-6 pt-4 pb-2 px-4 border-b border-border
+          ${isScrolled ? "bg-kui-background" : "bg-transparent"}
+          mb-6 pt-4 pb-2 px-4 border-b border-kui-border
 
         `}
       >
-        <p className="mb-1 font-mono text-xs text-brand">kui / playground</p>
+        <p className="mb-1 font-mono text-xs text-kui-brand">kui / playground</p>
         <h1 className="text-xl font-medium">Component Explorer</h1>
 
         <nav className={cn("flex flex-wrap gap-1.5 pb-4 mt-4")}>

@@ -3,14 +3,13 @@
 import { forwardRef, type ReactNode } from "react";
 
 import { cn } from "@/utils/cn";
-import { useTheme } from "@/hooks/useTheme";
-import { useSizeStyle } from "@/hooks/useSizeStyle";
-import { useResponsiveStyles, useSizeToken, useTypography } from "@/hooks";
 import { resolveRecipe } from "@/theme/recipes/resolveRecipe";
 
 import type { ButtonProps } from "./Button.types";
 import { ResponsiveStyle } from "../internal/ResponsiveStyle";
 import { useOptionalButtonGroupContext } from "../ButtonGroup";
+import { useTheme } from "@splenddev/kreativ-core";
+import { useResponsiveStyles, useSizeStyle, useSizeToken, useTypography } from "@splenddev/kreativ-core/hooks";
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -39,7 +38,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const resolvedSize = size ?? group?.size ?? "md";
 
-    const { style: sizeStyle, responsiveStyles } = useSizeStyle(
+    const { style: sizeStyle, responsiveStyles } = useSizeStyle
+    (
       resolvedSize,
       iconOnly,
       "button",

@@ -4,7 +4,7 @@ import type {
   OrientationProps,
   ThemeTogglerTransition,
   VariantProps,
-} from "@/types";
+} from "@splenddev/kreativ-core/types";
 import type { ButtonVariant, ButtonProps } from "../Button/Button.types";
 import type { CSSProperties, ReactNode } from "react";
 

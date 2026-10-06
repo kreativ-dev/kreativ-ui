@@ -28,31 +28,31 @@ export function ThemeStudio({ theme, onChange }: Props) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
   return (
-    <section className=" space-y-8 rounded-lg text-text">
+    <section className=" space-y-8 rounded-lg text-kui-text">
       <header
         ref={headerRef}
-        className={`sticky top-0 z-10 transition-colors duration-200 ${isScrolled ? "bg-background" : "bg-transparent"} mb-4 px-4 pt-4 pb-2 border-b border-border`}
+        className={`sticky top-0 z-10 transition-colors duration-200 ${isScrolled ? "bg-kui-background" : "bg-transparent"} mb-4 px-4 pt-4 pb-2 border-b border-kui-border`}
       >
-        <p className="mb-1 font-mono text-md text-brand uppercase">
+        <p className="mb-1 font-mono text-md text-kui-brand uppercase">
           Kreativ UI{" "}
         </p>
         <h1 className="font-medium text-xl">Theme Studio</h1>
-        <p className="text-sm text-text-muted">Runtime theme overrides</p>
+        <p className="text-sm text-kui-text-muted">Runtime theme overrides</p>
       </header>
       <div className="p-5 space-y-5">
         <ThemePresetManager theme={theme} onChange={onChange} />
 
-        <div className="border-t border-border pt-6">
+        <div className="border-t border-kui-border pt-6">
           <TokenEditor theme={theme} onChange={onChange} />
         </div>
 
-        <div className="border-t border-border pt-6">
+        <div className="border-t border-kui-border pt-6">
           <SizeEditor theme={theme} onChange={onChange} />
         </div>
 
-        <div className="border-t border-border pt-6">
+        <div className="border-t border-kui-border pt-6">
           <RecipeEditor theme={theme} onChange={onChange} />
-          <p className="mt-2 text-xs text-text-muted">
+          <p className="mt-2 text-xs text-kui-text-muted">
             Raw class overrides — advanced usage, applied on top of everything
             above.
           </p>

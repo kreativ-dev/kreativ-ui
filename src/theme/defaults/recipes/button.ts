@@ -1,4 +1,4 @@
-import { defineRecipe } from "@/theme/recipes";
+import { defineRecipe } from "@splenddev/kreativ-core";
 
 export const buttonBase =
   "inline-flex items-center justify-center " +
@@ -8,7 +8,7 @@ export const buttonBase =
   "duration-200 " +
   "will-change-transform " +
   "focus-visible:outline-none focus-visible:ring-2 " +
-  "focus-visible:ring-brand " +
+  "focus-visible:ring-kui-brand " +
   "focus-visible:ring-offset-2 " +
   "focus-visible:ring-offset-surface " +
   "disabled:opacity-60 disabled:pointer-events-none disabled:active:scale-100";
@@ -23,39 +23,39 @@ export const buttonVariants = {
 
 export const buttonColors = {
   brand: {
-    solid: "bg-brand text-brand-fg hover:bg-brand-hover",
-    outline: "border-brand text-brand hover:bg-brand/10",
-    ghost: "text-brand hover:bg-brand/10",
-    soft: "bg-brand/10 text-brand hover:bg-brand/20",
-    link: "text-brand",
+    solid: "bg-kui-brand text-kui-brand-fg hover:bg-kui-brand-hover",
+    outline: "border-kui-brand text-kui-brand hover:bg-kui-brand/10",
+    ghost: "text-kui-brand hover:bg-kui-brand/10",
+    soft: "bg-kui-brand/10 text-kui-brand hover:bg-kui-brand/20",
+    link: "text-kui-brand",
   },
   destructive: {
-    solid: "bg-destructive text-destructive-fg hover:bg-destructive-hover",
-    outline: "border-destructive text-destructive hover:bg-destructive/10",
-    ghost: "text-destructive hover:bg-destructive/10",
-    soft: "bg-destructive/10 text-destructive hover:bg-destructive/20",
-    link: "text-destructive",
+    solid: "bg-kui-destructive text-kui-destructive-fg hover:bg-kui-destructive-hover",
+    outline: "border-kui-destructive text-kui-destructive hover:bg-kui-destructive/10",
+    ghost: "text-kui-destructive hover:bg-kui-destructive/10",
+    soft: "bg-kui-destructive/10 text-kui-destructive hover:bg-kui-destructive/20",
+    link: "text-kui-destructive",
   },
   success: {
-    solid: "bg-success text-success-fg hover:bg-success-hover",
-    outline: "border-success text-success hover:bg-success/10",
-    ghost: "text-success hover:bg-success/10",
-    soft: "bg-success/10 text-success hover:bg-success/20",
-    link: "text-success",
+    solid: "bg-kui-success text-kui-success-fg hover:bg-kui-success-hover",
+    outline: "border-kui-success text-kui-success hover:bg-kui-success/10",
+    ghost: "text-kui-success hover:bg-kui-success/10",
+    soft: "bg-kui-success/10 text-kui-success hover:bg-kui-success/20",
+    link: "text-kui-success",
   },
   warning: {
-    solid: "bg-warning text-warning-fg hover:bg-warning-hover",
-    outline: "border-warning text-warning hover:bg-warning/10",
-    ghost: "text-warning hover:bg-warning/10",
-    soft: "bg-warning/10 text-warning hover:bg-warning/20",
-    link: "text-warning",
+    solid: "bg-kui-warning text-kui-warning-fg hover:bg-kui-warning-hover",
+    outline: "border-kui-warning text-kui-warning hover:bg-kui-warning/10",
+    ghost: "text-kui-warning hover:bg-kui-warning/10",
+    soft: "bg-kui-warning/10 text-kui-warning hover:bg-kui-warning/20",
+    link: "text-kui-warning",
   },
   info: {
-    solid: "bg-info text-info-fg hover:bg-info-hover",
-    outline: "border-info text-info hover:bg-info/10",
-    ghost: "text-info hover:bg-info/10",
-    soft: "bg-info/10 text-info hover:bg-info/20",
-    link: "text-info",
+    solid: "bg-kui-info text-kui-info-fg hover:bg-kui-info-hover",
+    outline: "border-kui-info text-kui-info hover:bg-kui-info/10",
+    ghost: "text-kui-info hover:bg-kui-info/10",
+    soft: "bg-kui-info/10 text-kui-info hover:bg-kui-info/20",
+    link: "text-kui-info",
   },
   white: {
     solid: "bg-white text-black hover:bg-gray-50",
@@ -65,11 +65,11 @@ export const buttonColors = {
     link: "text-white",
   },
   neutral: {
-    solid: "bg-surface-raised text-text hover:bg-surface-sunken",
-    outline: "border-border text-text hover:bg-surface-raised",
-    ghost: "text-text hover:bg-surface-raised",
-    soft: "bg-surface-raised text-text hover:bg-surface-sunken",
-    link: "text-text",
+    solid: "bg-kui-surface-raised text-kui-text hover:bg-kui-surface-sunken",
+    outline: "border-kui-border text-kui-text hover:bg-kui-surface-raised",
+    ghost: "text-kui-text hover:bg-kui-surface-raised",
+    soft: "bg-kui-surface-raised text-kui-text hover:bg-kui-surface-sunken",
+    link: "text-kui-text",
   },
   inherit: {
     solid:

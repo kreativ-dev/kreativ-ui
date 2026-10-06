@@ -31,7 +31,7 @@ export function AddInput({ placeholder, buttonLabel, onAdd }: AddInputProps) {
         type="button"
         onClick={submit}
         disabled={!value.trim()}
-        className="flex items-center gap-1 rounded border border-border px-2 py-1.5 font-mono text-[10px] text-text-muted hover:border-brand hover:text-brand disabled:pointer-events-none disabled:opacity-40 transition-colors"
+        className="flex items-center gap-1 rounded border border-kui-border px-2 py-1.5 font-mono text-[10px] text-kui-text-muted hover:border-kui-brand hover:text-kui-brand disabled:pointer-events-none disabled:opacity-40 transition-colors"
       >
         <Plus size={11} />
         {buttonLabel}

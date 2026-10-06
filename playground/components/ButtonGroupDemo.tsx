@@ -5,8 +5,8 @@ import { SegmentedControl } from "./shared/SegmentedControl";
 import { Chip } from "./shared/Chip";
 import { Playground } from "./shared/Playground";
 import { getAttrs } from "./shared/getAttributes";
-import { ButtonGroup, ButtonGroupSpacing, Input, InputField } from "@/components";
-import { Orientation } from "@/types";
+import { ButtonGroup, ButtonGroupSpacing, Input } from "@/components";
+import { Orientation } from "@splenddev/kreativ-core/types";
 
 type Size = "sm" | "md" | "lg";
 
@@ -52,7 +52,7 @@ export function ButtonGroupDemo() {
       )}
 
       <div className="mb-5">
-        <p className="mb-2 font-mono text-[11px] text-text-muted">flags</p>
+        <p className="mb-2 font-mono text-[11px] text-kui-text-muted">flags</p>
 
         <div className="flex flex-wrap gap-1.5">
           <Chip active={attached} onClick={() => setAttached((v) => !v)}>

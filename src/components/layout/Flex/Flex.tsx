@@ -1,8 +1,10 @@
 "use client";
 
 import { forwardRef } from "react";
-import { useMergedResponsiveStyles } from "@/hooks/useMergedResponsiveStyles";
-import { useResponsiveStyles } from "@/hooks/useResponsiveStyles";
+import {
+  useMergedResponsiveStyles,
+  useResponsiveStyles,
+} from "@/hooks";
 import type { FlexProps } from "./Flex.types";
 import { cn } from "@/utils/cn";
 import { ResponsiveStyle } from "@/components/internal/ResponsiveStyle";

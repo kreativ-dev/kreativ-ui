@@ -22,11 +22,11 @@ export function FormFieldLabel({
     <label
       id={field.labelId}
       htmlFor={field.id}
-      className={cn("font-medium text-text text-sm", className)}
+      className={cn("font-medium text-kui-text text-sm", className)}
     >
       {children}
       {field.required && (
-        <span aria-hidden className="ml-1 text-destructive">
+        <span aria-hidden className="ml-1 text-kui-destructive">
           *
         </span>
       )}

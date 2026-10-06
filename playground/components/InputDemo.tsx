@@ -4,7 +4,6 @@ import { User, Mail, Search, Lock, Eye, Loader2 } from "lucide-react";
 import { Input, FormField } from "../../src";
 
 import type {
-  FormFieldStatus,
   InputKind,
   InputProps,
   InputSize,
@@ -17,6 +16,7 @@ import { SegmentedControl } from "./shared/SegmentedControl";
 import { Chip } from "./shared/Chip";
 import { TextField } from "./shared/TextField";
 import { getAttrs } from "./shared/getAttributes";
+import type { FormFieldStatus } from "@splenddev/kreativ-core/types";
 
 const VARIANTS: InputVariant[] = ["outline", "filled", "ghost"];
 
@@ -144,7 +144,7 @@ export function InputDemo() {
       />
 
       <div className="mb-5">
-        <p className="mb-2 font-mono text-[11px] text-text-muted">flags</p>
+        <p className="mb-2 font-mono text-[11px] text-kui-text-muted">flags</p>
 
         <div className="flex flex-wrap gap-1.5">
           <Chip active={required} onClick={() => setRequired((v) => !v)}>
@@ -188,7 +188,7 @@ export function InputDemo() {
       </div>
 
       <div className="mb-5">
-        <p className="mb-2 font-mono text-[11px] text-text-muted">
+        <p className="mb-2 font-mono text-[11px] text-kui-text-muted">
           input props
         </p>
 
@@ -230,7 +230,7 @@ export function InputDemo() {
 
       {useFormField && (
         <div>
-          <p className="mb-2 font-mono text-[11px] text-text-muted">
+          <p className="mb-2 font-mono text-[11px] text-kui-text-muted">
             FormField props
           </p>
 

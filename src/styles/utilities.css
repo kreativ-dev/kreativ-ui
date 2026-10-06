@@ -4,27 +4,27 @@
     var(--kui-shadow-color, currentColor);
 }
 
-@utility shadow-brand {
+@utility shadow-kui-brand {
   --kui-shadow-color: rgb(var(--kui-brand));
 }
 
-@utility shadow-destructive {
+@utility shadow-kui-destructive {
   --kui-shadow-color: rgb(var(--kui-destructive));
 }
 
-@utility shadow-success {
+@utility shadow-kui-success {
   --kui-shadow-color: rgb(var(--kui-success));
 }
 
-@utility shadow-warning {
+@utility shadow-kui-warning {
   --kui-shadow-color: rgb(var(--kui-warning));
 }
 
-@utility shadow-info {
+@utility shadow-kui-info {
   --kui-shadow-color: rgb(var(--kui-info));
 }
 
-@utility shadow-border {
+@utility shadow-kui-border {
   --kui-shadow-color: rgb(var(--kui-border));
 }
 

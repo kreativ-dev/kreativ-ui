@@ -6,7 +6,7 @@ import { Container } from "lucide-react";
 function DemoBox({ label, width }: { label: string; width?: number }) {
   return (
     <div
-      className="flex h-16 items-center justify-center rounded-lg border border-border bg-bg font-mono text-xs text-text-muted"
+      className="flex h-16 items-center justify-center rounded-lg border border-kui-border bg-bg font-mono text-xs text-kui-text-muted"
       style={{ width }}
     >
       {label}

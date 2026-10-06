@@ -1,8 +1,10 @@
 "use client";
 
 import { createContext, ReactNode, useContext } from "react";
-import { FormFieldStatus } from "./FormField.types";
-import { ReportedValidity } from "@/types";
+import type {
+  ReportedValidity,
+  FormFieldStatus,
+} from "@splenddev/kreativ-core/types";
 
 export interface FormFieldContextValue {
   id: string;

@@ -275,9 +275,9 @@ export function ThemePresetManager({ theme, onChange }: Props) {
   return (
     <section className="space-y-3">
       <div>
-        <h3 className="font-mono text-xs uppercase text-text-muted">Presets</h3>
+        <h3 className="font-mono text-xs uppercase text-kui-text-muted">Presets</h3>
 
-        <p className="mt-1 text-xs text-text-muted">
+        <p className="mt-1 text-xs text-kui-text-muted">
           Start with a predefined visual direction, then customize it below.
         </p>
       </div>
@@ -294,22 +294,22 @@ export function ThemePresetManager({ theme, onChange }: Props) {
               onClick={() => applyPreset(name)}
               className={[
                 "group relative overflow-hidden rounded-lg border",
-                "bg-background text-left",
+                "bg-kui-background text-left",
                 "transition-all duration-300",
                 "hover:-translate-y-0.5 hover:shadow-md",
                 "focus-visible:outline-none",
-                "focus-visible:ring-2 focus-visible:ring-brand",
+                "focus-visible:ring-2 focus-visible:ring-kui-brand",
                 "focus-visible:ring-offset-2",
                 isActive
-                  ? "border-brand ring-2 ring-brand/20"
-                  : "border-border hover:border-brand",
+                  ? "border-kui-brand ring-2 ring-kui-brand/20"
+                  : "border-kui-border hover:border-kui-brand",
               ].join(" ")}
             >
               <span
                 className={[
                   "absolute right-2 top-2 z-1",
                   "flex h-5 w-5 items-center justify-center",
-                  "rounded-full bg-brand text-brand-fg",
+                  "rounded-full bg-kui-brand text-kui-brand-fg",
                   "transition-all duration-200",
                   isActive
                     ? "scale-100 opacity-100"
@@ -324,28 +324,28 @@ export function ThemePresetManager({ theme, onChange }: Props) {
                 <span
                   className={[
                     "relative flex h-20 flex-col overflow-hidden",
-                    "rounded-md border border-border",
-                    "bg-surface p-2",
+                    "rounded-md border border-kui-border",
+                    "bg-kui-surface p-2",
                   ].join(" ")}
                 >
                   <span className="flex items-center justify-between">
                     <span className="flex items-center gap-1.5">
-                      <span className="h-2.5 w-2.5 rounded-full bg-brand" />
-                      <span className="h-2.5 w-2.5 rounded-full bg-brand-hover" />
-                      <span className="h-2.5 w-2.5 rounded-full bg-brand-fg shadow" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-kui-brand" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-kui-brand-hover" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-kui-brand-fg shadow" />
                     </span>
 
-                    <span className="h-2 w-7 rounded-full bg-text-muted/30" />
+                    <span className="h-2 w-7 rounded-full bg-kui-text-muted/30" />
                   </span>
 
                   <span className="mt-auto flex items-end gap-2">
                     <span className="flex flex-1 flex-col gap-1">
-                      <span className="h-2 w-3/4 rounded-full bg-text/20" />
-                      <span className="h-1.5 w-1/2 rounded-full bg-text-muted/20" />
+                      <span className="h-2 w-3/4 rounded-full bg-kui-text/20" />
+                      <span className="h-1.5 w-1/2 rounded-full bg-kui-text-muted/20" />
                     </span>
 
-                    <span className="h-5 w-10 rounded bg-brand">
-                      <span className="block h-full w-full rounded bg-brand" />
+                    <span className="h-5 w-10 rounded bg-kui-brand">
+                      <span className="block h-full w-full rounded bg-kui-brand" />
                     </span>
                   </span>
                 </span>
@@ -355,10 +355,10 @@ export function ThemePresetManager({ theme, onChange }: Props) {
                 className={[
                   "flex items-center justify-between",
                   "border-t px-3 py-2.5",
-                  isActive ? "border-brand/20 bg-brand/5" : "border-border",
+                  isActive ? "border-kui-brand/20 bg-kui-brand/5" : "border-kui-border",
                 ].join(" ")}
               >
-                <span className="text-sm font-medium capitalize text-text">
+                <span className="text-sm font-medium capitalize text-kui-text">
                   {name}
                 </span>
 
@@ -367,8 +367,8 @@ export function ThemePresetManager({ theme, onChange }: Props) {
                     "text-[10px] font-medium uppercase tracking-wide",
                     "transition-opacity",
                     isActive
-                      ? "text-brand opacity-100"
-                      : "text-text-muted opacity-0 group-hover:opacity-100",
+                      ? "text-kui-brand opacity-100"
+                      : "text-kui-text-muted opacity-0 group-hover:opacity-100",
                   ].join(" ")}
                 >
                   {isActive ? "Active" : "Apply"}

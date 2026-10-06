@@ -1,4 +1,4 @@
-import type { DesignTokens } from "@/types";
+import type { DesignTokens } from "@splenddev/kreativ-core/types";
 
 export function resolveTokenReference(
   value: unknown,

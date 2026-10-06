@@ -4,7 +4,7 @@ import { MailIcon, PlusIcon, SearchIcon } from "lucide-react";
 import { SegmentedControl } from "./shared/SegmentedControl";
 import { Chip } from "./shared/Chip";
 import { Playground } from "./shared/Playground";
-import type { ResponsiveValue } from "@/types";
+import type { ResponsiveValue } from "@splenddev/kreativ-core/types";
 import { ButtonColor, ButtonVariant } from "@/components/Button/Button.types";
 import { getAttrs } from "./shared/getAttributes";
 import { buttonColors, buttonVariants } from "@/theme/defaults/recipes/button";
@@ -33,7 +33,6 @@ export function ButtonPlayground() {
   const [rightIcon, setRightIcon] = useState(false);
   const [iconOnly, setIconOnly] = useState(false);
   const [useRender, setUseRender] = useState(false);
-
 
   const availableSizes = useSizes();
 
@@ -64,7 +63,7 @@ export function ButtonPlayground() {
       />
 
       <div className="mb-5">
-        <p className="mb-2 font-mono text-[11px] text-text-muted">size</p>
+        <p className="mb-2 font-mono text-[11px] text-kui-text-muted">size</p>
 
         <div className="mb-2 flex gap-2">
           <Chip active={!responsive} onClick={() => setResponsive(false)}>
@@ -110,7 +109,7 @@ export function ButtonPlayground() {
       </div>
 
       <div className="mb-5">
-        <p className="mb-2 font-mono text-[11px] text-text-muted">flags</p>
+        <p className="mb-2 font-mono text-[11px] text-kui-text-muted">flags</p>
 
         <div className="flex flex-wrap gap-1.5">
           <Chip active={isLoading} onClick={() => setIsLoading((v) => !v)}>
@@ -160,13 +159,13 @@ export function ButtonPlayground() {
   const preview = (
     <Button
       {...buttonProps}
-      render={
-        useRender
-          ? (props) => (
-              <a {...props} href="#" onClick={(e) => e.preventDefault()} />
-            )
-          : undefined
-      }
+      // render={
+      //   useRender
+      //     ? (props) => (
+      //         <a {...props} href="#" onClick={(e) => e.preventDefault()} />
+      //       )
+      //     : undefined
+      // }
     >
       {iconOnly ? <PlusIcon className="h-4 w-4" /> : "Button"}
     </Button>

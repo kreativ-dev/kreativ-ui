@@ -5,7 +5,7 @@ import type {
   DefaultRecipeCollection,
   RecipeDefinition,
   ThemeOverride,
-} from "@/types";
+} from "@splenddev/kreativ-core/types";
 
 import { cn } from "@/utils/cn";
 import { getRecipeNames } from "@/theme/recipes";
@@ -81,21 +81,23 @@ export function RecipeEditor({ theme, onChange }: Props) {
     [theme, onChange],
   );
 
- const hasOverride = useCallback(
-   (component: ComponentName) => {
-     const recipe = theme.recipes?.[component];
+  const hasOverride = useCallback(
+    (component: ComponentName) => {
+      const recipe = theme.recipes?.[component];
 
-     return Boolean(recipe && Object.keys(recipe).length > 0);
-   },
-   [theme.recipes],
- );
+      return Boolean(recipe && Object.keys(recipe).length > 0);
+    },
+    [theme.recipes],
+  );
 
   return (
     <div className="space-y-3">
       <header>
-        <h3 className="font-mono text-xs uppercase text-text-muted">Recipes</h3>
+        <h3 className="font-mono text-xs uppercase text-kui-text-muted">
+          Recipes
+        </h3>
 
-        <p className="mt-1 max-w-xl text-xs leading-relaxed text-text-muted">
+        <p className="mt-1 max-w-xl text-xs leading-relaxed text-kui-text-muted">
           Customize component recipes without modifying Kreativ UI defaults.
           Empty sections continue to use the default recipe.
         </p>
@@ -111,8 +113,8 @@ export function RecipeEditor({ theme, onChange }: Props) {
             <section
               key={component}
               className={cn(
-                "overflow-hidden rounded-lg border bg-background transition-all",
-                isOpen ? "border-brand/50 shadow-sm" : "border-border",
+                "overflow-hidden rounded-lg border bg-kui-background transition-all",
+                isOpen ? "border-kui-brand/50 shadow-sm" : "border-kui-border",
               )}
             >
               <button
@@ -123,12 +125,12 @@ export function RecipeEditor({ theme, onChange }: Props) {
                   flex w-full items-center justify-between
                   gap-3 px-3 py-3 text-left
                   transition-colors
-                  hover:bg-surface/50
+                  hover:bg-kui-surface/50
                 "
               >
                 <span className="min-w-0">
                   <span className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-text">
+                    <span className="text-sm font-medium text-kui-text">
                       {component}
                     </span>
 
@@ -136,11 +138,11 @@ export function RecipeEditor({ theme, onChange }: Props) {
                       <span
                         className="
                           rounded-full
-                          bg-brand/10
+                          bg-kui-brand/10
                           px-1.5 py-0.5
                           font-mono text-[9px]
                           uppercase tracking-wide
-                          text-brand
+                          text-kui-brand
                         "
                       >
                         customized
@@ -148,7 +150,7 @@ export function RecipeEditor({ theme, onChange }: Props) {
                     )}
                   </span>
 
-                  <span className="mt-0.5 block text-xs text-text-muted">
+                  <span className="mt-0.5 block text-xs text-kui-text-muted">
                     {COMPONENT_DESCRIPTIONS[component] ??
                       `Configure the visual recipe used by ${component}.`}
                   </span>
@@ -157,8 +159,8 @@ export function RecipeEditor({ theme, onChange }: Props) {
                 <ChevronDown
                   size={16}
                   className={cn(
-                    "shrink-0 text-text-muted transition-transform",
-                    isOpen && "rotate-180 text-brand",
+                    "shrink-0 text-kui-text-muted transition-transform",
+                    isOpen && "rotate-180 text-kui-brand",
                   )}
                 />
               </button>

@@ -6,7 +6,7 @@ import type {
   BaseVariant,
   DisabledProps,
   ColorProps,
-} from "@/types";
+} from "@splenddev/kreativ-core/types";
 
 export interface LinkProps
   extends

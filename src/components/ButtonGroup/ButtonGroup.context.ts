@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
 import type { ButtonGroupSpacing } from "./ButtonGroup.types";
-import { Orientation } from "@/types";
+import type { Orientation } from "@splenddev/kreativ-core/types";
 import type { ButtonProps } from "../Button/Button.types";
 
 export interface ButtonGroupContextValue {

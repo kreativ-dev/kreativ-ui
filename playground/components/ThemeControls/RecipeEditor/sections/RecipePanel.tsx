@@ -2,7 +2,7 @@ import type {
   RecipeDefinition,
   DefaultRecipeCollection,
   RecipeCompoundVariant,
-} from "@/types";
+} from "@splenddev/kreativ-core/types";
 import { BaseEditor } from "./editor/BaseEditor";
 import { VariantsEditor } from "./editor/VariantsEditor";
 import { DefaultVariantsEditor } from "./editor/DefaultVariantsEditor";
@@ -67,8 +67,8 @@ export function RecipePanel({
   );
 
   return (
-    <div className="border-t border-border">
-      <div className="divide-y divide-border">
+    <div className="border-t border-kui-border">
+      <div className="divide-y divide-kui-border">
         <BaseEditor
           component={component}
           value={recipe?.base ?? ""}

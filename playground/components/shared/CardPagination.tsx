@@ -85,8 +85,8 @@ export function CardPagination<T>({
             className={cn(
               "flex items-center gap-1 rounded-md border px-2 py-1.5 transition-all",
               hasPrev
-                ? "border-border text-text-muted hover:border-brand hover:text-brand"
-                : "cursor-not-allowed border-border/50 text-text-muted/50",
+                ? "border-kui-border text-kui-text-muted hover:border-kui-brand hover:text-kui-brand"
+                : "cursor-not-allowed border-kui-border/50 text-kui-text-muted/50",
             )}
             aria-label="Previous item"
           >
@@ -101,8 +101,8 @@ export function CardPagination<T>({
             className={cn(
               "flex items-center gap-1 rounded-md border px-2 py-1.5 transition-all",
               hasNext
-                ? "border-border text-text-muted hover:border-brand hover:text-brand"
-                : "cursor-not-allowed border-border/50 text-text-muted/50",
+                ? "border-kui-border text-kui-text-muted hover:border-kui-brand hover:text-kui-brand"
+                : "cursor-not-allowed border-kui-border/50 text-kui-text-muted/50",
             )}
             aria-label="Next item"
           >
@@ -112,12 +112,12 @@ export function CardPagination<T>({
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="font-mono text-xs text-text-muted">
+          <span className="font-mono text-xs text-kui-text-muted">
             {currentIndex + 1} / {items.length}
           </span>
 
           {itemLabel && (
-            <span className="ml-1 text-xs text-text-muted/70">
+            <span className="ml-1 text-xs text-kui-text-muted/70">
               {itemLabel(currentItem, currentIndex)}
             </span>
           )}
@@ -133,8 +133,8 @@ export function CardPagination<T>({
                 className={cn(
                   "h-1.5 rounded-full transition-all duration-200",
                   idx === currentIndex
-                    ? "w-5 bg-brand"
-                    : "w-1.5 bg-border hover:bg-text-muted/40",
+                    ? "w-5 bg-kui-brand"
+                    : "w-1.5 bg-kui-border hover:bg-kui-text-muted/40",
                 )}
                 aria-label={`Go to item ${idx + 1}`}
                 aria-current={idx === currentIndex ? "page" : undefined}

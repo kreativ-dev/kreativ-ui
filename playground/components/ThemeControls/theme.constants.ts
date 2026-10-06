@@ -1,4 +1,4 @@
-import { SizeToken } from "@/types";
+import { SizeToken } from "@splenddev/kreativ-core/types";
 
 export const COLOR_KEYS = [
   "brand",
@@ -52,5 +52,5 @@ export const SIZE_KEYS = [
   "gap",
   "iconSize",
   "radius",
-  "width"
+  "width",
 ] as const satisfies readonly (keyof SizeToken)[];

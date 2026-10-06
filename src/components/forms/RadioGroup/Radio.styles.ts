@@ -12,12 +12,12 @@ export const radioBubbleVariants = cva(
       },
       state: {
         none: "",
-        error: "border-destructive",
-        success: "border-success",
+        error: "border-kui-destructive",
+        success: "border-kui-success",
       },
       checked: {
-        true: "border-brand",
-        false: "border-border bg-transparent",
+        true: "border-kui-brand",
+        false: "border-kui-border bg-transparent",
       },
       disabled: {
         true: "cursor-not-allowed",
@@ -31,8 +31,8 @@ export const radioBubbleVariants = cva(
       disabled: false,
     },
     compoundVariants: [
-      { checked: false, state: "error", class: "border-destructive" },
-      { checked: false, state: "success", class: "border-success" },
+      { checked: false, state: "error", class: "border-kui-destructive" },
+      { checked: false, state: "success", class: "border-kui-success" },
     ],
   },
 );

@@ -32,7 +32,7 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
           <FormField.Label className={labelClassName}>
             {labelStart}
             {label}
-            {optional && <span className="text-text-muted"> (optional)</span>}
+            {optional && <span className="text-kui-text-muted"> (optional)</span>}
             {labelEnd}
           </FormField.Label>
         )}

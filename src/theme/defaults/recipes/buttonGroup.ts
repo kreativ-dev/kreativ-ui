@@ -1,4 +1,4 @@
-import { defineRecipe } from "@/theme/recipes";
+import { defineRecipe } from "@splenddev/kreativ-core";
 
 export const buttonGroupRecipe = defineRecipe({
   base: ["inline-flex items-center relative isolate", "kui-button-group"].join(
@@ -29,7 +29,7 @@ export const buttonGroupRecipe = defineRecipe({
     attached: false,
     spacing: "md",
   },
-  
+
   compoundVariants: [
     {
       conditions: {

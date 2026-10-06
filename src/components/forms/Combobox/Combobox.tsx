@@ -29,7 +29,7 @@ export function Combobox({
   success,
   rounded,
   className,
-  status,
+  // status,
   children,
 }: ComboboxProps) {
   const autoId = useId();

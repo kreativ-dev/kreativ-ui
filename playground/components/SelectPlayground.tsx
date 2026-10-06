@@ -56,7 +56,7 @@ export function SelectDemo() {
       />
 
       <div className="mb-5">
-        <p className="mb-2 font-mono text-[11px] text-text-muted">flags</p>
+        <p className="mb-2 font-mono text-[11px] text-kui-text-muted">flags</p>
 
         <div className="flex flex-wrap gap-1.5">
           <Chip active={disabled} onClick={() => setDisabled((v) => !v)}>
@@ -100,7 +100,7 @@ export function SelectDemo() {
 
       {useFormField && (
         <div>
-          <p className="mb-2 font-mono text-[11px] text-text-muted">
+          <p className="mb-2 font-mono text-[11px] text-kui-text-muted">
             FormField copy
           </p>
 

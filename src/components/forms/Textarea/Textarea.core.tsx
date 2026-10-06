@@ -17,9 +17,10 @@ import { cn } from "@/utils/cn";
 import { useOptionalFormField } from "../FormField/FormField.context";
 import { ClearIcon } from "../Input/Input.icons";
 import { resolveRecipe } from "@/theme/recipes/resolveRecipe";
-import { useSizeStyle, useTheme, useTypography } from "@/hooks";
+import { useSizeStyle,  useTypography } from "@splenddev/kreativ-core/hooks";
 import type { TextareaCoreProps } from "./Textarea.types";
 import { mergeRefs } from "@/utils/mergeRef";
+import { useTheme } from "@splenddev/kreativ-core";
 
 function resolveFieldState({
   error,
@@ -385,12 +386,12 @@ export const TextareaCore = forwardRef<HTMLTextAreaElement, TextareaCoreProps>(
       "bottom-1.5 right-2.5",
       "font-mono text-[11px]",
       maxLengthExceeded
-        ? "text-destructive"
+        ? "text-kui-destructive"
         : hasReachedMaxLength
-          ? "text-warning"
+          ? "text-kui-warning"
           : nearLimit
-            ? "text-warning"
-            : "text-text-muted",
+            ? "text-kui-warning"
+            : "text-kui-text-muted",
     );
 
     return (
@@ -428,9 +429,9 @@ export const TextareaCore = forwardRef<HTMLTextAreaElement, TextareaCoreProps>(
             className={cn(
               "absolute right-2 top-2",
               "flex items-center justify-center",
-              "text-text-muted",
+              "text-kui-text-muted",
               "transition-colors",
-              "hover:text-text",
+              "hover:text-kui-text",
             )}
           >
             <ClearIcon size={14} />
@@ -448,7 +449,7 @@ export const TextareaCore = forwardRef<HTMLTextAreaElement, TextareaCoreProps>(
           <p
             id={messageId}
             role="alert"
-            className={cn("mt-1.5 px-0.5", "text-xs text-destructive")}
+            className={cn("mt-1.5 px-0.5", "text-xs text-kui-destructive")}
           >
             {internalValidation.message}
           </p>

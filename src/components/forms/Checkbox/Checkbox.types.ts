@@ -4,7 +4,7 @@ import type {
   StateProps,
   StatusProps,
   Styleable,
-} from "@/types/common";
+} from "@splenddev/kreativ-core/types";
 import { InputSize } from "../Input/Input.types";
 
 export interface CheckboxProps

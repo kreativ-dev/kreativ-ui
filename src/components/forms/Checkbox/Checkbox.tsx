@@ -13,9 +13,11 @@ import { cn } from "@/utils/cn";
 import { mergeRefs } from "@/utils/mergeRef";
 import { useOptionalFormField } from "../FormField/FormField.context";
 import type { CheckboxProps } from "./Checkbox.types";
-import { useSizeStyle, useStatusTransition, useTheme } from "@/hooks";
+import {  useStatusTransition } from "@/hooks";
 import { resolveRecipe } from "@/theme/recipes/resolveRecipe";
 import { isDev } from "@/utils/env";
+import { useSizeStyle } from "@splenddev/kreativ-core/hooks";
+import { useTheme } from "@splenddev/kreativ-core";
 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   (
@@ -192,7 +194,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
             )}
           >
             {label && (
-              <span className="text-text" style={{ fontSize }}>
+              <span className="text-kui-text" style={{ fontSize }}>
                 {label}
               </span>
             )}
@@ -200,7 +202,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
             {description && (
               <span
                 id={descriptionId}
-                className="text-text-muted"
+                className="text-kui-text-muted"
                 style={{
                   fontSize: fontSize ? `calc(${fontSize} - 1px)` : undefined,
                 }}

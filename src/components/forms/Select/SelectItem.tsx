@@ -1,11 +1,8 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef } from "react";
-
 import { cn } from "@/utils/cn";
-
 import { useSelectContext } from "./Select.context";
-
 import type { SelectItemProps } from "./Select.types";
 
 export function SelectItem({
@@ -58,9 +55,9 @@ export function SelectItem({
         }
       }}
       className={cn(
-        "flex cursor-pointer items-center rounded-[calc(var(--kui-radii-md)-2px)] px-2.5 py-1.5 text-sm text-text transition-colors",
-        selected && "bg-brand/10 text-brand hover:bg-brand/20",
-        active && !selected && "bg-surface-sunken",
+        "flex cursor-pointer items-center rounded-[calc(var(--kui-radii-md)-2px)] px-2.5 py-1.5 text-sm text-kui-text transition-colors",
+        selected && "bg-kui-brand/10 text-kui-brand hover:bg-kui-brand/20",
+        active && !selected && "bg-kui-surface-sunken",
         disabled && "pointer-events-none cursor-not-allowed opacity-50",
         className,
       )}
