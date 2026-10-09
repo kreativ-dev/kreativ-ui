@@ -1,65 +1,60 @@
 import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from "react";
 import type { InputVariant, InputSize } from "../Input/Input.types";
+import type {
+  BaseProps,
+  ClearableProps,
+  DisabledProps,
+  SizeProps,
+  StateProps,
+  Styleable,
+  ValueProps,
+  VariantProps,
+} from "@splenddev/kreativ-core";
 
-export interface SelectProps extends Omit<
-  HTMLAttributes<HTMLDivElement>,
-  "onChange"
-> {
-  className?: string;
+export interface SelectRootProps
+  extends
+    Omit<
+      HTMLAttributes<HTMLDivElement>,
+      "onChange" | "children" | "defaultValue"
+    >,
+    Omit<BaseProps, "children">,
+    Omit<SizeProps, "size">,
+    ValueProps<string | undefined>,
+    VariantProps<InputVariant>,
+    DisabledProps,
+    Omit<ClearableProps, "onClear">,
+    Omit<StateProps, "warning" | "scrollIntoViewOnError"> {
   rounded?: boolean;
-
-  error?: boolean;
-  success?: boolean;
-
-  value?: string;
-
   placeholder?: string;
-
-  defaultValue?: string;
-
-  onValueChange?(value: string | undefined): void;
-
   required?: boolean;
   name?: string;
-  disabled?: boolean;
-
-  clearable?: boolean;
-
-  variant?: InputVariant;
-
   size?: InputSize;
-
   children: ReactNode;
 }
 
-export interface SelectTriggerProps extends Omit<
-  ButtonHTMLAttributes<HTMLButtonElement>,
-  "value"
-> {
-  className?: string;
-}
+export interface SelectTriggerProps
+  extends
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, "value" | "className">,
+    Styleable {}
 
-export interface SelectContentProps extends HTMLAttributes<HTMLDivElement> {
-  className?: string;
-}
+export interface SelectContentProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "className">, Styleable {}
 
-export interface SelectItemProps extends HTMLAttributes<HTMLDivElement> {
+export interface SelectItemProps
+  extends
+    Omit<HTMLAttributes<HTMLDivElement>, "children" | "className">,
+    DisabledProps,
+    Styleable {
   value: string;
-  disabled?: boolean;
   children: ReactNode;
 }
 
-export interface SelectValueProps {
+export interface SelectValueProps extends Styleable {
   placeholder?: string;
-  className?: string;
 }
 
-export interface SelectGroupProps {
-  children: ReactNode;
-  className?: string;
-}
+export interface SelectGroupProps
+  extends Styleable, Required<Pick<BaseProps, "children">> {}
 
-export interface SelectLabelProps {
-  children: ReactNode;
-  className?: string;
-}
+export interface SelectLabelProps
+  extends Styleable, Required<Pick<BaseProps, "children">> {}

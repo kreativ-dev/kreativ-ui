@@ -4,9 +4,7 @@ export const formControlBase =
   "group relative inline-flex items-center " +
   "rounded-[var(--kui-radii-md)] " +
   "transition-[border-color,box-shadow] duration-[var(--kui-duration-fast)] " +
-  "focus-within:outline-none " +
-  "focus-within:ring-offset-2 " +
-  "focus-within:ring-offset-surface";
+  "focus-within:outline-none ";
 
 export const formControlVariants = {
   outline: "border border-kui-border bg-transparent text-kui-text",
@@ -35,7 +33,7 @@ const standaloneStates = {
 const borderlessControl =
   "rounded-none border-0! shadow-none! " +
   "hover:border-0! hover:bg-transparent! " +
-  "focus-within:ring-0! focus-within:ring-offset-0! focus-within-outline-none!";
+  "focus-within:ring-0! focus-within-outline-none!";
 
 export const formControlRecipe = defineRecipe({
   base: formControlBase,

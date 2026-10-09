@@ -9,7 +9,7 @@ import {
   EyeOff,
   X,
 } from "lucide-react";
-import type { InputKind } from "./Input.types";
+import type { InputKind, PasswordKind } from "./Input.types";
 
 export const inputKindIcons: Partial<
   Record<InputKind, React.ComponentType<{}>>
@@ -19,6 +19,10 @@ export const inputKindIcons: Partial<
   url: Link2,
   search: Search,
   numeric: Hash,
+};
+export const passwordKindIcons: Partial<
+  Record<PasswordKind, React.ComponentType<{}>>
+> = {
   "password-current": Lock,
   "password-new": Lock,
 };

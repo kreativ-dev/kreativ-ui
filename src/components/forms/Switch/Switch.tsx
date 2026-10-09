@@ -1,18 +1,39 @@
 "use client";
 
-import { forwardRef, useId, useState } from "react";
+import * as React from "react";
+import { useId, useState } from "react";
+
+import { createComponent, useTheme } from "@splenddev/kreativ-core";
+import { useSizeToken } from "@splenddev/kreativ-core/hooks";
 
 import { cn } from "@/utils/cn";
-
 import { useOptionalFormField } from "../FormField/FormField.context";
 import { switchThumbConfig } from "./Switch.constants";
 import type { SwitchProps } from "./Switch.types";
 import { resolveRecipe } from "@/theme/recipes/resolveRecipe";
-import { useTheme } from "@splenddev/kreativ-core";
-import { useSizeToken } from "@splenddev/kreativ-core/hooks";
+import { isMotionGated } from "@/utils";
+import type { MotionGatedProps } from "@/types";
 
-export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
-  (
+export const Switch = createComponent<
+  SwitchProps & MotionGatedProps,
+  HTMLInputElement
+>({
+  displayName: "Switch",
+  __kui: {
+    role: "formControl",
+    formControl: "single",
+    supports: { disabled: true, invalid: true, required: true },
+    skeleton: "input-shaped",
+    video: {
+      id: "switch",
+      safe: true,
+      acceptsChildren: true,
+      interactionStates: ["focus"],
+      controlled: ["checked", "disabled"],
+      motionGated: true,
+    },
+  },
+  render: (
     {
       checked: checkedProp,
       defaultChecked = false,
@@ -26,6 +47,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
       onChange: onChangeProp,
       error,
       success,
+      required,
       children,
       ...props
     },
@@ -34,8 +56,13 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
     const autoId = useId();
     const field = useOptionalFormField();
     const { theme } = useTheme();
+    const motionGated = isMotionGated(props);
 
     const id = externalId ?? field?.id ?? autoId;
+    const isDisabled = disabled || Boolean(field?.disabled);
+    const isRequired = required ?? field?.required;
+    const isInvalid =
+      error || field?.invalid || field?.status === "error" || false;
 
     const [internalChecked, setInternalChecked] = useState(defaultChecked);
 
@@ -45,17 +72,21 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
 
     const { thumb, translate } = switchThumbConfig[size];
 
-    const state = error ? "error" : success ? "success" : "none";
+    const state = isInvalid ? "error" : success ? "success" : "none";
 
     const switchClasses = resolveRecipe(theme.recipes.Switch, {
       checked,
-      disabled,
+      disabled: isDisabled,
       state,
     });
 
     const fontSize = useSizeToken(size, "fontSize");
     const width = useSizeToken(size, "width", "-2px");
     const height = useSizeToken(size, "height", "12px");
+
+    const describedBy =
+      [field?.describedBy, descriptionId].filter(Boolean).join(" ") ||
+      undefined;
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
       const next = event.target.checked;
@@ -72,7 +103,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
       <div
         className={cn(
           "flex gap-2.5",
-          disabled && "cursor-not-allowed opacity-50",
+          isDisabled && "cursor-not-allowed opacity-50",
           className,
         )}
       >
@@ -84,10 +115,11 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
             ref={ref}
             id={id}
             checked={checked}
-            disabled={disabled}
+            disabled={isDisabled}
+            required={isRequired}
             onChange={handleChange}
-            aria-describedby={field?.describedBy ?? descriptionId}
-            aria-invalid={field?.status === "error" || undefined}
+            aria-describedby={describedBy}
+            aria-invalid={isInvalid || undefined}
             className="peer absolute inset-0 z-10 m-0
             cursor-pointer opacity-0 disabled:cursor-not-allowed"
           />
@@ -100,7 +132,8 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
             <div
               className={cn(
                 "absolute left-1 rounded-full bg-white shadow top-1/2 -translate-y-1/2",
-                "transition-transform duration-(--kui-duration-fast)",
+                !motionGated &&
+                  "transition-transform duration-(--kui-duration-fast)",
                 thumb,
                 checked && translate,
               )}
@@ -113,7 +146,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
             {label && (
               <label
                 htmlFor={id}
-                className={cn("text-kui-text", !disabled && "cursor-pointer")}
+                className={cn("text-kui-text", !isDisabled && "cursor-pointer")}
                 style={{ fontSize }}
               >
                 {label}
@@ -136,7 +169,10 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
         {children && (
           <label
             htmlFor={id}
-            className={cn("text-kui-text inline-flex items-center", !disabled && "cursor-pointer")}
+            className={cn(
+              "text-kui-text inline-flex items-center",
+              !isDisabled && "cursor-pointer",
+            )}
             style={{ fontSize }}
           >
             {children}
@@ -145,6 +181,4 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
       </div>
     );
   },
-);
-
-Switch.displayName = "Switch";
+});

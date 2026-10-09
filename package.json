@@ -72,7 +72,7 @@
   },
   "dependencies": {
     "@floating-ui/react": "^0.27.20",
-    "@splenddev/kreativ-core": "^0.1.0",
+    "@splenddev/kreativ-core": "^0.1.7",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.42.2",
@@ -100,7 +100,7 @@
     "vite": "^8.1.1"
   },
   "allowScripts": {
-    "@parcel/watcher@2.5.1": true,
-    "esbuild@0.27.7": true
+    "esbuild@0.27.7": true,
+    "@parcel/watcher@2.6.0": true
   }
 }

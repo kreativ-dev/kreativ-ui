@@ -1,2 +1,2 @@
-export * from './defineTypography'
-export * from './extendTypography'
+export { defineTypography, resolveTypography } from "@splenddev/kreativ-core";
+export * from "./extendTypography";

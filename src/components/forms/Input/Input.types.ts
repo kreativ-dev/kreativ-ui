@@ -1,4 +1,9 @@
-import type { InputHTMLAttributes, ReactNode } from "react";
+import type {
+  ComponentPropsWithoutRef,
+  HTMLInputTypeAttribute,
+  ReactNode,
+} from "react";
+
 import type {
   BaseProps,
   ClearableProps,
@@ -13,6 +18,53 @@ import type {
   ValueProps,
   VariantProps,
 } from "@splenddev/kreativ-core/types";
+/**
+ * Internal. Not part of the public API — do not re-export from the package index.
+ * Callers resolve `type` themselves. This function has no password concept.
+ */
+export type BaseInputExtraAdornmentContext = {
+  iconSize: string | number;
+  /** Motion-gated icon-button classes. Transition styles are omitted when motion is off. */
+  iconButtonClass: string;
+};
+
+export type BaseInputProps = Omit<
+  ComponentPropsWithoutRef<"input">,
+  "size" | "type"
+> &
+  BaseProps &
+  SizeProps &
+  VariantProps<InputVariant> &
+  DisabledProps &
+  LoadingProps &
+  FullWidthProps &
+  ClearableProps &
+  UndoRedoProps &
+  ValueProps<string | number> &
+  StateProps &
+  TrimProps &
+  TypographyProps & {
+    type: HTMLInputTypeAttribute;
+
+    inputClassName?: string;
+
+    scrollIntoViewOnError?: boolean;
+
+    startIcon?: ReactNode;
+    endIcon?: ReactNode;
+
+    rounded?: boolean;
+    motion?: boolean;
+
+    validatePattern?: string | RegExp;
+    patternMessage?: string;
+
+    embedded?: boolean;
+
+    extraEndAdornment?:
+      | ReactNode
+      | ((ctx: BaseInputExtraAdornmentContext) => ReactNode);
+  };
 
 export type InputVariant = "outline" | "filled" | "ghost";
 
@@ -25,8 +77,6 @@ export type InputKind =
   | "url"
   | "search"
   | "numeric"
-  | "password-current"
-  | "password-new"
   | "number"
   | "date"
   | "time"
@@ -34,36 +84,21 @@ export type InputKind =
   | "month"
   | "week";
 
-export interface InputProps
-  extends
-    Omit<
-      InputHTMLAttributes<HTMLInputElement>,
-      "size" | "value" | "defaultValue"
-    >,
-    BaseProps,
-    SizeProps,
-    VariantProps<InputVariant>,
-    DisabledProps,
-    LoadingProps,
-    FullWidthProps,
-    ClearableProps,
-    UndoRedoProps,
-    ValueProps<string | number | undefined>,
-    StateProps,
-    TrimProps,
-    TypographyProps {
-  inputClassName?: string;
-  kind?: InputKind;
-  rounded?: boolean;
-  startIcon?: ReactNode;
-  endIcon?: ReactNode;
-  hideKindIcon?: boolean;
-}
+export type PasswordKind = "password-current" | "password-new";
+
+type KindDefaultBase = {
+  type?: string;
+  autoComplete?: string;
+  placeholder?: string;
+  pattern?: string;
+  min?: number;
+  max?: number;
+  step?: number;
+};
 
 export type InputKindDefaults = Record<
   InputKind,
-  {
-    type?: string;
+  KindDefaultBase & {
     inputMode?:
       | "none"
       | "text"
@@ -73,11 +108,33 @@ export type InputKindDefaults = Record<
       | "search"
       | "email"
       | "url";
-    autoComplete?: string;
-    placeholder?: string;
-    pattern?: string;
-    min?: number;
-    max?: number;
-    step?: number;
   }
 >;
+
+export type PasswordInputKindDefaults = Record<
+  PasswordKind,
+  KindDefaultBase & {
+    inputMode?: "none" | "text";
+  }
+>;
+
+export type InputProps = Omit<
+  BaseInputProps,
+  "type" | "extraEndAdornment" | "motion"
+> & {
+  kind?: InputKind;
+  hideKindIcon?: boolean;
+  type?: HTMLInputTypeAttribute;
+  motion?: boolean;
+};
+
+export type PasswordInputProps = Omit<
+  BaseInputProps,
+  "type" | "extraEndAdornment" | "motion"
+> & {
+  motion?: boolean;
+  kind?: PasswordKind;
+  visible?: boolean;
+  defaultVisible?: boolean;
+  onVisibleChange?: (visible: boolean) => void;
+};

@@ -75,7 +75,7 @@ export const MarkdownEditor = forwardRef<
       onValueChange,
       className,
       fullWidth,
-      variant,
+      variant = "outline",
       success,
       error,
       warning,

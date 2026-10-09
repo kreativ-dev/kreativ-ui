@@ -6,16 +6,18 @@ import type {
   Styleable,
 } from "@splenddev/kreativ-core/types";
 import { InputSize } from "../Input/Input.types";
+import { MotionGatedProps } from "@/types";
 
 export interface CheckboxProps
   extends
     Omit<
       InputHTMLAttributes<HTMLInputElement>,
-      "size" | "type" | "checked" | "defaultChecked"
+      "size" | "type" | "checked" | "defaultChecked" | "children"
     >,
     Styleable,
     StateProps,
     StatusProps,
+    MotionGatedProps,
     ControlledProps<boolean, "checked", "defaultChecked", "onCheckedChange"> {
   indeterminate?: boolean;
   size?: InputSize;

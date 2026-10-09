@@ -7,11 +7,21 @@ type TransitionStatus = Exclude<FormFieldStatus, "none"> | undefined;
 
 const TRANSITION_DURATION = 1500;
 
-export function useStatusTransition(status: FormFieldStatus) {
+export function useStatusTransition(
+  status: FormFieldStatus,
+  options?: { enabled?: boolean },
+) {
+  const enabled = options?.enabled ?? true;
   const previousStatus = useRef(status);
   const [transitionStatus, setTransitionStatus] = useState<TransitionStatus>();
 
   useEffect(() => {
+    if (!enabled) {
+      previousStatus.current = status;
+      setTransitionStatus(undefined);
+      return;
+    }
+
     if (status === previousStatus.current) {
       return;
     }
@@ -30,7 +40,7 @@ export function useStatusTransition(status: FormFieldStatus) {
     }, TRANSITION_DURATION);
 
     return () => window.clearTimeout(timeout);
-  }, [status]);
+  }, [status, enabled]);
 
-  return transitionStatus;
+  return enabled ? transitionStatus : undefined;
 }

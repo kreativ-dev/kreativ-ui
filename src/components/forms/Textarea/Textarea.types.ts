@@ -44,7 +44,6 @@ export interface TextareaCoreProps
   debounceDelay?: number;
 }
 
-// Fixed union
 export type TextareaProps =
   | ({ allowMarkdown?: false } & TextareaCoreProps)
   | ({ allowMarkdown: true } & Omit<TextareaCoreProps, "resize"> &

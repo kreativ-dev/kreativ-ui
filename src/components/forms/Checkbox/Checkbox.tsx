@@ -1,26 +1,37 @@
 "use client";
 
-import {
-  forwardRef,
-  useEffect,
-  useId,
-  useRef,
-  useState,
-  type ChangeEvent,
-} from "react";
+import { useEffect, useId, useRef, useState, type ChangeEvent } from "react";
 import { Check, Minus } from "lucide-react";
+
+import { createComponent, useTheme } from "@splenddev/kreativ-core";
+import { useSizeStyle } from "@splenddev/kreativ-core/hooks";
+
 import { cn } from "@/utils/cn";
 import { mergeRefs } from "@/utils/mergeRef";
 import { useOptionalFormField } from "../FormField/FormField.context";
 import type { CheckboxProps } from "./Checkbox.types";
-import {  useStatusTransition } from "@/hooks";
+import { useStatusTransition } from "@/hooks";
 import { resolveRecipe } from "@/theme/recipes/resolveRecipe";
 import { isDev } from "@/utils/env";
-import { useSizeStyle } from "@splenddev/kreativ-core/hooks";
-import { useTheme } from "@splenddev/kreativ-core";
+import { isMotionGated } from "@/utils";
 
-export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
-  (
+export const Checkbox = createComponent<CheckboxProps, HTMLInputElement>({
+  displayName: "Checkbox",
+  __kui: {
+    role: "formControl",
+    formControl: "single",
+    supports: { disabled: true, invalid: true, required: true },
+    skeleton: "input-shaped",
+    video: {
+      id: "checkbox",
+      safe: true,
+      acceptsChildren: false,
+      interactionStates: ["focus"],
+      controlled: ["checked", "disabled", "indeterminate"],
+      motionGated: true,
+    },
+  },
+  render: (
     {
       className,
       checked: checkedProp,
@@ -46,6 +57,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
     const { theme } = useTheme();
 
     const id = field?.id ?? externalId ?? autoId;
+    const isDisabled = disabled || Boolean(field?.disabled);
 
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -63,8 +75,8 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
 
       if (label && field?.hasExternalLabel) {
         console.warn(
-          "[kreativ-ui/Checkbox] This checkbox has both a `label` prop and a <FormField.Label> ancestor. " +
-            "Checkbox owns its label. Use the Checkbox `label` prop instead of <FormField.Label>.",
+          "[kreativ-ui/Checkbox]: this checkbox has both a label prop and a FormField.Label ancestor. " +
+            "Checkbox owns its label. Use the Checkbox label prop instead of FormField.Label.",
         );
 
         hasWarned.current = true;
@@ -97,15 +109,17 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
     } = useSizeStyle(size, !hasLabels, "checkbox", {
       widthFromHeight: true,
       sizeOffset: "7px",
+      includeWidth: true,
     });
 
     const checkboxClasses = resolveRecipe(theme.recipes.Checkbox, {
       state,
       checked: checked || indeterminate,
-      disabled: !!disabled,
+      disabled: !!isDisabled,
     });
 
     const statusTransition = useStatusTransition(state);
+    const motionGated = isMotionGated(props);
 
     const descriptionId = description ? `${id}-description` : undefined;
 
@@ -131,7 +145,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
 
       wasInvalidRef.current = isInvalid;
 
-      if (!justBecameInvalid) {
+      if (!justBecameInvalid || motionGated) {
         return;
       }
 
@@ -139,13 +153,13 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
         behavior: "smooth",
         block: "center",
       });
-    }, [isInvalid]);
+    }, [isInvalid, motionGated]);
 
     return (
       <div
         className={cn(
           "inline-flex items-start gap-2",
-          disabled && "cursor-not-allowed opacity-50",
+          isDisabled && "cursor-not-allowed opacity-50",
           className,
         )}
       >
@@ -156,7 +170,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
             id={id}
             type="checkbox"
             checked={checked}
-            disabled={disabled}
+            disabled={isDisabled}
             required={required ?? field?.required}
             onChange={handleChange}
             aria-invalid={isInvalid || undefined}
@@ -173,7 +187,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
             aria-hidden="true"
             className={checkboxClasses}
             style={sizeStyle}
-            data-state-transition={statusTransition}
+            data-state-transition={motionGated ? undefined : statusTransition}
           >
             <span className="absolute inset-0 flex items-center justify-center shrink-0">
               {indeterminate ? (
@@ -190,7 +204,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
             htmlFor={id}
             className={cn(
               "flex flex-col gap-px",
-              !disabled && "cursor-pointer",
+              !isDisabled && "cursor-pointer",
             )}
           >
             {label && (
@@ -215,6 +229,4 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       </div>
     );
   },
-);
-
-Checkbox.displayName = "Checkbox";
+});

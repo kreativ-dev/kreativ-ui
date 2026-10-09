@@ -1,4 +1,4 @@
-import type { ThemeOverride } from "@/types/theme";
+import type { ThemeOverride } from "@/types";
 import { TokenEditor } from "./ThemeControls/TokenEditor";
 import { SizeEditor } from "./ThemeControls/SizeEditor";
 import { ThemePresetManager } from "./ThemeControls/ThemePresetManager";

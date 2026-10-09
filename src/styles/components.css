@@ -3,8 +3,8 @@
     [data-kui-button-group-item-embedded]:focus-within
   ) {
   z-index: 10;
-  background: var(--kui-surface-raised);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--kui-brand) 20%, transparent);
+  background: rgb(var(--kui-surface-raised));
+  box-shadow: 0 0 0 2px mix(in srgb, rgb(var(--kui-brand)) 20%, transparent);
 }
 
 @utility kui-text {
@@ -18,17 +18,17 @@
 }
 
 @utility kui-link {
-  color: var(--kui-brand);
-  text-decoration-color: color-mix(in srgb, var(--kui-brand) 50%, transparent);
+  color: rgb(var(--kui-brand));
+  text-decoration-color: mix(in srgb, rgb(var(--kui-brand)) 50%, transparent);
   transition: color var(--kui-duration-fast, 150ms)
     var(--kui-ease-default, ease);
 
   &:hover {
-    color: var(--kui-brand-hover, var(--kui-brand));
+    color: rgb(var(--kui-brand-hover, rgb(var(--kui-brand))));
   }
 
   &:focus-visible {
-    outline: 2px solid var(--kui-brand);
+    outline: 2px solid rgb(var(--kui-brand));
     outline-offset: 2px;
     border-radius: var(--kui-radius-sm, 2px);
   }
@@ -37,4 +37,170 @@
 @utility kui-link-external-icon {
   flex-shrink: 0;
   opacity: 0.7;
+}
+
+@utility kui-form-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--kui-space-3, 0.75rem);
+}
+
+@utility kui-form-section__label {
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-kui-text);
+  margin: 0;
+}
+
+@utility kui-form-section__description {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  color: var(--color-kui-text-muted);
+  margin: 0;
+}
+
+@utility kui-form-section__stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--kui-space-4, 1rem);
+}
+
+@utility kui-form-section__grid {
+  display: grid;
+  gap: var(--kui-space-4, 1rem);
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+}
+
+@utility kui-form-from-schema-array {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+@utility kui-form-from-schema-array-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgb(var(--kui-text));
+}
+
+@utility kui-form-from-schema-array-description {
+  font-size: 0.875rem;
+  color: rgb(var(--kui-text-muted));
+}
+
+@utility kui-number-stepper {
+  display: inline-flex;
+  align-items: stretch;
+  width: fit-content;
+  position: relative;
+
+  & input[type="number"] {
+    -moz-appearance: textfield;
+    width: 100%;
+  }
+
+  & input[type="number"]::-webkit-outer-spin-button,
+  & input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+@utility kui-number-stepper__buttons {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-self: stretch;
+  order: 2;
+  border-left: 1px solid rgb(var(--kui-border));
+}
+
+@utility kui-number-stepper--horizontal {
+  & .kui-number-stepper__buttons {
+    flex-direction: row;
+  }
+
+  & .kui-number-stepper__button[data-action="decrement"] {
+    order: 1;
+    border-right: 1px solid rgb(var(--kui-border));
+  }
+
+  & .kui-number-stepper__button[data-action="increment"] {
+    order: 2;
+  }
+}
+
+@utility kui-number-stepper--vertical {
+  & .kui-number-stepper__buttons {
+    flex-direction: column;
+  }
+
+  & .kui-number-stepper__button {
+    flex: 1;
+    width: auto;
+  }
+
+  & .kui-number-stepper__button[data-action="increment"] {
+    order: 1;
+    border-bottom: 1px solid rgb(var(--kui-border));
+  }
+
+  & .kui-number-stepper__button[data-action="decrement"] {
+    order: 2;
+  }
+}
+
+@utility kui-number-stepper--disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+@utility kui-number-stepper__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2em;
+  border: none;
+  background: transparent;
+  color: rgb(var(--kui-text));
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--duration-fast) var(--ease-kui);
+
+  &:hover:not(:disabled) {
+    background: rgb(var(--kui-surface-raised));
+  }
+
+  &:active:not(:disabled) {
+    background: rgb(var(--kui-surface-sunken));
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+@utility kui-input {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 0%;
+  font-family: var(--font-sans);
+  background-color: transparent;
+  border-width: 0;
+  outline: none;
+  color: var(--kui-text);
+  transition:
+    color var(--duration-fast),
+    background-color var(--duration-fast);
+
+  &::placeholder {
+    color: rgb(var(--kui-text-muted));
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 }

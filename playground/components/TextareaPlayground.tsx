@@ -101,7 +101,7 @@ export function TextareaPlayground() {
   );
 
   const preview = useFormField ? (
-    <FormField
+    <FormField.Root
       required={required}
       message={error ? "This field has an error" : undefined}
       status={state}
@@ -109,7 +109,7 @@ export function TextareaPlayground() {
       <FormField.Label>Message</FormField.Label>
 
       <FormField.Control>{textareaElement}</FormField.Control>
-    </FormField>
+    </FormField.Root>
   ) : (
     textareaElement
   );

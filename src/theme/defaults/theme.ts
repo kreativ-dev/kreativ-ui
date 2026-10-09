@@ -14,6 +14,19 @@ import { switchRecipe } from "./recipes/switch";
 import { containerReccipe } from "./recipes/container";
 import { linkRecipe } from "./recipes/link";
 import { defineTheme } from "@splenddev/kreativ-core";
+import {
+  repeaterAddRecipe,
+  repeaterItemRecipe,
+  repeaterItemsRecipe,
+  repeaterMoveDownRecipe,
+  repeaterMoveUpRecipe,
+  repeaterRemoveRecipe,
+} from "./recipes/repeater";
+import {
+  numberStepperButtonRecipe,
+  numberStepperButtonsRecipe,
+  numberStepperRecipe,
+} from "./recipes/numberStepper";
 
 export const defaultRecipes = {
   Button: buttonRecipe,
@@ -26,6 +39,15 @@ export const defaultRecipes = {
   Switch: switchRecipe,
   Container: containerReccipe,
   Link: linkRecipe,
+  RepeaterRemove: repeaterRemoveRecipe,
+  RepeaterMoveUp: repeaterMoveUpRecipe,
+  RepeaterMoveDown: repeaterMoveDownRecipe,
+  RepeaterAdd: repeaterAddRecipe,
+  RepeaterItem: repeaterItemRecipe,
+  RepeaterItems: repeaterItemsRecipe,
+  NumberStepper: numberStepperRecipe,
+  NumberStepperButton: numberStepperButtonRecipe,
+  NumberStepperButtons: numberStepperButtonsRecipe,
 } satisfies RecipeCollection;
 
 export const defaultTheme = defineTheme({

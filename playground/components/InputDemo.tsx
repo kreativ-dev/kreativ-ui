@@ -1,22 +1,19 @@
 import { useState } from "react";
 import { User, Mail, Search, Lock, Eye, Loader2 } from "lucide-react";
 
-import { Input, FormField } from "../../src";
+import { Input, FormField, useUndoRedo } from "../../src";
 
-import type {
-  InputKind,
-  InputProps,
-  InputSize,
-  InputVariant,
-} from "../../src";
+import type { InputKind, InputProps, InputSize, InputVariant } from "../../src";
 
-import { useUndoRedo } from "../../src/hooks/useUndoRedo";
 import { Playground } from "./shared/Playground";
 import { SegmentedControl } from "./shared/SegmentedControl";
 import { Chip } from "./shared/Chip";
 import { TextField } from "./shared/TextField";
 import { getAttrs } from "./shared/getAttributes";
-import type { FormFieldStatus } from "@splenddev/kreativ-core/types";
+import type {
+  FormFieldStatus,
+  ValidateOn,
+} from "@splenddev/kreativ-core/types";
 
 const VARIANTS: InputVariant[] = ["outline", "filled", "ghost"];
 
@@ -24,16 +21,9 @@ const SIZES: InputSize[] = ["xs", "sm", "md", "lg"];
 
 const VALIDATIONS: FormFieldStatus[] = ["none", "error", "success", "warning"];
 
-const KINDS: InputKind[] = [
-  "text",
-  "email",
-  "tel",
-  "url",
-  "search",
-  "numeric",
-  "password-current",
-  "password-new",
-];
+const KINDS: InputKind[] = ["text", "email", "tel", "url", "search", "numeric"];
+
+const VALIDATE_ON: ValidateOn[] = ["both", "change", "blur"];
 
 const ICON_OPTIONS = {
   none: null,
@@ -61,6 +51,7 @@ export function InputDemo() {
   const [fullWidth, setFullWidth] = useState(true);
   const [hideKindIcon, setHideKindIcon] = useState(false);
   const [useFormField, setUseFormField] = useState(true);
+  const [validateOn, setValidateOn] = useState<ValidateOn>("both");
 
   const [label, setLabel] = useState("Email address");
 
@@ -141,6 +132,12 @@ export function InputDemo() {
         value={kind}
         options={KINDS}
         onChange={setKind}
+      />
+      <SegmentedControl
+        label="validateOn"
+        value={validateOn}
+        options={VALIDATE_ON}
+        onChange={setValidateOn}
       />
 
       <div className="mb-5">
@@ -253,10 +250,11 @@ export function InputDemo() {
   );
 
   const preview = useFormField ? (
-    <FormField
+    <FormField.Root
       required={required}
       message={invalid ? errorMessage : undefined}
       status={validation}
+      validateOn={validateOn}
     >
       <FormField.Label>{label}</FormField.Label>
 
@@ -265,7 +263,7 @@ export function InputDemo() {
       </FormField.Control>
 
       <FormField.Description>{description}</FormField.Description>
-    </FormField>
+    </FormField.Root>
   ) : (
     <Input {...inputProps} />
   );
@@ -291,7 +289,7 @@ export function InputDemo() {
 
   const code = useFormField
     ? [
-        `<FormField${required ? " required" : ""}${
+        `<FormField.Root${required ? " required" : ""}${
           invalid ? ` status="error"` : ""
         }>`,
         `  <FormField.Label>${label}</FormField.Label>`,
@@ -304,7 +302,7 @@ export function InputDemo() {
         `  </FormField.Control>`,
         description &&
           `  <FormField.Description>\n    ${description}\n  </FormField.Description>`,
-        `</FormField>`,
+        `</FormField.Root>`,
       ]
         .filter(Boolean)
         .join("\n")

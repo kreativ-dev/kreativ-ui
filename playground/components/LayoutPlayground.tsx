@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { CSSProperties, useState } from "react";
 import { Container, Flex, Stack, Grid } from "@/components";
 
 function DemoBox({ children }: { children: React.ReactNode }) {
@@ -35,8 +35,8 @@ export function LayoutPlaygroundPage() {
 
   // Flex controls
   const [flexDirection, setFlexDirection] = useState<{
-    base: string;
-    md: string;
+    base: CSSProperties["flexDirection"];
+    md: CSSProperties["flexDirection"];
   }>({
     base: "column",
     md: "row",

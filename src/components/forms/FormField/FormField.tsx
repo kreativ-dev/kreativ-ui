@@ -1,152 +1,110 @@
 "use client";
 
-import {
-  Children,
-  isValidElement,
-  type ReactNode,
-  useCallback,
-  useEffect,
-  useId,
-  useState,
-} from "react";
+import * as React from "react";
 
-import { FormFieldContext } from "./FormField.context";
-import type { FormFieldProps } from "./FormField.types";
+import { FormFieldRoot } from "./FormField.Root";
+import { FormFieldLabel } from "./FormField.Label";
+import { FormFieldDescription } from "./FormField.Description";
+import { FormFieldMessage } from "./FormField.Message";
+import { FormFieldControl } from "./FormField.Control";
+import { warnOnFlatCompoundConflict } from "@splenddev/kreativ-core";
+import { FormFieldProps } from "./FormField.types";
 
-import {
-  FormFieldLabel,
-  FormFieldDescription,
-  FormFieldMessage,
-  FormFieldControl,
-} from ".";
+function FormFieldImpl<P extends object>(
+  {
+    as: As,
+    controlProps,
+    label,
+    description,
+    message,
+    children,
+    ...rootProps
+  }: FormFieldProps<P>,
+  ref: React.Ref<unknown>,
+) {
+  const childArray = React.Children.toArray(children);
 
-import { cn } from "@/utils";
-import { isDev } from "@/utils/env";
-import { ReportedValidity } from "@splenddev/kreativ-core/types";
+  const labelChildPresent = warnOnFlatCompoundConflict({
+    flatValue: label,
+    children,
+    matchType: FormFieldLabel,
+    componentName: "FormField",
+    propName: "label",
+    childName: "FormField.Label",
+  });
 
-export function FormField({
-  id: externalId,
-  status = "none",
-  message: formMessage,
-  required = false,
-  className,
-  children,
-}: FormFieldProps) {
-  const generatedId = useId();
+  const descriptionChildPresent = warnOnFlatCompoundConflict({
+    flatValue: description,
+    children,
+    matchType: FormFieldDescription,
+    componentName: "FormField",
+    propName: "description",
+    childName: "FormField.Description",
+  });
 
-  const id = externalId ?? generatedId;
+  const messageChildPresent = warnOnFlatCompoundConflict({
+    flatValue: message,
+    children,
+    matchType: FormFieldMessage,
+    componentName: "FormField",
+    propName: "message",
+    childName: "FormField.Message",
+  });
 
-  const labelId = `${id}-label`;
-  const descriptionId = `${id}-description`;
-  const messageId = `${id}-message`;
+  const labelNode =
+    !labelChildPresent && label ? (
+      <FormFieldLabel>{label}</FormFieldLabel>
+    ) : null;
+  const descriptionNode =
+    !descriptionChildPresent && description ? (
+      <FormFieldDescription>{description}</FormFieldDescription>
+    ) : null;
+  const messageNode =
+    !messageChildPresent && message ? (
+      <FormFieldMessage>{message}</FormFieldMessage>
+    ) : null;
 
-  const [reportedValidity, setReportedValidity] =
-    useState<ReportedValidity | null>(null);
-
-  const reportValidity = useCallback((result: ReportedValidity | null) => {
-    setReportedValidity(result);
-  }, []);
-
-  const reportedMessage = reportedValidity?.invalid
-    ? reportedValidity.message
-    : undefined;
-
-  const [labelCount, setLabelCount] = useState(0);
-
-  function countMessageComponents(children: ReactNode): number {
-    let count = 0;
-
-    Children.forEach(children, (child) => {
-      if (!isValidElement<{ children?: ReactNode }>(child)) {
-        return;
-      }
-
-      if (child.type === FormFieldMessage) {
-        count += 1;
-        return;
-      }
-
-      if (child.props.children) {
-        count += countMessageComponents(child.props.children);
-      }
-    });
-
-    return count;
+  if (As === undefined && childArray.length > 0) {
+    return (
+      <FormFieldRoot {...rootProps} message={message}>
+        {labelNode}
+        {descriptionNode}
+        {children}
+        {messageNode}
+      </FormFieldRoot>
+    );
   }
 
-  const registerLabel = useCallback(() => {
-    setLabelCount((count) => count + 1);
-
-    return () => {
-      setLabelCount((count) => count - 1);
-    };
-  }, []);
-
-  const hasExternalLabel = labelCount > 0;
-
-  const displayedMessage = formMessage ?? reportedMessage;
-
-  const message = displayedMessage;
-
-  const invalid =
-    status === "error" ||
-    Boolean(formMessage) ||
-    Boolean(reportedValidity?.invalid);
-
-  const messageCount = countMessageComponents(children);
-  const hasCustomMessage = messageCount > 0;
-
-  const describedBy =
-    [descriptionId, message || hasCustomMessage ? messageId : undefined]
-      .filter(Boolean)
-      .join(" ") || undefined;
-
-  useEffect(() => {
-    if (!isDev()) {
-      return;
-    }
-
-    if (messageCount > 1) {
-      console.warn(
-        "[Kreativ UI] Multiple <FormField.Message /> components " +
-          "were detected inside the same <FormField>. " +
-          "Only one custom message should be provided.",
-      );
-    }
-  }, [messageCount]);
-
   return (
-    <FormFieldContext.Provider
-      value={{
-        id,
-        labelId,
-        descriptionId,
-        messageId,
-
-        message,
-        status,
-
-        describedBy,
-
-        invalid,
-        required,
-
-        reportValidity,
-        registerLabel,
-
-        hasExternalLabel,
-      }}
-    >
-      <div className={cn("flex flex-col gap-2", className)}>
-        {children}
-
-        {!hasCustomMessage && <FormFieldMessage />}
-      </div>
-    </FormFieldContext.Provider>
+    <FormFieldRoot {...rootProps} message={message}>
+      {labelNode}
+      {descriptionNode}
+      <FormFieldControl ref={ref}>
+        {As ? (
+          React.createElement(
+            As,
+            controlProps as React.PropsWithoutRef<P> &
+              React.RefAttributes<unknown>,
+          )
+        ) : (
+          <></>
+        )}
+      </FormFieldControl>
+      {messageNode}
+    </FormFieldRoot>
   );
 }
 
-FormField.Label = FormFieldLabel;
-FormField.Control = FormFieldControl;
-FormField.Description = FormFieldDescription;
-FormField.Message = FormFieldMessage;
+const FormFieldForwardRef = React.forwardRef(FormFieldImpl) as <
+  P extends object,
+>(
+  props: FormFieldProps<P> & { ref?: React.Ref<unknown> },
+) => React.ReactElement | null;
+
+export const FormField = Object.assign(FormFieldForwardRef, {
+  Root: FormFieldRoot,
+  Label: FormFieldLabel,
+  Description: FormFieldDescription,
+  Message: FormFieldMessage,
+  Control: FormFieldControl,
+});

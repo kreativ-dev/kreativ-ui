@@ -1,15 +1,13 @@
 "use client";
-import {
-  useEffect,
-  useMemo,
-  useState,
-  type JSX,
-  type ReactNode,
-} from "react";
-import { resolveTokens, tokensToCssVars } from "./cssVariables";
+import { useEffect, useMemo, useState, type JSX, type ReactNode } from "react";
 import { isDev } from "@/utils/env";
-import { ColorMode, ThemeContext, ThemeOverride } from "@splenddev/kreativ-core";
+import {
+  ColorMode,
+  ThemeContext,
+  ThemeOverride,
+} from "@splenddev/kreativ-core";
 import { extendTheme } from "@/theme";
+import { resolveTokens, tokensToCssVars } from "@splenddev/kreativ-core/utils";
 
 export interface UIProviderProps {
   children: ReactNode;
@@ -17,8 +15,8 @@ export interface UIProviderProps {
   defaultMode?: ColorMode;
   as?: keyof JSX.IntrinsicElements;
   fallbackSize?: string;
-  themeTransition?: boolean;
-  themeTransitionDuration?: number;
+  background?: string;
+  textColor?: string;
 }
 
 function useSystemPrefersDark() {
@@ -33,17 +31,16 @@ function useSystemPrefersDark() {
   return prefersDark;
 }
 
-export function UIProvider({
+export function KreativUIProvider({
   children,
   theme: themeOverride,
   defaultMode = "system",
   as = "div",
   fallbackSize = "md",
-  themeTransition = true,
-  themeTransitionDuration = 300,
+  textColor,
+  background,
 }: UIProviderProps) {
   const [mode, setMode] = useState<ColorMode>(defaultMode);
-  const [transitioning, setTransitioning] = useState(false);
 
   const systemPrefersDark = useSystemPrefersDark();
   const resolvedMode: "light" | "dark" =
@@ -67,17 +64,6 @@ export function UIProvider({
     }
   }, [theme.sizes, fallbackSize]);
 
-  // Cross-fade logic
-  useEffect(() => {
-    if (!themeTransition) return;
-    setTransitioning(true);
-    const timeout = setTimeout(
-      () => setTransitioning(false),
-      themeTransitionDuration,
-    );
-    return () => clearTimeout(timeout);
-  }, [resolvedMode, themeTransition, themeTransitionDuration]);
-
   const contextValue = useMemo(
     () => ({
       theme,
@@ -96,11 +82,11 @@ export function UIProvider({
     <ThemeContext.Provider value={contextValue}>
       <Tag
         data-kreativ-theme={resolvedMode}
-        data-kui-transitioning={transitioning ? "true" : undefined}
         className={resolvedMode === "dark" ? "dark" : undefined}
         style={{
           ...cssVars,
-          ["--kui-theme-transition-duration" as any]: `${themeTransitionDuration}ms`,
+          ...(background && { background }),
+          ...(textColor && { color: textColor }),
         }}
       >
         {children}
