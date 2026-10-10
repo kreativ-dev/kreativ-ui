@@ -54,7 +54,7 @@ const SECTIONS = [
 type SectionKey = (typeof SECTIONS)[number]["key"];
 
 export function ComponentsPlayground() {
-  const [active, setActive] = useState<SectionKey>("input");
+  const [active, setActive] = useState<SectionKey>("card");
   const [isScrolled, setIsScrolled] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const activeSection = SECTIONS.find((s) => s.key === active)!;

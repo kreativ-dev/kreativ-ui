@@ -93,10 +93,34 @@ export const FormRoot = createComponent<FormRootProps, HTMLFormElement>({
       [errors],
     );
 
-    const setValue = React.useCallback((name: string, value: unknown) => {
-      setValues((prev) => ({ ...prev, [name]: value }));
-      setIsDirty(true);
-    }, []);
+    const setValue = React.useCallback(
+      (name: string, value: unknown) => {
+        setValues((prev) => {
+          const next = { ...prev, [name]: value };
+
+          if (schema && schemaErrors[name] !== undefined) {
+            const result = schema.safeParse(next);
+            const issue = !result.success
+              ? result.error.issues.find((i) => i.path.join(".") === name)
+              : undefined;
+
+            setSchemaErrors((prevErrors) => {
+              if (issue) {
+                if (prevErrors[name] === issue.message) return prevErrors;
+                return { ...prevErrors, [name]: issue.message };
+              }
+              if (prevErrors[name] === undefined) return prevErrors;
+              const { [name]: _, ...rest } = prevErrors;
+              return rest;
+            });
+          }
+
+          return next;
+        });
+        setIsDirty(true);
+      },
+      [schema, schemaErrors],
+    );
 
     const getValue = React.useCallback(
       (name: string) => values[name],

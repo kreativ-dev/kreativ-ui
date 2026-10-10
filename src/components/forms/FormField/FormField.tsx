@@ -9,6 +9,7 @@ import { FormFieldMessage } from "./FormField.Message";
 import { FormFieldControl } from "./FormField.Control";
 import { warnOnFlatCompoundConflict } from "@splenddev/kreativ-core";
 import { FormFieldProps } from "./FormField.types";
+import { useFormContext } from "../form/Form.context";
 
 function FormFieldImpl<P extends object>(
   {
@@ -23,6 +24,9 @@ function FormFieldImpl<P extends object>(
   ref: React.Ref<unknown>,
 ) {
   const childArray = React.Children.toArray(children);
+   const form = useFormContext();
+   const { name, valuePropConvention = "value" } = rootProps;
+
 
   const labelChildPresent = warnOnFlatCompoundConflict({
     flatValue: label,
@@ -64,6 +68,28 @@ function FormFieldImpl<P extends object>(
       <FormFieldMessage>{message}</FormFieldMessage>
     ) : null;
 
+     const boundControlProps = React.useMemo(() => {
+       if (!form || !name) return controlProps;
+
+       const value = form.getValue(name);
+       const onChangeHandler = (next: unknown) => form.setValue(name, next);
+
+       if (valuePropConvention === "checked") {
+         return {
+           ...controlProps,
+           checked: value ?? false,
+           onCheckedChange: onChangeHandler,
+         };
+       }
+
+       return {
+         ...controlProps,
+         value,
+         onValueChange: onChangeHandler,
+       };
+     }, [form, name, valuePropConvention, controlProps]);
+
+
   if (As === undefined && childArray.length > 0) {
     return (
       <FormFieldRoot {...rootProps} message={message}>
@@ -83,7 +109,7 @@ function FormFieldImpl<P extends object>(
         {As ? (
           React.createElement(
             As,
-            controlProps as React.PropsWithoutRef<P> &
+            boundControlProps as React.PropsWithoutRef<P> &
               React.RefAttributes<unknown>,
           )
         ) : (
