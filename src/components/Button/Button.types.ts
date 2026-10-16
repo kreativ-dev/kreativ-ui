@@ -21,19 +21,18 @@ export type ButtonSize = SizeValue | "icon";
 
 export type ButtonVariant = BaseVariant | "link";
 
-export type ButtonColor = BaseColor;
+export type ButtonColor = BaseColor | "black";
 
-export interface ButtonRenderProps
-  extends Omit<
-    ButtonHTMLAttributes<HTMLButtonElement>,
-    | "onDrag"
-    | "onDragStart"
-    | "onDragEnd"
-    | "onAnimationStart"
-    | "onAnimationEnd"
-    | "onAnimationIteration"
-    | "color"
-  > {
+export interface ButtonRenderProps extends Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  | "onDrag"
+  | "onDragStart"
+  | "onDragEnd"
+  | "onAnimationStart"
+  | "onAnimationEnd"
+  | "onAnimationIteration"
+  | "color"
+> {
   className?: string;
   style?: CSSProperties;
   disabled?: boolean;

@@ -204,3 +204,156 @@
     cursor: not-allowed;
   }
 }
+
+/* 
+ * Layout component
+ */
+
+@utility kui-scroll-area {
+  position: relative;
+}
+
+[data-kui-scroll-area] {
+  --kui-scroll-x: 0;
+  --kui-scroll-y: 0;
+}
+[data-kui-scroll-scene] {
+  --kui-scene-progress: 0;
+  position: relative;
+}
+
+@utility kui-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--kui-text-muted) / 0.45) transparent;
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgb(var(--kui-text-muted) / 0.45);
+    border-radius: 999px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--kui-text-muted) / 0.65);
+  }
+  &:hover {
+    scrollbar-color: rgb(var(--kui-text-muted) / 0.65) transparent;
+  }
+}
+
+@utility kui-scrollbar-hover-only {
+  &:not(:hover) {
+    scrollbar-color: transparent transparent;
+
+    &::-webkit-scrollbar-thumb {
+      background: transparent;
+    }
+  }
+}
+
+@utility kui-scrollbar-hidden {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility kui-scrollbar-default-width {
+  &:not(.kui-scrollbar-hidden) {
+    scrollbar-width: auto;
+  }
+}
+
+[data-kui-scroll-area][data-direction="vertical"][data-fade-top="true"][data-fade-bottom="true"] {
+  --_mask: linear-gradient(
+    to bottom,
+    transparent 0,
+    black var(--kui-scroll-fade-size, 24px),
+    black calc(100% - var(--kui-scroll-fade-size, 24px)),
+    transparent 100%
+  );
+  mask-image: var(--_mask);
+  -webkit-mask-image: var(--_mask);
+}
+[data-kui-scroll-area][data-direction="vertical"][data-fade-top="true"]:not(
+    [data-fade-bottom="true"]
+  ) {
+  --_mask: linear-gradient(
+    to bottom,
+    transparent 0,
+    black var(--kui-scroll-fade-size, 24px)
+  );
+  mask-image: var(--_mask);
+  -webkit-mask-image: var(--_mask);
+}
+[data-kui-scroll-area][data-direction="vertical"][data-fade-bottom="true"]:not(
+    [data-fade-top="true"]
+  ) {
+  --_mask: linear-gradient(
+    to top,
+    transparent 0,
+    black var(--kui-scroll-fade-size, 24px)
+  );
+  mask-image: var(--_mask);
+  -webkit-mask-image: var(--_mask);
+}
+
+[data-kui-scroll-area][data-direction="horizontal"][data-fade-left="true"][data-fade-right="true"] {
+  --_mask: linear-gradient(
+    to right,
+    transparent 0,
+    black var(--kui-scroll-fade-size, 24px),
+    black calc(100% - var(--kui-scroll-fade-size, 24px)),
+    transparent 100%
+  );
+  mask-image: var(--_mask);
+  -webkit-mask-image: var(--_mask);
+}
+[data-kui-scroll-area][data-direction="horizontal"][data-fade-left="true"]:not(
+    [data-fade-right="true"]
+  ) {
+  --_mask: linear-gradient(
+    to right,
+    transparent 0,
+    black var(--kui-scroll-fade-size, 24px)
+  );
+  mask-image: var(--_mask);
+  -webkit-mask-image: var(--_mask);
+}
+[data-kui-scroll-area][data-direction="horizontal"][data-fade-right="true"]:not(
+    [data-fade-left="true"]
+  ) {
+  --_mask: linear-gradient(
+    to left,
+    transparent 0,
+    black var(--kui-scroll-fade-size, 24px)
+  );
+  mask-image: var(--_mask);
+  -webkit-mask-image: var(--_mask);
+}
+
+[data-kui-scroll-area][data-snap-align="start"] > * {
+  scroll-snap-align: start;
+}
+[data-kui-scroll-area][data-snap-align="center"] > * {
+  scroll-snap-align: center;
+}
+[data-kui-scroll-area][data-snap-align="end"] > * {
+  scroll-snap-align: end;
+}
+
+[data-kui-scroll-area] > [data-snap-ignore] {
+  scroll-snap-align: none;
+}
+
+[data-kui-scroll-area][data-drag-scroll] {
+  cursor: grab;
+}
+[data-kui-scroll-area][data-dragging] {
+  cursor: grabbing;
+  user-select: none;
+
+  scroll-snap-type: none !important;
+  scroll-behavior: auto !important;
+}

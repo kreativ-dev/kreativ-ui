@@ -5,9 +5,13 @@ export const formControlBase =
   "rounded-[var(--kui-radii-md)] " +
   "transition-[border-color,box-shadow] duration-[var(--kui-duration-fast)] " +
   "focus-within:outline-none ";
-
+// "border border-kui-border bg-transparent text-kui-text"
 export const formControlVariants = {
-  outline: "border border-kui-border bg-transparent text-kui-text",
+  outline: {
+    border: "1px solid var(--kui-border)",
+    backgroundColor: "transparent",
+    color: "var(--kui-text)",
+  },
 
   filled: "border border-transparent bg-kui-surface-raised text-kui-text",
 

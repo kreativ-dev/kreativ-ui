@@ -27,6 +27,15 @@ import {
   numberStepperButtonsRecipe,
   numberStepperRecipe,
 } from "./recipes/numberStepper";
+import {
+  cardBodyRecipe,
+  cardFooterRecipe,
+  cardHeaderRecipe,
+  cardMediaRecipe,
+  cardOverlayRecipe,
+  cardRecipe,
+} from "./recipes/card";
+import { scrollAreaRecipe } from "./recipes/scrollArea";
 
 export const defaultRecipes = {
   Button: buttonRecipe,
@@ -48,6 +57,13 @@ export const defaultRecipes = {
   NumberStepper: numberStepperRecipe,
   NumberStepperButton: numberStepperButtonRecipe,
   NumberStepperButtons: numberStepperButtonsRecipe,
+  CardBody: cardBodyRecipe,
+  CardFooter: cardFooterRecipe,
+  CardHeader: cardHeaderRecipe,
+  CardMedia: cardMediaRecipe,
+  CardOverlay: cardOverlayRecipe,
+  Card: cardRecipe,
+  ScrollArea: scrollAreaRecipe,
 } satisfies RecipeCollection;
 
 export const defaultTheme = defineTheme({

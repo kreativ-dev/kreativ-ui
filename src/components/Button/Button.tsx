@@ -9,7 +9,12 @@ import type { ButtonProps } from "./Button.types";
 import { ResponsiveStyle } from "../internal/ResponsiveStyle";
 import { useOptionalButtonGroupContext } from "../ButtonGroup";
 import { useTheme } from "@splenddev/kreativ-core";
-import { useResponsiveStyles, useSizeStyle, useSizeToken, useTypography } from "@splenddev/kreativ-core/hooks";
+import {
+  useResponsiveStyles,
+  useSizeStyle,
+  useSizeToken,
+  useTypography,
+} from "@splenddev/kreativ-core/hooks";
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -38,8 +43,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const resolvedSize = size ?? group?.size ?? "md";
 
-    const { style: sizeStyle, responsiveStyles } = useSizeStyle
-    (
+    const { style: sizeStyle, responsiveStyles } = useSizeStyle(
       resolvedSize,
       iconOnly,
       "button",
@@ -61,7 +65,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const resolvedClassName = cn(
       recipeClasses,
       fullWidth && "w-full",
-      isLoading && "opacity-90 pointer-events-none",
+      isLoading && "opacity-90 pointer-events-none text-xs",
       className,
     );
 

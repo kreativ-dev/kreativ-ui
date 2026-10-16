@@ -5,9 +5,22 @@ import { Switch } from "@/components/forms/Switch";
 import type {
   CardVariant,
   CardSize,
+  // CardLayout,
+  CardMediaFit,
+  CardMediaBlend,
+  // CardOverlayDirection,
 } from "@/components/layout/Card/Card.types";
 import { Playground } from "./shared/Playground";
 import { getAttrs } from "./shared/getAttributes";
+import { Button, Flex, Grid } from "@/components";
+import {
+  CheckIcon,
+  CopyCheck,
+  PlusIcon,
+  UserIcon,
+  Verified,
+} from "lucide-react";
+import { cn } from "@/utils";
 
 const variants: CardVariant[] = [
   "solid",
@@ -17,139 +30,194 @@ const variants: CardVariant[] = [
   "compact",
 ];
 const sizes: CardSize[] = ["sm", "md", "lg"];
+const mediaFits: CardMediaFit[] = ["cover", "contain", "fill", "none"];
+const mediaBlends: CardMediaBlend[] = [
+  "normal",
+  "multiply",
+  "screen",
+  "overlay",
+  "darken",
+  "lighten",
+];
+const features = [
+  "Unlimited users",
+  "Unlimited gros Objects",
+  "10TB Storage",
+  "2TB Video / Audio Traffic",
+  "AI - TBD",
+];
 
-export function CardPlayground() {
-  const [variant, setVariant] = useState<CardVariant>("outline");
-  const [size, setSize] = useState<CardSize>("md");
-  const [hasImage, setHasImage] = useState(false);
-  const [fullWidth, setFullWidth] = useState(false);
-  const [noPadding, setNoPadding] = useState(false);
-  const [withHeader, setWithHeader] = useState(true);
-  const [withFooter, setWithFooter] = useState(true);
-
-  const code = [
-    `<Card`,
-    `  variant="${variant}"`,
-    `  size="${size}"`,
-    hasImage && `  hasImage`,
-    fullWidth && `  fullWidth`,
-    noPadding && `  noPadding`,
-    `>`,
-    hasImage &&
-      `  <img src="..." alt="" className="aspect-video w-full object-cover" />`,
-    withHeader &&
-      `  <Card.Header>\n    <span className="font-medium">Card title</span>\n  </Card.Header>`,
-    `  <Card.Body>`,
-    `    <p className="text-sm text-muted">Card body content goes here.</p>`,
-    `  </Card.Body>`,
-    withFooter &&
-      `  <Card.Footer>\n    <button className="text-sm text-kui-brand">Action</button>\n  </Card.Footer>`,
-    `</Card>`,
-  ]
-    .filter(Boolean)
-    .join("\n");
-
+// Image 5 — "Top": avatar + name sit on the upper portion of a full-bleed
+// photo, bookmark icon pinned top-right. The whole card IS the media —
+// Card.Media is the sole child, everything else stacks inside it.
+export function ProfileCardTop() {
   return (
-    <Playground
-      title="Card"
-      description="A flexible surface for grouping related content, with optional Header/Body/Footer slots."
-      controls={
-        <div className="flex flex-col gap-4">
-          <Select
-            value={variant}
-            onValueChange={(v) => setVariant(v as CardVariant)}
-          >
-            <Select.Label>Variant</Select.Label>
-            <Select.Trigger />
-            <Select.Content>
-              {variants.map((v) => (
-                <Select.Item key={v} value={v}>
-                  {v}
-                </Select.Item>
-              ))}
-            </Select.Content>
-          </Select>
+    <Card variant="elevated" className="max-w-sm">
+      <Card.Media src="/mountains.jpg" alt="" aspectRatio={4 / 3}>
+        <Card.Overlay gradient="bottom" color="black" opacity={0.3} />
 
-          <Select value={size} onValueChange={(v) => setSize(v as CardSize)}>
-            <Select.Label>Size</Select.Label>
-            <Select.Trigger />
-            <Select.Content>
-              {sizes.map((s) => (
-                <Select.Item key={s} value={s}>
-                  {s}
-                </Select.Item>
-              ))}
-            </Select.Content>
-          </Select>
+        <button className="absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full bg-white/90">
+          🔖
+        </button>
 
-          <div className="flex items-center justify-between">
-            <span className="text-sm">Has image</span>
-            <Switch checked={hasImage} onCheckedChange={setHasImage} />
-          </div>
-
-          <div className="flex items-center justify-between">
-            <span className="text-sm">Full width</span>
-            <Switch checked={fullWidth} onCheckedChange={setFullWidth} />
-          </div>
-
-          <div className="flex items-center justify-between">
-            <span className="text-sm">No padding</span>
-            <Switch checked={noPadding} onCheckedChange={setNoPadding} />
-          </div>
-
-          <div className="flex items-center justify-between">
-            <span className="text-sm">With header</span>
-            <Switch checked={withHeader} onCheckedChange={setWithHeader} />
-          </div>
-
-          <div className="flex items-center justify-between">
-            <span className="text-sm">With footer</span>
-            <Switch checked={withFooter} onCheckedChange={setWithFooter} />
+        <div className="absolute left-4 top-4 flex items-center gap-3">
+          <img
+            src="/avatar.jpg"
+            alt=""
+            className="h-10 w-10 rounded-full border-2 border-white"
+          />
+          <div>
+            <p className="font-medium text-white">Aiwanfo Faith</p>
+            <p className="text-xs text-white/80">
+              Designing for clarity &amp; usability
+            </p>
           </div>
         </div>
-      }
-      preview={
-        <Card
-          variant={variant}
-          size={size}
-          hasImage={hasImage}
-          fullWidth={fullWidth}
-          noPadding={noPadding}
-          className="max-w-md"
-        >
-          {hasImage && (
-            <img
-              src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&h=340&fit=crop"
-              alt=""
-              className="aspect-video w-full object-cover"
-            />
-          )}
 
-          {withHeader && (
-            <Card.Header>
-              <span className="font-medium">Card title</span>
-            </Card.Header>
-          )}
+        <div className="absolute inset-x-4 bottom-4 flex items-center justify-between">
+          <div className="flex items-center gap-3 text-xs text-white/90">
+            <span>⭐ 4.6 rating</span>
+            <span>7 days duration</span>
+            <span>$44/hr rate</span>
+          </div>
+          <button className="rounded-full bg-kui-ink px-4 py-1.5 text-xs font-medium text-white">
+            Get in touch
+          </button>
+        </div>
+      </Card.Media>
+    </Card>
+  );
+}
 
-          <Card.Body>
-            <p className="text-sm text-muted">Card body content goes here.</p>
-          </Card.Body>
+// Image 5 — "Bottom": same photo, but the gradient fades from white at
+// top-left (where the avatar/name sit, on a near-solid background) toward
+// the photo becoming visible lower-right — the inverse direction scrim.
+export function ProfileCardBottom() {
+  return (
+    <Card variant="elevated" className="max-w-sm">
+      <Card.Media
+        src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&fit=crop"
+        alt=""
+        aspectRatio={4 / 3}
+      >
+        <Card.Overlay
+          style={{
+            backgroundImage:
+              "linear-gradient(135deg, white 0%, white 35%, transparent 75%)",
+          }}
+        />
 
-          {withFooter && (
-            <Card.Footer>
-              <button className="text-sm text-kui-brand">Action</button>
-            </Card.Footer>
-          )}
-        </Card>
-      }
-      code={code}
-      getAttributes={(el) =>
-        getAttrs(el, ["class"], [], {
-          "data-variant": variant,
-          "data-size": size,
-        })
-      }
-      attributeSelector="[data-kui-card], div"
-    />
+        <button className="absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full bg-white/90">
+          🔖
+        </button>
+
+        <div className="absolute left-4 top-4 flex items-center gap-3">
+          <img
+            src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&h=340&fit=crop"
+            alt=""
+            className="h-10 w-10 rounded-full border-2 border-kui-border"
+          />
+          <div>
+            <p className="font-medium">Aiwanfo Faith</p>
+            <p className="text-xs text-muted">
+              Designing for clarity &amp; usability
+            </p>
+          </div>
+        </div>
+        <div className="absolute inset-x-4 bottom-4 flex items-center justify-between">
+          <div className="flex items-center gap-3 text-xs text-muted">
+            <span>⭐ 4.6 rating</span>
+            <span>7 days duration</span>
+            <span>$44/hr rate</span>
+          </div>
+          <button className="rounded-full bg-white px-4 py-1.5 text-xs font-medium shadow">
+            Get in touch
+          </button>
+        </div>
+      </Card.Media>
+      <Card.Footer></Card.Footer>
+    </Card>
+  );
+}
+
+export function PricingCardFlat() {
+  return (
+    <Card variant="elevated" className="max-w-xs">
+      <Card.Header>
+        <span className="text-sm text-muted">Legendary</span>
+      </Card.Header>
+
+      <Card.Body>
+        <div className="flex items-baseline gap-1">
+          <span className="text-3xl font-semibold">$399</span>
+          <span className="text-sm text-muted">.99/monthly</span>
+        </div>
+        <p className="mt-2 text-sm text-muted">
+          Best for large multiple teams that need maximum capabilities.
+        </p>
+        <button className="mt-4 w-full rounded-full bg-kui-ink py-2 text-sm font-medium text-white">
+          Start Free
+        </button>
+      </Card.Body>
+
+      <Card.Footer className="flex-col items-start gap-2">
+        <FeatureRow label="Unlimited users" />
+        <FeatureRow label="Unlimited gros Objects" />
+        <FeatureRow label="10TB Storage" />
+        <FeatureRow label="2TB Video / Audio Traffic" />
+        <FeatureRow label="AI - TBD" />
+      </Card.Footer>
+    </Card>
+  );
+}
+
+function PricingCardGradientHeader() {
+  return (
+    <Card variant="elevated" className="max-w-xs p-2 mt-4">
+      <Card.Header className="flex-col items-start rounded-2xl overflow-hidden relative border border-kui-border">
+        <Card.Overlay gradient="right" color="oklch(0.75 0.15 350)" />
+        <div className="relative">
+          <span className="text-sm text-muted">Legendary</span>
+          <div className="flex items-baseline gap-1">
+            <span className="text-3xl font-semibold">$399</span>
+            <span className="text-sm text-muted">.99/monthly</span>
+          </div>
+          <p className="mt-2 text-sm text-muted">
+            Best for large multiple teams that need maximum capabilities.
+          </p>
+          <Button className="mt-4" fullWidth size="sm" typography="caption">
+            Start Free
+          </Button>
+        </div>
+      </Card.Header>
+
+      <Card.Footer className="flex-col items-start gap-2">
+        <FeatureRow label="Unlimited users" />
+        <FeatureRow label="Unlimited gros Objects" />
+        <FeatureRow label="10TB Storage" />
+        <FeatureRow label="2TB Video / Audio Traffic" />
+        <FeatureRow label="AI - TBD" />
+      </Card.Footer>
+    </Card>
+  );
+}
+
+function FeatureRow({ label }: { label: string }) {
+  return (
+    <div className="flex items-center gap-2 text-sm">
+      <span>✓</span>
+      <span>{label}</span>
+    </div>
+  );
+}
+
+export function CardPlayground() {
+  return (
+    <>
+      <ProfileCardTop />
+      <ProfileCardBottom />
+      <PricingCardFlat />
+      <PricingCardGradientHeader />
+    </>
   );
 }

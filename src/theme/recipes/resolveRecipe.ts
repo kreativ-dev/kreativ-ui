@@ -1,5 +1,10 @@
-import { RecipeDefinition, RecipeStyle, RecipeVariantValue } from "@splenddev/kreativ-core";
-import { cn } from "../../utils/cn";
+import type {
+  RecipeDefinition,
+  RecipeStyle,
+  RecipeVariantValue,
+} from "@splenddev/kreativ-core/types";
+import { resolveStyle } from "@splenddev/kreativ-core";
+import { cn } from "@/utils/cn";
 
 export interface RecipeProps {
   [key: string]: RecipeVariantValue | undefined;
@@ -25,10 +30,10 @@ export function resolveRecipe(
     ...props,
   };
 
-  const classes: RecipeStyle[] = [];
+  const classes: string[] = [];
 
   if (recipe.base) {
-    classes.push(recipe.base);
+    classes.push(resolveStyle(recipe.base as RecipeStyle));
   }
 
   if (recipe.variants) {
@@ -42,7 +47,7 @@ export function resolveRecipe(
       const variantClass = variantValues[String(value)];
 
       if (variantClass) {
-        classes.push(variantClass);
+        classes.push(resolveStyle(variantClass as RecipeStyle));
       }
     }
   }
@@ -50,7 +55,7 @@ export function resolveRecipe(
   if (recipe.compoundVariants) {
     for (const compound of recipe.compoundVariants) {
       if (matchesConditions(compound.conditions, resolvedProps)) {
-        classes.push(compound.className);
+        classes.push(resolveStyle(compound.className as RecipeStyle));
       }
     }
   }

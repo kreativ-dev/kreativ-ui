@@ -30,8 +30,10 @@ export const buttonColors = {
     link: "text-kui-brand",
   },
   destructive: {
-    solid: "bg-kui-destructive text-kui-destructive-fg hover:bg-kui-destructive-hover",
-    outline: "border-kui-destructive text-kui-destructive hover:bg-kui-destructive/10",
+    solid:
+      "bg-kui-destructive text-kui-destructive-fg hover:bg-kui-destructive-hover",
+    outline:
+      "border-kui-destructive text-kui-destructive hover:bg-kui-destructive/10",
     ghost: "text-kui-destructive hover:bg-kui-destructive/10",
     soft: "bg-kui-destructive/10 text-kui-destructive hover:bg-kui-destructive/20",
     link: "text-kui-destructive",
@@ -63,6 +65,15 @@ export const buttonColors = {
     ghost: "text-white hover:bg-white/10",
     soft: "bg-white/10 text-white hover:bg-white/20",
     link: "text-white",
+  },
+  black: {
+    solid:
+      "bg-black text-white hover:bg-neutral-900 active:bg-neutral-950 shadow-sm",
+    outline:
+      "border border-black/80 text-black bg-transparent hover:bg-black hover:text-white active:bg-black/90",
+    ghost: "text-black bg-transparent hover:bg-black/10 active:bg-black/15",
+    soft: "bg-black/10 text-black hover:bg-black/15 active:bg-black/20",
+    link: "text-black underline-offset-4 hover:underline",
   },
   neutral: {
     solid: "bg-kui-surface-raised text-kui-text hover:bg-kui-surface-sunken",

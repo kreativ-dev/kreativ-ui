@@ -53,16 +53,6 @@ export function GridPlayground() {
 </Grid>`;
 
   // {
-  //         "grid-template-columns": el
-  //           ? getComputedStyle(el).gridTemplateColumns
-  //           : null,
-  //         "grid-template-areas": el
-  //           ? getComputedStyle(el).gridTemplateAreas
-  //           : null,
-  //         gap: el ? getComputedStyle(el).gap : null,
-  //         "align-items": el ? getComputedStyle(el).alignItems : null,
-  //         "justify-content": el ? getComputedStyle(el).justifyContent : null,
-  //       }
 
   const extraAttributes = [
     "grid-template-columns",
@@ -90,68 +80,51 @@ export function GridPlayground() {
               <Select
                 value={String(columns)}
                 onValueChange={(v) => setColumns(Number(v) as typeof columns)}
-              >
-                <Select.Label>columns</Select.Label>
-                <Select.Trigger />
-                <Select.Content>
-                  {columnOptions.map((c) => (
-                    <Select.Item key={c} value={String(c)}>
-                      {c}
-                    </Select.Item>
-                  ))}
-                </Select.Content>
-              </Select>
+                options={columnOptions.map((option) => ({
+                  label: option,
+                  value: String(option),
+                }))}
+                label="Columns"
+              />
 
               <Select
                 value={align}
                 onValueChange={(v) => setAlign(v as typeof align)}
-              >
-                <Select.Label>align</Select.Label>
-                <Select.Trigger />
-                <Select.Content>
-                  {alignOptions.map((a) => (
-                    <Select.Item key={a} value={a}>
-                      {a}
-                    </Select.Item>
-                  ))}
-                </Select.Content>
-              </Select>
+                options={alignOptions.map((option) => ({
+                  label: option,
+                  value: option,
+                }))}
+                label="align"
+              ></Select>
 
               <Select
                 value={justify}
                 onValueChange={(v) => setJustify(v as typeof justify)}
-              >
-                <Select.Label>justify</Select.Label>
-                <Select.Trigger />
-                <Select.Content>
-                  {justifyOptions.map((j) => (
-                    <Select.Item key={j} value={j}>
-                      {j}
-                    </Select.Item>
-                  ))}
-                </Select.Content>
-              </Select>
+                label="justify"
+                options={justifyOptions.map((option) => ({
+                  label: option,
+                  value: option,
+                }))}
+                />
             </>
           )}
 
-          <Select value={gap} onValueChange={(v) => setGap(v as typeof gap)}>
-            <Select.Label>gap</Select.Label>
-            <Select.Trigger />
-            <Select.Content>
-              {gaps.map((g) => (
-                <Select.Item key={g} value={g}>
-                  {g}
-                </Select.Item>
-              ))}
-            </Select.Content>
-          </Select>
+          <Select
+            value={gap}
+            onValueChange={(v) => setGap(v as typeof gap)}
+            label="gap"
+            options={gaps.map((option) => ({
+              label: option,
+              value: option,
+            }))}
+          />
         </Stack>
       }
       preview={
         useAreas ? (
           <Grid
             templateColumns="200px 1fr"
-            templateAreas={`"sidebar main" "sidebar footer"`}
+            templateAreas={`"sidebar sidebar main" "sidebar footer footer"`}
             gap={gap}
             className="min-h-40"
           >
@@ -167,10 +140,17 @@ export function GridPlayground() {
           </Grid>
         ) : (
           <Grid columns={columns} gap={gap} align={align} justify={justify}>
-            {Array.from({ length: columns * 2 }, (_, i) => (<>
-                <Button variant="soft" color="neutral" size="sm" iconOnly leftIcon={<Grid2X2/>}></Button>
+            {Array.from({ length: columns * 2 }, (_, i) => (
+              <>
+                <Button
+                  variant="soft"
+                  color="neutral"
+                  size="sm"
+                  iconOnly
+                  leftIcon={<Grid2X2 />}
+                ></Button>
                 <DemoBox key={i} label={String(i + 1)} />
-            </>
+              </>
             ))}
           </Grid>
         )

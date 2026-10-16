@@ -1,8 +1,7 @@
-// Text.tsx
 import { forwardRef } from "react";
-import { useTheme } from "@/hooks";
 import { cn } from "@/utils/cn";
 import type { TextProps } from "./Text.types";
+import { useTheme } from "@splenddev/kreativ-core";
 
 export const Text = forwardRef<HTMLElement, TextProps>(
   (
@@ -42,7 +41,6 @@ export const Text = forwardRef<HTMLElement, TextProps>(
         ref={ref}
         className={cn(
           "kui-text",
-          //   "kui-text",
           weight && `font-${weight}`,
           truncate && "truncate",
           clampLines && "overflow-hidden text-ellipsis",

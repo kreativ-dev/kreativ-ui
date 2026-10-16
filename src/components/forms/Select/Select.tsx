@@ -19,12 +19,14 @@ export interface SelectOption {
   disabled?: boolean;
 }
 
-export interface SelectProps extends SelectRootProps {
+export interface SelectProps extends Omit<SelectRootProps, "children"> {
   options?: SelectOption[];
+  children?: React.ReactNode;
+  label?: string | React.ReactNode;
 }
 
 function SelectImpl(
-  { options, children, ...rootProps }: SelectProps,
+  { options, children, label, ...rootProps }: SelectProps,
   ref: React.ForwardedRef<HTMLDivElement>,
 ) {
   const childArray = React.Children.toArray(children);
@@ -42,6 +44,7 @@ function SelectImpl(
         children
       ) : (
         <>
+          {label && <Select.Label>{label}</Select.Label>}
           <SelectTrigger>
             <SelectValue />
           </SelectTrigger>
