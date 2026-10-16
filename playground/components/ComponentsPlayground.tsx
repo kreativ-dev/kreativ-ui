@@ -17,6 +17,7 @@ import { cn } from "@/utils";
 import { FlexPlayground } from "./FlexPlayground";
 import { GridPlayground } from "./GridPlayground";
 import { CardPlayground } from "./CardPlayground";
+import { ScrollAreaPlayground } from "./ScrollareaPlayground";
 
 const SECTIONS = [
   { key: "card", label: "Card", render: () => <CardPlayground /> },
@@ -44,6 +45,7 @@ const SECTIONS = [
   { key: "radio", label: "Radio", render: () => <RadioDemo /> },
   { key: "switch", label: "Switch", render: () => <SwitchDemo /> },
   { key: "combobox", label: "Combobox", render: () => <ComboboxDemo /> },
+  { key: "scroll-area", label: "ScrollArea", render: () => <ScrollAreaPlayground /> },
   {
     key: "multiselect",
     label: "MultiSelect",
