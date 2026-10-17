@@ -1,6 +1,5 @@
 import { TextareaHTMLAttributes } from "react";
 import { InputVariant } from "../Input/Input.types";
-import type { MarkdownEditorProps } from "../MarkdownEditor/MarkdownEditor.types";
 import type {
   BaseProps,
   ClearableProps,
@@ -44,7 +43,4 @@ export interface TextareaCoreProps
   debounceDelay?: number;
 }
 
-export type TextareaProps =
-  | ({ allowMarkdown?: false } & TextareaCoreProps)
-  | ({ allowMarkdown: true } & Omit<TextareaCoreProps, "resize"> &
-      MarkdownEditorProps);
+export type TextareaProps = TextareaCoreProps;

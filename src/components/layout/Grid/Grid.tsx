@@ -1,27 +1,52 @@
 "use client";
 
-import { forwardRef } from "react";
-import { useMergedResponsiveStyles, useResponsiveStyles } from "@/hooks/";
-import { ResponsiveStyle } from "@/components/internal/ResponsiveStyle";
-import type { GridProps } from "./Grid.types";
-import { cn } from "@/utils/cn";
+import { createComponent, useTheme } from "@splenddev/kreativ-core";
+import type { Size } from "@splenddev/kreativ-core/types";
 
-function spaceVar(value: string) {
-  return `var(--kui-spacing-${value})`;
+import { useMergedResponsiveStyles, useResponsiveStyles } from "@/hooks";
+import { ResponsiveStyle } from "@/components/internal/ResponsiveStyle";
+import { resolveRecipe } from "@/theme/recipes/resolveRecipe";
+import { cn } from "@/utils/cn";
+import { resolveSpace } from "@/utils/resolveSpace";
+import { isDev } from "@/utils/env";
+import type { GridProps } from "./Grid.types";
+import type { SpaceValue } from "@/types";
+import { GridItem } from "./Grid.Item";
+
+const RAW_LENGTH = /px|rem|em|%|vw|vh|ch|var\(/i;
+
+function resolveTrackSize(value: Size | string) {
+  if (typeof value === "number") return `${value}px`;
+  if (RAW_LENGTH.test(value)) return value;
+  return resolveSpace(value as SpaceValue);
 }
 
-export const Grid = forwardRef<HTMLDivElement, GridProps>(
-  (
+const GridRoot = createComponent<GridProps, HTMLDivElement>({
+  displayName: "Grid",
+  __kui: {
+    role: "layout",
+    skeleton: "preserve",
+    video: {
+      id: "grid",
+      safe: true,
+      acceptsChildren: true,
+      interactionStates: [],
+    },
+  },
+  render: (
     {
       columns,
+      minChildWidth,
       templateColumns,
       templateRows,
       templateAreas,
+      autoFlow,
       gap,
-      columnGap,
-      rowGap,
+      gapX,
+      gapY,
       align,
-      justify,
+      justifyItems,
+      inline = false,
       as: Tag = "div",
       className,
       style,
@@ -31,24 +56,43 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
     },
     ref,
   ) => {
+    const { theme } = useTheme();
+
+    if (
+      isDev() &&
+      [columns, minChildWidth, templateColumns].filter((v) => v != null)
+        .length > 1
+    ) {
+      console.warn(
+        "[kreativ-ui/Grid]: columns, minChildWidth, and templateColumns are mutually exclusive. templateColumns wins, then columns, then minChildWidth.",
+      );
+    }
+
     const responsiveStyles = useMergedResponsiveStyles([
       [
-        templateColumns ?? columns,
-        (v) =>
-          typeof v === "number"
-            ? { gridTemplateColumns: `repeat(${v}, minmax(0, 1fr))` }
-            : { gridTemplateColumns: v as string },
+        columns,
+        (v) => ({ gridTemplateColumns: `repeat(${v}, minmax(0, 1fr))` }),
       ],
+      [
+        minChildWidth,
+        (v) => ({
+          gridTemplateColumns: `repeat(auto-fit, minmax(${resolveTrackSize(v)}, 1fr))`,
+        }),
+      ],
+      [templateColumns, (v) => ({ gridTemplateColumns: v })],
       [templateRows, (v) => ({ gridTemplateRows: v })],
-      [gap, (v) => ({ gap: spaceVar(v as string) })],
-      [columnGap, (v) => ({ columnGap: spaceVar(v as string) })],
-      [rowGap, (v) => ({ rowGap: spaceVar(v as string) })],
+      [autoFlow, (v) => ({ gridAutoFlow: v })],
+      [gap, (v) => ({ gap: resolveSpace(v) })],
+      [gapX, (v) => ({ columnGap: resolveSpace(v) })],
+      [gapY, (v) => ({ rowGap: resolveSpace(v) })],
       [align, (v) => ({ alignItems: v })],
-      [justify, (v) => ({ justifyContent: v })],
+      [justifyItems, (v) => ({ justifyItems: v })],
     ]);
 
     const { attribute, style: responsiveCss } =
       useResponsiveStyles(responsiveStyles);
+
+    const recipeClasses = resolveRecipe(theme.recipes.Grid, { inline });
 
     return (
       <>
@@ -56,7 +100,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
         <Tag
           ref={ref}
           data-kui-responsive={attribute}
-          className={cn(!unstyled && "grid", className)}
+          className={cn(!unstyled && recipeClasses, className)}
           style={{ ...style, gridTemplateAreas: templateAreas }}
           {...rest}
         >
@@ -65,6 +109,6 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       </>
     );
   },
-);
+});
 
-Grid.displayName = "Grid";
+export const Grid = Object.assign(GridRoot, { Item: GridItem });

@@ -11,7 +11,7 @@ import { markdownEditorRecipe } from "./recipes/markdownEditor";
 import { checkboxRecipe } from "./recipes/checkbox";
 import { buttonGroupRecipe } from "./recipes/buttonGroup";
 import { switchRecipe } from "./recipes/switch";
-import { containerReccipe } from "./recipes/container";
+import { containerRecipe } from "./recipes/container";
 import { linkRecipe } from "./recipes/link";
 import { defineTheme } from "@splenddev/kreativ-core";
 import {
@@ -36,17 +36,22 @@ import {
   cardRecipe,
 } from "./recipes/card";
 import { scrollAreaRecipe } from "./recipes/scrollArea";
+import { boxRecipe } from "./recipes/box";
+import { flexRecipe } from "./recipes/flex";
+import { gridRecipe } from "./recipes/grid";
 
 export const defaultRecipes = {
+  Box: boxRecipe,
   Button: buttonRecipe,
+  ButtonGroup: buttonGroupRecipe,
+  Checkbox: checkboxRecipe,
+  Flex: flexRecipe,
   FormControl: formControlRecipe,
   Input: inputRecipe,
   Textarea: textareaRecipe,
   MarkdownEditor: markdownEditorRecipe,
-  Checkbox: checkboxRecipe,
-  ButtonGroup: buttonGroupRecipe,
   Switch: switchRecipe,
-  Container: containerReccipe,
+  Container: containerRecipe,
   Link: linkRecipe,
   RepeaterRemove: repeaterRemoveRecipe,
   RepeaterMoveUp: repeaterMoveUpRecipe,
@@ -64,6 +69,7 @@ export const defaultRecipes = {
   CardOverlay: cardOverlayRecipe,
   Card: cardRecipe,
   ScrollArea: scrollAreaRecipe,
+  Grid: gridRecipe,
 } satisfies RecipeCollection;
 
 export const defaultTheme = defineTheme({

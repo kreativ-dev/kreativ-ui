@@ -4,30 +4,19 @@ import type {
   ResponsiveValue,
   Size,
 } from "@splenddev/kreativ-core/types";
+import { SpaceValue } from "@/types";
+
 
 export interface ContainerProps extends BaseProps {
-  /**
-   * Max-width of the container, mapped to the Container recipe's `size` variant.
-   * @default "lg"
-   */
+  /** @default "lg" */
   maxWidth?: Size | (string & {});
 
-  /**
-   * Horizontal padding. Token-based (Size) or a raw responsive CSS value.
-   */
-  padding?: ResponsiveValue<Size | (string & {})>;
+  /** Token name ("sm"), pixel number (24), or raw length ("24px"). */
+  padding?: ResponsiveValue<SpaceValue>;
 
-  /**
-   * Centers the container horizontally via margin-inline: auto.
-   * @default true
-   */
+  /** @default true */
   centered?: boolean;
 
-  /**
-   * Element type to render as.
-   * @default "div"
-   */
   as?: ElementType;
-
   children?: ReactNode;
 }

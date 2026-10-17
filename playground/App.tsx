@@ -10,6 +10,7 @@ import { profileSchema, profileUiSchema } from "./data/field-schema";
 import { Eye, User, VerifiedIcon } from "lucide-react";
 import { Text } from "@/components/typography/Text/Text";
 
+
 export function App() {
   const [theme, setTheme] = useState<ThemeOverride>(() =>
     extendTheme({

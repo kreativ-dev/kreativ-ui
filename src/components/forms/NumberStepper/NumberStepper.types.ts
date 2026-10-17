@@ -1,5 +1,5 @@
 import type * as React from "react";
-import { BaseInputProps, InputVariant } from "../Input";
+import { BaseInputProps, InputProps, InputVariant } from "../Input";
 
 export interface NumberStepperValidationResult {
   valid: boolean;
@@ -21,6 +21,7 @@ export interface NumberStepperProps {
   precision?: number;
 
   variant?: InputVariant;
+  hideKindIcon?: InputProps["hideKindIcon"];
 
   error?: boolean;
   success?: boolean;

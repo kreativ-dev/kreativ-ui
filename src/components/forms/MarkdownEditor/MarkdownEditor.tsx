@@ -1,6 +1,15 @@
 "use client";
 
-import { useId, useRef, useState, forwardRef, useMemo, useEffect } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
+
+import {
+  composeRefs,
+  createComponent,
+  isMotionGated,
+  type MotionGatedProps,
+  useTheme,
+} from "@splenddev/kreativ-core";
+
 import { cn } from "@/utils/cn";
 import {
   toggleWrap,
@@ -15,6 +24,8 @@ import {
   Heading as HeadingIcon,
   Bold as BoldIcon,
   Italic as ItalicIcon,
+  Strikethrough as StrikethroughIcon,
+  Quote as QuoteIcon,
   ListOrdered as OrderedListIcon,
   ClipboardList as ChecklistIcon,
   Code as CodeIcon,
@@ -24,46 +35,95 @@ import { isDev } from "@/utils/env";
 import { resolveRecipe } from "@/theme/recipes/resolveRecipe";
 import { useOptionalFormField } from "../FormField/FormField.context";
 import { TextareaCore } from "../Textarea/Textarea.core";
-import { useTheme } from "@splenddev/kreativ-core";
 
 type Action = (value: string, start: number, end: number) => TextEdit;
 
-const TOOLBAR: Array<{ label: string; icon: typeof BoldIcon; action: Action }> =
-  [
-    {
-      label: "Heading",
-      icon: HeadingIcon,
-      action: (v, s, e) => toggleLinePrefix(v, s, e, "### "),
-    },
-    {
-      label: "Bold",
-      icon: BoldIcon,
-      action: (v, s, e) => toggleWrap(v, s, e, "**"),
-    },
-    {
-      label: "Italic",
-      icon: ItalicIcon,
-      action: (v, s, e) => toggleWrap(v, s, e, "_"),
-    },
-    {
-      label: "Ordered list",
-      icon: OrderedListIcon,
-      action: (v, s, e) => toggleListPrefix(v, s, e, (i) => `${i + 1}. `),
-    },
-    {
-      label: "Checklist",
-      icon: ChecklistIcon,
-      action: (v, s, e) => toggleListPrefix(v, s, e, () => "- [ ] "),
-    },
-    { label: "Code", icon: CodeIcon, action: toggleCode },
-    { label: "Link", icon: LinkIcon, action: insertLink },
-  ];
+type ToolbarItem = {
+  label: string;
+  icon: typeof BoldIcon;
+  action: Action;
+  shortcutKey?: string;
+};
 
-export const MarkdownEditor = forwardRef<
-  HTMLTextAreaElement,
-  MarkdownEditorProps
->(
-  (
+const TOOLBAR: ToolbarItem[] = [
+  {
+    label: "Heading",
+    icon: HeadingIcon,
+    action: (v, s, e) => toggleLinePrefix(v, s, e, "### "),
+  },
+  {
+    label: "Bold",
+    icon: BoldIcon,
+    action: (v, s, e) => toggleWrap(v, s, e, "**"),
+    shortcutKey: "b",
+  },
+  {
+    label: "Italic",
+    icon: ItalicIcon,
+    action: (v, s, e) => toggleWrap(v, s, e, "_"),
+    shortcutKey: "i",
+  },
+  {
+    label: "Strikethrough",
+    icon: StrikethroughIcon,
+    action: (v, s, e) => toggleWrap(v, s, e, "~~"),
+  },
+  {
+    label: "Quote",
+    icon: QuoteIcon,
+    action: (v, s, e) => toggleLinePrefix(v, s, e, "> "),
+  },
+  {
+    label: "Ordered list",
+    icon: OrderedListIcon,
+    action: (v, s, e) => toggleListPrefix(v, s, e, (i) => `${i + 1}. `),
+  },
+  {
+    label: "Checklist",
+    icon: ChecklistIcon,
+    action: (v, s, e) => toggleListPrefix(v, s, e, () => "- [ ] "),
+  },
+  { label: "Code", icon: CodeIcon, action: toggleCode },
+  { label: "Link", icon: LinkIcon, action: insertLink, shortcutKey: "k" },
+];
+
+const SHORTCUT_MAP = new Map(
+  TOOLBAR.filter((item) => item.shortcutKey).map((item) => [
+    item.shortcutKey as string,
+    item,
+  ]),
+);
+
+const isMac =
+  typeof navigator !== "undefined" &&
+  /Mac|iPhone|iPad/.test(navigator.platform);
+const modLabel = isMac ? "⌘" : "Ctrl";
+
+function shortcutHint(item: ToolbarItem) {
+  if (!item.shortcutKey) return item.label;
+  return `${item.label} (${modLabel}+${item.shortcutKey.toUpperCase()})`;
+}
+
+export const MarkdownEditor = createComponent<
+  MarkdownEditorProps & MotionGatedProps,
+  HTMLTextAreaElement
+>({
+  displayName: "MarkdownEditor",
+  __kui: {
+    role: "formControl",
+    formControl: "single",
+    supports: { disabled: true, invalid: true, required: true },
+    skeleton: "input-shaped",
+    video: {
+      id: "markdown-editor",
+      safe: true,
+      acceptsChildren: false,
+      interactionStates: ["focus"],
+      controlled: ["value", "disabled"],
+      motionGated: true,
+    },
+  },
+  render: (
     {
       renderMarkdown,
       tab: tabProp,
@@ -87,13 +147,15 @@ export const MarkdownEditor = forwardRef<
   ) => {
     const baseId = useId();
     const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const { theme } = useTheme();
+    const field = useOptionalFormField();
+    const motionGated = isMotionGated(textareaProps);
+    const isDisabled = disabled || Boolean(field?.disabled);
 
     const [uncontrolledTab, setUncontrolledTab] = useState<"write" | "preview">(
       defaultTab,
     );
     const tab = tabProp ?? uncontrolledTab;
-    const { theme } = useTheme();
-    const field = useOptionalFormField();
 
     const footerMessage = hint;
 
@@ -116,7 +178,7 @@ export const MarkdownEditor = forwardRef<
         variant,
         state,
         fullWidth,
-        disabled: !!disabled,
+        disabled: isDisabled,
       }),
       className,
     );
@@ -132,7 +194,7 @@ export const MarkdownEditor = forwardRef<
     }
 
     function runAction(action: Action) {
-      if (disabled) return;
+      if (isDisabled) return;
 
       const el = textareaRef.current;
       if (!el) return;
@@ -146,12 +208,33 @@ export const MarkdownEditor = forwardRef<
 
       commit(edit.value);
       el.focus();
-      requestAnimationFrame(() => {
+      const place = () => {
         el.setSelectionRange(edit.selectionStart, edit.selectionEnd);
-      });
+      };
+      if (motionGated) place();
+      else requestAnimationFrame(place);
     }
 
-    const tablistId = `${baseId}-tablist`;
+    // Keyboard shortcuts (Mod+B / Mod+I / Mod+K, ...). Scoped to this
+    // editor instance (onKeyDown on the write panel), not a document-wide
+    // listener. Skipped while composing with an IME, and only
+    // preventDefault when an action actually handles the key so any
+    // unmapped combination falls through to native/browser behavior.
+    function handleToolbarKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+      if (isDisabled) return;
+      if (event.nativeEvent.isComposing) return;
+
+      const mod = isMac ? event.metaKey : event.ctrlKey;
+      if (!mod || event.altKey) return;
+
+      const key = event.key.toLowerCase();
+      const item = SHORTCUT_MAP.get(key);
+      if (!item) return;
+
+      event.preventDefault();
+      runAction(item.action);
+    }
+
     const writePanelId = `${baseId}-write-panel`;
     const previewPanelId = `${baseId}-preview-panel`;
 
@@ -163,12 +246,8 @@ export const MarkdownEditor = forwardRef<
     useEffect(() => {
       if (isDev() && !renderMarkdown) {
         console.warn(
-          "[kreativ-ui/MarkdownEditor]: no `renderMarkdown` prop was provided, so the " +
-            "Preview tab is just showing plain text with no markdown formatting applied. " +
-            "Pass a `renderMarkdown={(value) => ReactNode}` function — e.g. using " +
-            "react-markdown — to enable a real preview:\n\n" +
-            "  import ReactMarkdown from 'react-markdown';\n" +
-            "  <Textarea allowMarkdown renderMarkdown={(v) => <ReactMarkdown>{v}</ReactMarkdown>} />",
+          "[kreativ-ui/MarkdownEditor]: no renderMarkdown prop was provided, so the " +
+            "Preview tab is showing plain text. Pass renderMarkdown={(value) => ReactNode}.",
         );
       }
     }, [renderMarkdown]);
@@ -178,7 +257,7 @@ export const MarkdownEditor = forwardRef<
         <div
           role="tablist"
           aria-label="Markdown editor mode"
-          id={tablistId}
+          id={`${baseId}-tablist`}
           className="flex items-center gap-4 border-b border-kui-border px-3"
         >
           {(["write", "preview"] as const).map((t) => (
@@ -190,9 +269,10 @@ export const MarkdownEditor = forwardRef<
               aria-selected={tab === t}
               aria-controls={t === "write" ? writePanelId : previewPanelId}
               onClick={() => setTab(t)}
-              disabled={disabled}
+              disabled={isDisabled}
               className={cn(
-                "border-b-2 py-2.5 text-sm capitalize transition-colors",
+                "border-b-2 py-2.5 text-sm capitalize",
+                !motionGated && "transition-colors",
                 "disabled:pointer-events-none disabled:cursor-not-allowed",
                 tab === t
                   ? "border-kui-brand text-kui-text"
@@ -204,17 +284,27 @@ export const MarkdownEditor = forwardRef<
           ))}
 
           {tab === "write" && (
-            <div className="ml-auto flex items-center gap-1 py-1.5">
-              {TOOLBAR.map(({ label, icon: Icon, action }) => (
+            <div className="ml-auto flex items-center gap-1 py-1.5 overflow-x-auto kui-scrollbar">
+              {TOOLBAR.map((item) => (
                 <button
-                  key={label}
+                  key={item.label}
                   type="button"
-                  aria-label={label}
-                  onClick={() => runAction(action)}
-                  disabled={disabled}
-                  className="rounded-(--kui-radii-sm) p-1.5 text-kui-text-muted transition-colors hover:bg-kui-surface-raised hover:text-kui-text disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+                  aria-label={shortcutHint(item)}
+                  title={shortcutHint(item)}
+                  // Prevent the default mousedown so focus/selection never
+                  // leaves the textarea before the click fires — otherwise
+                  // the selection the action is about to use can already
+                  // be gone by the time onClick runs (notably on
+                  // Firefox/Safari).
+                  onMouseDown={(event) => event.preventDefault()}
+                  onClick={() => runAction(item.action)}
+                  disabled={isDisabled}
+                  className={cn(
+                    "rounded-(--kui-radii-sm) p-1.5 text-kui-text-muted hover:bg-kui-surface-raised hover:text-kui-text disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
+                    !motionGated && "transition-colors",
+                  )}
                 >
-                  <Icon size={15} />
+                  <item.icon size={15} />
                 </button>
               ))}
             </div>
@@ -226,22 +316,15 @@ export const MarkdownEditor = forwardRef<
           role="tabpanel"
           aria-labelledby={`${baseId}-write-tab`}
           hidden={tab !== "write"}
+          onKeyDown={handleToolbarKeyDown}
         >
           <TextareaCore
-            ref={(node) => {
-              textareaRef.current = node;
-
-              if (typeof ref === "function") {
-                ref(node);
-              } else if (ref) {
-                (ref as { current: HTMLTextAreaElement | null }).current = node;
-              }
-            }}
+            ref={composeRefs(textareaRef, ref)}
             value={value}
             onValueChange={commit}
             embedded
             resize="vertical"
-            disabled={disabled}
+            disabled={isDisabled}
             maxLength={maxLength}
             {...textareaProps}
           />
@@ -269,6 +352,4 @@ export const MarkdownEditor = forwardRef<
       </div>
     );
   },
-);
-
-MarkdownEditor.displayName = "MarkdownEditor";
+});

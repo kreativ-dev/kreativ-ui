@@ -55,7 +55,7 @@ export const defaultTypography = defineTypography({
   },
   sizeMd: {
     fontFamily: "{fonts.body}",
-    fontSize: "{fontSizes.sm}",
+    fontSize: "{fontSizes.md}",
     fontWeight: "{fontWeights.normal}",
     lineHeight: "{lineHeights.normal}",
   },

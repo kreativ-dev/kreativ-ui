@@ -16,7 +16,7 @@ export const scrollAreaRecipe = defineRecipe({
       never: "kui-scrollbar-hidden",
     },
     scrollbarVariant: {
-      thin: "",
+      thin: "kui-scrollbar",
       default: "kui-scrollbar-default-width",
     },
   },

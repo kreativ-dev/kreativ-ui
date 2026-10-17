@@ -48,7 +48,6 @@ export function TextareaPlayground() {
   const [disabled, setDisabled] = useState(false);
   const [required, setRequired] = useState(false);
 
-  const [allowMarkdown, setAllowMarkdown] = useState(false);
   const [useFormField, setUseFormField] = useState(true);
 
   const [placeholder, setPlaceholder] = useState("Write a message...");
@@ -94,9 +93,6 @@ export function TextareaPlayground() {
       maxLength={maxLength}
       validate={validationRule}
       validateOn={validateOn}
-      allowMarkdown={allowMarkdown}
-      typography="mono"
-      //   vali
     />
   );
 
@@ -256,13 +252,6 @@ export function TextareaPlayground() {
         </Chip>
 
         <Chip
-          active={allowMarkdown}
-          onClick={() => setAllowMarkdown((v) => !v)}
-        >
-          allowMarkdown
-        </Chip>
-
-        <Chip
           active={enableValidation}
           onClick={() => setEnableValidation((v) => !v)}
         >
@@ -302,8 +291,6 @@ export function TextareaPlayground() {
     warning && `warning`,
     disabled && `disabled`,
     required && `required`,
-
-    allowMarkdown && `allowMarkdown`,
 
     placeholder !== "Write a message..." && `placeholder="${placeholder}"`,
 

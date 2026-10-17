@@ -1,6 +1,6 @@
 import { defineRecipe } from "@splenddev/kreativ-core";
 
-export const containerReccipe = defineRecipe({
+export const containerRecipe = defineRecipe({
   base: "w-full",
   variants: {
     maxWidth: {
@@ -13,6 +13,9 @@ export const containerReccipe = defineRecipe({
     },
   },
   defaultVariants: {
+    size: "lg",
     maxWidth: "lg",
   },
 });
+
+export type ContainerRecipe = typeof containerRecipe;

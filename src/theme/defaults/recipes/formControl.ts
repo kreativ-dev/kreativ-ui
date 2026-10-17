@@ -8,9 +8,9 @@ export const formControlBase =
 // "border border-kui-border bg-transparent text-kui-text"
 export const formControlVariants = {
   outline: {
-    border: "1px solid var(--kui-border)",
+    border: "1px solid rgb(var(--kui-border))",
     backgroundColor: "transparent",
-    color: "var(--kui-text)",
+    color: "rgb(var(--kui-text))",
   },
 
   filled: "border border-transparent bg-kui-surface-raised text-kui-text",

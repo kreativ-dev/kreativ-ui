@@ -35,28 +35,6 @@
   animation: var(--kui-animations-state-warning);
 }
 
-.kui-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: rgb(var(--kui-text-muted) / 0.45) transparent;
-}
-
-.kui-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.kui-scrollbar::-webkit-scrollbar-thumb {
-  background: rgb(var(--kui-text-muted) / 0.45);
-  border-radius: 999px;
-}
-
-.kui-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgb(var(--kui-text-muted) / 0.65);
-}
-
-.kui-scrollbar:hover {
-  scrollbar-color: rgb(var(--kui-text-muted) / 0.65) transparent;
-}
-
 [data-kui-transitioning="true"] {
   opacity: 0;
   transition: opacity

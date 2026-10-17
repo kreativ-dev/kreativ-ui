@@ -3,9 +3,7 @@
 import { createComponent } from "@splenddev/kreativ-core";
 
 import { TextareaCore } from "./Textarea.core";
-import { MarkdownEditor } from "../MarkdownEditor/MarkdownEditor";
 import type { TextareaProps, TextareaCoreProps } from "./Textarea.types";
-import type { MarkdownEditorProps } from "../MarkdownEditor/MarkdownEditor.types";
 
 export const Textarea = createComponent<TextareaProps, HTMLTextAreaElement>({
   displayName: "Textarea",
@@ -23,16 +21,7 @@ export const Textarea = createComponent<TextareaProps, HTMLTextAreaElement>({
       motionGated: true,
     },
   },
-  render: ({ allowMarkdown, ...props }, ref) => {
-    if (allowMarkdown) {
-      return (
-        <MarkdownEditor
-          ref={ref}
-          {...(props as MarkdownEditorProps)}
-          embedded
-        />
-      );
-    }
+  render: (props, ref) => {
     return <TextareaCore ref={ref} {...(props as TextareaCoreProps)} />;
   },
 });

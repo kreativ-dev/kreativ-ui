@@ -2,17 +2,25 @@
 
 import { useMemo, useState } from "react";
 import { Playground } from "./shared/Playground";
-import { ScrollArea, ScrollbarVariant } from "@/components";
+import {
+  Checkbox,
+  Flex,
+  FormField,
+  Input,
+  ScrollArea,
+  ScrollbarVariant,
+  ScrollSnap,
+  Select,
+} from "@/components";
 import { getAttrs } from "./shared/getAttributes";
 
 type Direction = "vertical" | "horizontal" | "both";
 type ShowScrollbar = "auto" | "always" | "never";
-type Snap = "none" | "proximity" | "mandatory";
+// type Snap = "none" | "proximity" | "mandatory";
 type SnapAlign = "start" | "center" | "end";
 
 const ITEMS = Array.from({ length: 8 }, (_, i) => `Item ${i + 1}`);
 
-/** Data attributes exposed by <ScrollArea> that we want to surface in the playground. */
 const SCROLL_AREA_ATTRS = [
   "data-direction",
   "data-fade-top",
@@ -23,7 +31,6 @@ const SCROLL_AREA_ATTRS = [
   "data-drag-scroll",
 ];
 
-/** getAttrs always reports these; they aren't meaningful for a ScrollArea. */
 const BASE_ATTRS_TO_EXCLUDE = [
   "id",
   "aria-invalid",
@@ -31,12 +38,81 @@ const BASE_ATTRS_TO_EXCLUDE = [
   "disabled",
 ];
 
+const DIRECTIONS: readonly Direction[] = ["vertical", "horizontal", "both"];
+const SHOW_SCROLLBAR: readonly ShowScrollbar[] = ["auto", "always", "never"];
+const SCROLLBAR_VARIANTS: readonly ScrollbarVariant[] = ["thin", "default"];
+const SNAPS: readonly ScrollSnap[] = ["none", "proximity", "mandatory"];
+const SNAP_ALIGNS: readonly SnapAlign[] = ["start", "center", "end"];
+
+function SelectField<T extends string>({
+  label,
+  value,
+  onChange,
+  options,
+}: {
+  label: string;
+  value: T;
+  onChange: (value: T) => void;
+  options: readonly T[];
+}) {
+  return (
+    <FormField label={label}>
+      <FormField.Control>
+        <Select
+          value={value}
+          onValueChange={(v) => onChange(v as T)}
+          options={options.map((opt) => ({ value: opt, label: opt }))}
+        />
+      </FormField.Control>
+    </FormField>
+  );
+}
+
+function TextField({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  return (
+    <FormField label={label}>
+      <FormField.Control>
+        <Input
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+        />
+      </FormField.Control>
+    </FormField>
+  );
+}
+
+function ToggleField({
+  label,
+  checked,
+  onChange,
+}: {
+  label: string;
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+}) {
+  return (
+    <FormField label={label}>
+      <FormField.Control>
+        <Checkbox checked={checked} onCheckedChange={onChange} />
+      </FormField.Control>
+    </FormField>
+  );
+}
+
 export function ScrollAreaPlayground() {
   const [direction, setDirection] = useState<Direction>("vertical");
   const [showScrollbar, setShowScrollbar] = useState<ShowScrollbar>("auto");
   const [scrollbarVariant, setScrollbarVariant] =
     useState<ScrollbarVariant>("thin");
-  const [snap, setSnap] = useState<Snap>("none");
+  const [snap, setSnap] = useState<ScrollSnap>("none");
   const [snapAlign, setSnapAlign] = useState<SnapAlign>("start");
   const [fadeEdges, setFadeEdges] = useState(true);
   const [fadeSize, setFadeSize] = useState("24px");
@@ -93,89 +169,64 @@ export function ScrollAreaPlayground() {
       code={code}
       controls={
         <div className="grid gap-3 text-sm">
-          <Field label="direction">
-            <Select
-              value={direction}
-              onChange={setDirection}
-              options={["vertical", "horizontal", "both"]}
-            />
-          </Field>
-          <Field label="showScrollbar">
-            <Select
-              value={showScrollbar}
-              onChange={setShowScrollbar}
-              options={["auto", "always", "never"]}
-            />
-          </Field>
-          <Field label="scrollbarVariant">
-            <Select
-              value={scrollbarVariant}
-              onChange={(value) =>
-                setScrollbarVariant(value as ScrollbarVariant)
-              }
-              options={["thin", "none"]}
-            />
-          </Field>
-          <Field label="snap">
-            <Select
-              value={snap}
-              onChange={setSnap}
-              options={["none", "proximity", "mandatory"]}
-            />
-          </Field>
-          <Field label="snapAlign">
-            <Select
-              value={snapAlign}
-              onChange={setSnapAlign}
-              options={["start", "center", "end"]}
-            />
-          </Field>
-          <Field label="fadeSize">
-            <input
-              value={fadeSize}
-              onChange={(e) => setFadeSize(e.target.value)}
-              className="w-full rounded-md border border-kui-border bg-kui-surface px-2 py-1.5"
-            />
-          </Field>
-          <Field label="maxHeight">
-            <input
-              value={maxHeight}
-              onChange={(e) => setMaxHeight(e.target.value)}
-              className="w-full rounded-md border border-kui-border bg-kui-surface px-2 py-1.5"
-            />
-          </Field>
-          <label className="flex items-center gap-2">
-            <input
-              type="checkbox"
+          <SelectField
+            label="direction"
+            value={direction}
+            onChange={setDirection}
+            options={DIRECTIONS}
+          />
+          <SelectField
+            label="showScrollbar"
+            value={showScrollbar}
+            onChange={setShowScrollbar}
+            options={SHOW_SCROLLBAR}
+          />
+          <SelectField
+            label="scrollbarVariant"
+            value={scrollbarVariant}
+            onChange={setScrollbarVariant}
+            options={SCROLLBAR_VARIANTS}
+          />
+          <SelectField
+            label="snap"
+            value={snap}
+            onChange={setSnap}
+            options={SNAPS}
+          />
+          <SelectField
+            label="snapAlign"
+            value={snapAlign}
+            onChange={setSnapAlign}
+            options={SNAP_ALIGNS}
+          />
+          <TextField label="fadeSize" value={fadeSize} onChange={setFadeSize} />
+          <TextField
+            label="maxHeight"
+            value={maxHeight}
+            onChange={setMaxHeight}
+          />
+          <Flex wrap="wrap" gap="sm" justify="space-between">
+            <ToggleField
+              label="fadeEdges"
               checked={fadeEdges}
-              onChange={(e) => setFadeEdges(e.target.checked)}
+              onChange={setFadeEdges}
             />
-            fadeEdges
-          </label>
-          <label className="flex items-center gap-2">
-            <input
-              type="checkbox"
+            <ToggleField
+              label="dragToScroll"
               checked={dragToScroll}
-              onChange={(e) => setDragToScroll(e.target.checked)}
+              onChange={setDragToScroll}
             />
-            dragToScroll
-          </label>
-          <label className="flex items-center gap-2">
-            <input
-              type="checkbox"
+            <ToggleField
+              label="Sticky"
               checked={showSticky}
-              onChange={(e) => setShowSticky(e.target.checked)}
+              onChange={setShowSticky}
             />
-            Sticky
-          </label>
-          <label className="flex items-center gap-2">
-            <input
-              type="checkbox"
+            <ToggleField
+              label="Scene"
               checked={showScene}
-              onChange={(e) => setShowScene(e.target.checked)}
+              onChange={setShowScene}
             />
-            Scene
-          </label>
+          </Flex>
         </div>
       }
       preview={
@@ -200,7 +251,11 @@ export function ScrollAreaPlayground() {
           >
             {showSticky && (
               <ScrollArea.Sticky
-                top={0}
+                {...(direction === "horizontal"
+                  ? { left: 10 }
+                  : direction === "vertical"
+                    ? { top: 10 }
+                    : { top: 10, left: 10 })}
                 className="rounded-md bg-kui-text px-3 py-2 text-sm text-kui-surface"
               >
                 Sticky
@@ -234,44 +289,5 @@ export function ScrollAreaPlayground() {
         </ScrollArea>
       }
     />
-  );
-}
-
-function Field({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <label className="grid gap-1">
-      <span className="font-mono text-[11px] text-kui-text-muted">{label}</span>
-      {children}
-    </label>
-  );
-}
-
-function Select<T extends string>({
-  value,
-  onChange,
-  options,
-}: {
-  value: T;
-  onChange: (value: T) => void;
-  options: T[];
-}) {
-  return (
-    <select
-      value={value}
-      onChange={(e) => onChange(e.target.value as T)}
-      className="w-full rounded-md border border-kui-border bg-kui-surface px-2 py-1.5"
-    >
-      {options.map((option) => (
-        <option key={option} value={option}>
-          {option}
-        </option>
-      ))}
-    </select>
   );
 }

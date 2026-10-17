@@ -185,7 +185,7 @@ function PricingCardGradientHeader() {
           <p className="mt-2 text-sm text-muted">
             Best for large multiple teams that need maximum capabilities.
           </p>
-          <Button className="mt-4" fullWidth size="sm" typography="caption">
+          <Button className="mt-4" fullWidth size="" >
             Start Free
           </Button>
         </div>

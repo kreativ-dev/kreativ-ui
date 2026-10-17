@@ -18,6 +18,8 @@ import { FlexPlayground } from "./FlexPlayground";
 import { GridPlayground } from "./GridPlayground";
 import { CardPlayground } from "./CardPlayground";
 import { ScrollAreaPlayground } from "./ScrollareaPlayground";
+import { Box } from "@/components/layout/Box/Box";
+import {  MarkdownEditor } from "@/components";
 
 const SECTIONS = [
   { key: "card", label: "Card", render: () => <CardPlayground /> },
@@ -104,6 +106,9 @@ export function ComponentsPlayground() {
       </header>
       
       <div className="p-5">{activeSection.render()}</div>
+      <Box className="p-4">
+        <MarkdownEditor/>
+      </Box>
     </div>
   );
 }

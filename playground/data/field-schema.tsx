@@ -93,6 +93,7 @@ export const profileUiSchema: UIObjectSchemaFor<typeof profileSchema> = {
         { label: "Viewer", value: "viewer" },
       ],
       placeholder: "Choose a role",
+      value: "admin",
     },
   }),
 
@@ -109,14 +110,13 @@ export const profileUiSchema: UIObjectSchemaFor<typeof profileSchema> = {
       autoResize: true,
       maxLength: 280,
       characterCounter: true,
-      allowMarkdown: true,
     },
   }),
 
   age: defineUIField({
     widget: "number-stepper",
     gridArea: "age",
-    props: { clampOn: "never" },
+    props: { clampOn: "never", hideKindIcon: true },
   }),
 
   marketingOptIn: defineUIField({
@@ -141,6 +141,7 @@ export const profileUiSchema: UIObjectSchemaFor<typeof profileSchema> = {
           onChange={(e) => field.onChange(e.target.value)}
           onBlur={field.onBlur}
           name={field.name}
+          className="border border-kui-border rounded-xl p-2 focus-within:outline-0 focus-within:ring-1 focus-within:ring-kui-brand/40"
           placeholder="https://example.com"
         />
         {fieldState.invalid && (
