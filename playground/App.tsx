@@ -3,13 +3,12 @@ import { useState } from "react";
 import { ThemeStudio } from "./components/ThemeStudio";
 import { ThemeOverride } from "@splenddev/kreativ-core/types";
 import { extendTheme } from "@/theme/extendTheme";
-import { KreativUIProvider } from "@/provider";
+import { KreativUIProvider, PersistMode } from "@/provider";
 import { Form } from "@/components/forms/form";
 import { Button, Card, Flex, Grid } from "@/components";
 import { profileSchema, profileUiSchema } from "./data/field-schema";
 import { Eye, User, VerifiedIcon } from "lucide-react";
 import { Text } from "@/components/typography/Text/Text";
-
 
 export function App() {
   const [theme, setTheme] = useState<ThemeOverride>(() =>
@@ -35,6 +34,7 @@ export function App() {
       background="rgb(var(--kui-background, 255 255 255))"
       textColor="rgb(var(--kui-text, 0 0 0))"
     >
+      <PersistMode/>
       <ThemeStudio
         theme={theme}
         onChange={(nextTheme) => {
@@ -57,7 +57,7 @@ export function App() {
         </Flex>
       </Form>
       <Grid className="p-4" columns={2}>
-        <Card className="p-2.5" >
+        <Card className="p-2.5">
           <Card.Media
             src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&h=340&fit=crop"
             alt="test"

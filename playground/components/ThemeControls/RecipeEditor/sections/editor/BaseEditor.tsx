@@ -1,4 +1,4 @@
-import type { DefaultRecipeCollection } from "@splenddev/kreativ-core/types";
+import type { DefaultRecipeCollection, RecipeStyle } from "@splenddev/kreativ-core/types";
 import { Textarea } from "@/components";
 import { SectionHeader } from "../../../../shared/SectionHeader";
 
@@ -6,7 +6,7 @@ type ComponentName = keyof DefaultRecipeCollection;
 
 interface BaseEditorProps {
   component: ComponentName;
-  value: string;
+  value: RecipeStyle;
   onChange(value: string): void;
   onReset(): void;
 }
@@ -17,7 +17,7 @@ export function BaseEditor({
   onChange,
   onReset,
 }: BaseEditorProps) {
-  const hasValue = Boolean(value.trim());
+  const hasValue = Boolean((value as string).trim());
 
   return (
     <div className="p-3">
@@ -29,7 +29,7 @@ export function BaseEditor({
       />
       <Textarea
         id={`recipe-${component}-base`}
-        value={value}
+        value={value as string}
         onChange={(e) => onChange(e.target.value)}
         placeholder="Add base classes..."
         autoResize

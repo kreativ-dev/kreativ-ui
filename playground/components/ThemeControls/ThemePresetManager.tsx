@@ -1,5 +1,5 @@
 import { defineSemanticTokens, defineTokens, extendTheme } from "@/theme";
-import type { ThemeOverride } from "@/types/theme";
+import type { ThemeOverride } from "@/types";
 import { Check } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 

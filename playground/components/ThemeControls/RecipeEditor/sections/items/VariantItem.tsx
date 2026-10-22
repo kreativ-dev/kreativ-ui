@@ -3,10 +3,11 @@ import { Trash2 } from "lucide-react";
 
 import { TextField } from "../../../../shared/TextField";
 import { AddInput } from "../../../../shared/AddInput";
+import { RecipeVariant } from "@splenddev/kreativ-core";
 
 interface VariantItemProps {
   name: string;
-  options: Record<string, string>;
+  options: RecipeVariant;
   onRename: (newName: string) => void;
   onRemove: () => void;
   onOptionUpdate: (optionName: string, className: string) => void;

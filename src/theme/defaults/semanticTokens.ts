@@ -1,4 +1,4 @@
-import type { SemanticTokens } from "@splenddev/kreativ-core/types";
+import type { RecipeVariant, SemanticTokens } from "@splenddev/kreativ-core/types";
 import { defineSemanticToken } from "@splenddev/kreativ-core";
 
 export const defaultSemanticTokens = {
@@ -7,7 +7,7 @@ export const defaultSemanticTokens = {
 
     brandHover: defineSemanticToken("{colors.blue.600}", "{colors.blue.300}"),
 
-    brandFg: defineSemanticToken("{colors.white}", "{colors.white}"),
+    brandFg: defineSemanticToken("{colors.white}"),
 
     background: defineSemanticToken("{colors.gray.50}", "{colors.gray.950}"),
 
@@ -28,7 +28,7 @@ export const defaultSemanticTokens = {
 
     destructive: defineSemanticToken("{colors.red.500}", "{colors.red.400}"),
 
-    destructiveFg: defineSemanticToken("{colors.white}", "{colors.white}"),
+    destructiveFg: defineSemanticToken("{colors.white}"),
 
     destructiveHover: defineSemanticToken(
       "{colors.red.600}",
@@ -37,7 +37,7 @@ export const defaultSemanticTokens = {
 
     success: defineSemanticToken("{colors.green.500}", "{colors.green.400}"),
 
-    successFg: defineSemanticToken("{colors.white}", "{colors.white}"),
+    successFg: defineSemanticToken("{colors.white}"),
 
     successHover: defineSemanticToken(
       "{colors.green.600}",
@@ -55,10 +55,11 @@ export const defaultSemanticTokens = {
 
     info: defineSemanticToken("{colors.cyan.500}", "{colors.cyan.400}"),
 
-    infoFg: defineSemanticToken("{colors.white}", "{colors.white}"),
+    infoFg: defineSemanticToken("{colors.white}"),
 
     infoHover: defineSemanticToken("{colors.cyan.600}", "{colors.cyan.300}"),
 
     shadowColor: defineSemanticToken("{colors.gray.200}", "{colors.gray.600}"),
   },
 } satisfies SemanticTokens;
+

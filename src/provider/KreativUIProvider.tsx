@@ -17,6 +17,8 @@ export interface UIProviderProps {
   fallbackSize?: string;
   background?: string;
   textColor?: string;
+  className?: string;
+  style?: React.CSSProperties;
 }
 
 function useSystemPrefersDark() {
@@ -39,6 +41,8 @@ export function KreativUIProvider({
   fallbackSize = "md",
   textColor,
   background,
+  style,
+  className,
 }: UIProviderProps) {
   const [mode, setMode] = useState<ColorMode>(defaultMode);
 
@@ -82,11 +86,14 @@ export function KreativUIProvider({
     <ThemeContext.Provider value={contextValue}>
       <Tag
         data-kreativ-theme={resolvedMode}
-        className={resolvedMode === "dark" ? "dark" : undefined}
+        className={[resolvedMode === "dark" ? "dark" : undefined, className]
+          .filter(Boolean)
+          .join(" ")}
         style={{
           ...cssVars,
           ...(background && { background }),
           ...(textColor && { color: textColor }),
+          ...style,
         }}
       >
         {children}

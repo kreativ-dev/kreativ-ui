@@ -1,9 +1,11 @@
 import { useMemo, useState, useCallback } from "react";
-import type { ThemeOverride } from "@/types/theme";
 import { ColorEditor } from "./ColorEditor";
 import { COLOR_GROUPS } from "./theme.constants";
-import { resolveSemanticTokenReferences } from "@/provider/cssVariables";
 import { extendTheme } from "@/theme";
+import {
+  resolveSemanticTokenReferences,
+  ThemeOverride,
+} from "@splenddev/kreativ-core";
 
 interface TokenEditorProps {
   theme: ThemeOverride;
@@ -41,6 +43,11 @@ export function TokenEditor({ theme, onChange }: TokenEditorProps) {
       }
 
       if (resolved && typeof resolved === "object") {
+        if (resolved.sameForBothModes)
+          return {
+            light: resolved.value,
+            dark: resolved.value,
+          };
         return {
           light: typeof resolved.light === "string" ? resolved.light : "",
           dark: typeof resolved.dark === "string" ? resolved.dark : "",
@@ -91,7 +98,9 @@ export function TokenEditor({ theme, onChange }: TokenEditorProps) {
   return (
     <div className="space-y-5">
       <div>
-        <h3 className="font-mono text-xs uppercase text-kui-text-muted">Colors</h3>
+        <h3 className="font-mono text-xs uppercase text-kui-text-muted">
+          Colors
+        </h3>
 
         <p className="mt-1 text-xs text-kui-text-muted">
           Select a color group to customize its tokens.
@@ -103,7 +112,9 @@ export function TokenEditor({ theme, onChange }: TokenEditorProps) {
           <div className="bg-kui-background p-5">
             <div className="mb-4 flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-kui-text">Theme palette</p>
+                <p className="text-sm font-medium text-kui-text">
+                  Theme palette
+                </p>
                 <p className="text-xs text-kui-text-muted">
                   Select a palette below to edit its values.
                 </p>
@@ -273,7 +284,9 @@ export function TokenEditor({ theme, onChange }: TokenEditorProps) {
                 className="grid gap-2 px-4 py-3 sm:grid-cols-[120px_1fr_1fr] sm:items-center sm:gap-4"
               >
                 <div>
-                  <span className="font-mono text-xs text-kui-text">{token}</span>
+                  <span className="font-mono text-xs text-kui-text">
+                    {token}
+                  </span>
                 </div>
 
                 <ColorEditor
