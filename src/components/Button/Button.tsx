@@ -120,34 +120,34 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       </>
     );
 
-const buttonElement = render ? (
-  render({
-    ...rest,
-    className: resolvedClassName,
-    style: resolvedStyle,
-    disabled: isDisabled,
-    "aria-disabled": isDisabled || undefined,
-    "aria-busy": isLoading || undefined,
-    "data-kui-responsive": responsiveAttribute,
-    children: content,
-  })
-) : (
-  <button
-    ref={ref}
-    disabled={isDisabled}
-    className={resolvedClassName}
-    style={resolvedStyle}
-    aria-busy={isLoading || undefined}
-    aria-disabled={isDisabled || undefined}
-    data-kui-themeable
-    data-kui-responsive={responsiveAttribute}
-    type="button"
-    {...groupDataAttributes}
-    {...rest}
-  >
-    {content}
-  </button>
-);
+    const buttonElement = render ? (
+      render({
+        ...rest,
+        className: resolvedClassName,
+        style: resolvedStyle,
+        disabled: isDisabled,
+        "aria-disabled": isDisabled || undefined,
+        "aria-busy": isLoading || undefined,
+        "data-kui-responsive": responsiveAttribute,
+        children: content,
+      })
+    ) : (
+      <button
+        ref={ref}
+        disabled={isDisabled}
+        className={resolvedClassName}
+        style={resolvedStyle}
+        aria-busy={isLoading || undefined}
+        aria-disabled={isDisabled || undefined}
+        data-kui-themeable
+        data-kui-responsive={responsiveAttribute}
+        type="button"
+        {...groupDataAttributes}
+        {...rest}
+      >
+        {content}
+      </button>
+    );
 
     return (
       <>

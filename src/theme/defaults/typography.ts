@@ -1,14 +1,27 @@
+<<<<<<< HEAD
+import { Typography } from "@/types";
+
+export const defaultTypography: Typography = {
+  body: {
+    fontFamily: "{fonts.body}",
+    fontSize: "{fontSizes.md}",
+=======
 import { defineTypography } from "../typography";
 
 export const defaultTypography = defineTypography({
   body: {
     fontFamily: "{fonts.body}",
+>>>>>>> refactoring
     fontWeight: "{fontWeights.normal}",
     lineHeight: "{lineHeights.normal}",
   },
 
   bodySmall: {
     fontFamily: "{fonts.body}",
+<<<<<<< HEAD
+    fontSize: "{fontSizes.sm}",
+=======
+>>>>>>> refactoring
     fontWeight: "{fontWeights.normal}",
     lineHeight: "{lineHeights.normal}",
   },
@@ -27,12 +40,15 @@ export const defaultTypography = defineTypography({
     lineHeight: "{lineHeights.tight}",
   },
 
+<<<<<<< HEAD
+=======
   label: {
     fontFamily: "{fonts.body}",
     fontWeight: "{fontWeights.medium}",
     lineHeight: "{lineHeights.normal}",
   },
 
+>>>>>>> refactoring
   caption: {
     fontFamily: "{fonts.body}",
     fontSize: "{fontSizes.xs}",
@@ -46,4 +62,8 @@ export const defaultTypography = defineTypography({
     fontWeight: "{fontWeights.normal}",
     lineHeight: "{lineHeights.normal}",
   },
+<<<<<<< HEAD
+};
+=======
 });
+>>>>>>> refactoring

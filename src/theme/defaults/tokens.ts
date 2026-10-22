@@ -9,28 +9,24 @@ export const defaultTokens: DesignTokens = {
       500: defineToken("#1A80E6"),
       600: defineToken("#1773CF"),
     },
-
     red: {
       300: defineToken("#EB4747"),
       400: defineToken("#E83030"),
       500: defineToken("#E61A1A"),
       600: defineToken("#CF1717"),
     },
-
     green: {
       300: defineToken("#26D997"),
       400: defineToken("#22C388"),
       500: defineToken("#16A249"),
       600: defineToken("#12875C"),
     },
-
     amber: {
       300: defineToken("#F7B23B"),
       400: defineToken("#F6A823"),
       500: defineToken("#F59F0A"),
       600: defineToken("#D38909"),
     },
-
     cyan: {
       300: defineToken("#6CC3EF"),
       400: defineToken("#47B4EB"),
@@ -72,7 +68,6 @@ export const defaultTokens: DesignTokens = {
       500: defineToken("#F97316"),
       600: defineToken("#EA580C"),
     },
-
     gray: {
       50: defineToken("#FAFAFA"),
       100: defineToken("#EBEBEB"),
@@ -87,7 +82,6 @@ export const defaultTokens: DesignTokens = {
       950: defineToken("#141414"),
       1000: defineToken("#0A0A0A"),
     },
-
     white: defineToken("#FFFFFF"),
     black: defineToken("#000000"),
   },
