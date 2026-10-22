@@ -20,7 +20,4 @@ export default defineConfig({
 
   external: ["react", "react-dom", "react/jsx-runtime"],
 
-  banner: {
-    js: 'console.log("BANNER TEST");',
-  },
 });
