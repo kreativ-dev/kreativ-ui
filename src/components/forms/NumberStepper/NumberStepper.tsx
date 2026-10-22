@@ -116,7 +116,6 @@ export const NumberStepper = createComponent<
           precision,
           required: isRequired,
         });
-        console.log("validate", { raw, min, max, step, precision, result });
 
         onValidate?.(result);
         reportToFormField(result);

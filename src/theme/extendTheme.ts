@@ -6,7 +6,6 @@ import { extendTokens, extendSemanticTokens } from "./token";
 import { defaultTheme } from "./defaults/theme";
 
 export function extendTheme(override?: ThemeOverride): Theme {
-  console.log(override?.semanticTokens?.colors);
   if (!override) {
     return defaultTheme;
   }

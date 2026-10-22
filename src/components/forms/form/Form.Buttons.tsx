@@ -30,7 +30,6 @@ export const FormSubmitButton = React.forwardRef<
       "[kreativ-ui/Form.SubmitButton]: must be rendered inside <Form>.",
     );
   }
-  console.log(form.errors);
 
   if (!React.isValidElement(children)) {
     throw new Error(
