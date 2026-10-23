@@ -5,7 +5,6 @@ export const formControlBase =
   "rounded-[var(--kui-radii-md)] " +
   "transition-[border-color,box-shadow] duration-[var(--kui-duration-fast)] " +
   "focus-within:outline-none ";
-// "border border-kui-border bg-transparent text-kui-text"
 export const formControlVariants = {
   outline: {
     border: "1px solid rgb(var(--kui-border))",
@@ -84,7 +83,7 @@ export const formControlRecipe = defineRecipe({
     },
 
     hasAdornment: {
-      true: "px-2",
+      true: "px-2!",
       false: "",
     },
   },

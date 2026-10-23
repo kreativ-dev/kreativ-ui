@@ -2,6 +2,10 @@ import { defineRecipe } from "@splenddev/kreativ-core";
 
 export const buttonBase =
   "inline-flex items-center justify-center " +
+  "h-[var(--kui-button-height)] " +
+  "px-[var(--kui-button-padding-x)] py-[var(--kui-button-padding-y)] " +
+  "gap-[var(--kui-button-gap)] " +
+  "text-[length:var(--kui-button-font-size)] " +
   "rounded-[var(--kui-button-radius,var(--kui-radius))] " +
   "font-medium " +
   "transition-[background-color,border-color,color,transform,opacity] " +

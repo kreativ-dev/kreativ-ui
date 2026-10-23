@@ -187,6 +187,7 @@ export function renderBaseInput(
             isLoading ||
             Boolean(extraEndAdornment),
         }),
+        "h-[var(--kui-input-height)] px-[var(--kui-input-padding-x)]",
         className,
       ),
     [

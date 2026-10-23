@@ -6,7 +6,7 @@ import { cn } from "@/utils/cn";
 import { ClearIcon } from "../Input/Input.icons";
 import { useSelectContext } from "./Select.context";
 import type { SelectTriggerProps } from "./Select.types";
-import {  useTheme } from "@splenddev/kreativ-core";
+import { useTheme } from "@splenddev/kreativ-core";
 import { resolveRecipe } from "@/theme/recipes/resolveRecipe";
 import { useSizeStyle } from "@splenddev/kreativ-core/hooks";
 
@@ -40,6 +40,8 @@ export const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
         disabled: ctx.disabled,
         hasAdornment: true,
       }),
+      "h-[var(--kui-select-height)] px-[var(--kui-select-padding-x)]",
+
       className,
     );
     const showClear = ctx.clearable && ctx.value !== undefined && !ctx.disabled;

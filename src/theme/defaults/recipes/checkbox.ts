@@ -3,6 +3,7 @@ import { defineRecipe } from "@splenddev/kreativ-core";
 export const checkboxRecipe = defineRecipe({
   base:
     "relative inline-flex shrink-0 items-center justify-center " +
+    "h-[var(--kui-checkbox-height)] w-[var(--kui-checkbox-width,var(--kui-checkbox-height))] " +
     "border transition-colors " +
     "duration-[var(--kui-duration-fast)] " +
     "peer-focus-visible:ring-2 " +

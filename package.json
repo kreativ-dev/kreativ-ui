@@ -97,7 +97,7 @@
   },
   "dependencies": {
     "@floating-ui/react": "^0.27.20",
-    "@splenddev/kreativ-core": "^0.1.16",
+    "@splenddev/kreativ-core": "^0.1.18",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.42.2",
