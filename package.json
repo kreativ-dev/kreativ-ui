@@ -20,7 +20,8 @@
     "node": ">=18"
   },
   "sideEffects": [
-    "./dist/styles/index.css"
+    "./dist/styles/index.css",
+    "./dist/core.js"
   ],
   "keywords": [
     "react",
@@ -39,7 +40,7 @@
     "ui-components",
     "kreativ-ui"
   ],
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
