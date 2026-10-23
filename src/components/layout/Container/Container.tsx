@@ -2,7 +2,7 @@
 
 import { forwardRef } from "react";
 import { useTheme } from "@splenddev/kreativ-core";
-import { resolveResponsiveValue } from "@/utils/responsive";
+import { resolveResponsiveValue } from "@/utils";
 import { useResponsiveStyles } from "@/hooks";
 import type { ContainerProps } from "./Container.types";
 import type { ResponsiveStyles } from "@splenddev/kreativ-core/types";

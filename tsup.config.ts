@@ -1,7 +1,14 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-  entry: ["src/index.ts"],
+  entry: {
+    index: "src/index.ts",
+    "hooks/index": "src/hooks/index.ts",
+    "components/index": "src/components/index.ts",
+    "utils/index": "src/utils/index.ts",
+    "types/index": "src/types/index.ts",
+    "core/index": "src/theme/index.ts",
+  },
 
   format: ["esm", "cjs"],
 
@@ -19,5 +26,4 @@ export default defineConfig({
   outDir: "dist",
 
   external: ["react", "react-dom", "react/jsx-runtime"],
-
 });

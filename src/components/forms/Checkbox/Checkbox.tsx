@@ -7,7 +7,7 @@ import { createComponent, useTheme } from "@splenddev/kreativ-core";
 import { useSizeStyle } from "@splenddev/kreativ-core/hooks";
 
 import { cn } from "@/utils/cn";
-import { mergeRefs } from "@/utils/mergeRef";
+import { composeRefs } from "@/utils";
 import { useOptionalFormField } from "../FormField/FormField.context";
 import type { CheckboxProps } from "./Checkbox.types";
 import { useStatusTransition } from "@/hooks";
@@ -166,7 +166,7 @@ export const Checkbox = createComponent<CheckboxProps, HTMLInputElement>({
         <div className="relative inline-flex shrink-0">
           <input
             {...props}
-            ref={mergeRefs(inputRef, ref)}
+            ref={composeRefs(inputRef, ref)}
             id={id}
             type="checkbox"
             checked={checked}

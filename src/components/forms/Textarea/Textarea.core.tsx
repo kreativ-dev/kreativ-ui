@@ -19,8 +19,7 @@ import { ClearIcon } from "../Input/Input.icons";
 import { resolveRecipe } from "@/theme/recipes/resolveRecipe";
 import { useSizeStyle,  useTypography } from "@splenddev/kreativ-core/hooks";
 import type { TextareaCoreProps } from "./Textarea.types";
-import { mergeRefs } from "@/utils/mergeRef";
-import { useTheme } from "@splenddev/kreativ-core";
+import { composeRefs, useTheme } from "@splenddev/kreativ-core";
 
 function resolveFieldState({
   error,
@@ -397,7 +396,7 @@ export const TextareaCore = forwardRef<HTMLTextAreaElement, TextareaCoreProps>(
     return (
       <div className={cn(wrapperClassName, "items-start py-2")}>
         <textarea
-          ref={mergeRefs(internalRef, ref)}
+          ref={composeRefs(internalRef, ref)}
           id={id}
           value={draft}
           onChange={handleChange}

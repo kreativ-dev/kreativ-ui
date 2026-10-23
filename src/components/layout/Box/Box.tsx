@@ -2,7 +2,6 @@
 
 import { createComponent, useTheme } from "@splenddev/kreativ-core";
 
-import { useMergedResponsiveStyles, useResponsiveStyles } from "@/hooks";
 import { ResponsiveStyle } from "@/components/internal/ResponsiveStyle";
 import { resolveRecipe } from "@/theme/recipes/resolveRecipe";
 import { cn } from "@/utils/cn";
@@ -11,6 +10,7 @@ import { resolveColor } from "@/utils/resolveColor";
 import { resolveRadius } from "@/utils/resolveRadius";
 import type { BoxProps } from "./Box.types";
 import type { SpaceValue } from "@/types";
+import { useMergedResponsiveStyles, useResponsiveStyles } from "@/hooks";
 
 function resolveSize(value: SpaceValue | "auto" | "full" | "fit") {
   if (value === "full") return "100%";

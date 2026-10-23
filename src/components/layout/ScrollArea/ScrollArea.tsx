@@ -9,11 +9,14 @@ import {
   type UIEvent,
 } from "react";
 
-import { createComponent, type MotionGatedProps, useTheme } from "@splenddev/kreativ-core";
+import {
+  createComponent,
+  type MotionGatedProps,
+  useTheme,
+} from "@splenddev/kreativ-core";
 
 import { resolveRecipe } from "@/theme/recipes/resolveRecipe";
 import { cn } from "@/utils/cn";
-import { isResponsiveValue, resolveResponsiveValue } from "@/utils/responsive";
 import { ResponsiveStyle } from "@/components/internal/ResponsiveStyle";
 
 import { useScrollPosition } from "./useScrollPosition";
@@ -35,7 +38,11 @@ import type {
   ScrollEdge,
   ScrollStepOptions,
 } from "./ScrollArea.types";
-import { isMotionGated } from "@/utils";
+import {
+  isMotionGated,
+  resolveResponsiveValue,
+  isResponsiveValue,
+} from "@/utils";
 import { useResponsiveStyles } from "@/hooks";
 
 function shouldFade(
