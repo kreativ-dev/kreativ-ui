@@ -1,5 +1,5 @@
 import { Container } from "@/components";
-import { Check, Copy, CopyCheck, X } from "lucide-react";
+import { Check, Copy,  X } from "lucide-react";
 import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 
 interface PlaygroundProps {

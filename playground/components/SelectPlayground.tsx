@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FormField, Select, InputSize, InputVariant } from "../../src";
+import { FormField, Select, InputSize, InputVariant } from "@/components";
 import { getAttrs } from "./shared/getAttributes";
 import { Playground } from "./shared/Playground";
 import { Chip } from "./shared/Chip";
@@ -150,7 +150,7 @@ export function SelectDemo() {
   );
 
   const preview = useFormField ? (
-    <FormField required={required} error={error ? errorMessage : undefined}>
+    <FormField required={required} message={error ? errorMessage : undefined}>
       <FormField.Label>{label}</FormField.Label>
 
       <FormField.Control>{select}</FormField.Control>

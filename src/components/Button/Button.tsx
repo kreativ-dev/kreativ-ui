@@ -55,7 +55,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const iconSize = useSizeToken(resolvedSize, "iconSize");
 
     const isDisabled = disabled || isLoading;
-    const isInButtonGroup = !!group;
+    const isInButtonGroup = group !== null;
 
     const recipeClasses = resolveRecipe(theme.recipes.Button, {
       variant,
@@ -65,6 +65,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const resolvedClassName = cn(
       recipeClasses,
       fullWidth && "w-full",
+      iconOnly && "aspect-square",
       isLoading && "opacity-90 pointer-events-none text-xs",
       className,
     );
@@ -143,7 +144,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         style={resolvedStyle}
         aria-busy={isLoading || undefined}
         aria-disabled={isDisabled || undefined}
-        data-kui-themeable
         data-kui-responsive={responsiveAttribute}
         type="button"
         {...groupDataAttributes}

@@ -31,18 +31,56 @@ import "@splenddev/kreativ-ui/styles.css";
 import { KreativUIProvider } from "@splenddev/kreativ-ui";
 
 export function App() {
-  return (
-    <KreativUIProvider>
-      {/* your application */}
-    </KreativUIProvider>
-  );
+  return <KreativUIProvider>{/* your application */}</KreativUIProvider>;
 }
 ```
+
+## Tailwind setup
+
+Kreativ UI's components use Tailwind utility classes, including responsive (`md:`) and state (`hover:`, `focus:`) variants. The package ships a prebuilt `styles.css`, but **if your app also uses Tailwind**, don't rely on the prebuilt CSS alone — make sure your own Tailwind build also generates Kreativ UI's utilities, so everything comes from one correctly-ordered stylesheet.
+
+### Tailwind v4
+
+Add an `@source` directive in your main CSS entry file (wherever you have `@import "tailwindcss"`):
+
+```css
+@import "tailwindcss";
+@source "../node_modules/@splenddev/kreativ-ui/dist";
+```
+
+Adjust the relative path to match your project structure.
+
+### Tailwind v3
+
+Add Kreativ UI to your `content` array:
+
+```js
+// tailwind.config.js
+export default {
+  content: [
+    "./src/**/*.{ts,tsx}",
+    "./node_modules/@splenddev/kreativ-ui/dist/**/*.{js,cjs}",
+  ],
+  // ...
+};
+```
+
+### Why this matters
+
+If your app's Tailwind output and Kreativ UI's prebuilt `styles.css` are loaded as two separate stylesheets, utilities with equal CSS specificity resolve by **source order**, not by whether one is wrapped in a media query or pseudo-class. A plain `.inline-flex` from your app's stylesheet can end up ordered after — and therefore override — a responsive `md:hidden` or state variant shipped in Kreativ UI's CSS, even though the media query matches. This shows up as variants (`md:hidden`, `hover:*`, etc.) silently not applying, with `!` (`md:hidden!`) appearing to "fix" it by brute-forcing `!important`.
+
+Scanning Kreativ UI into your own build avoids this entirely — one Tailwind build, one correctly ordered stylesheet, no conflicts. You can then skip importing `@splenddev/kreativ-ui/styles.css` for utility classes; still import it if you rely on Kreativ UI's CSS custom properties, keyframes, or `[data-kui-*]` attribute-selector styles that aren't generated from your own usage.
 
 ## Quick start
 
 ```tsx
-import { Button, Card, Input, Stack, KreativUIProvider } from "@splenddev/kreativ-ui";
+import {
+  Button,
+  Card,
+  Input,
+  Stack,
+  KreativUIProvider,
+} from "@splenddev/kreativ-ui";
 
 export default function App() {
   return (
@@ -141,11 +179,7 @@ const theme = {
 };
 
 export function App() {
-  return (
-    <KreativUIProvider theme={theme}>
-      ...
-    </KreativUIProvider>
-  );
+  return <KreativUIProvider theme={theme}>...</KreativUIProvider>;
 }
 ```
 

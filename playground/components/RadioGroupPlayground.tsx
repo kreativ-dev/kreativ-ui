@@ -56,7 +56,7 @@ export function RadioGroupPlayground() {
 
   const preview = useFormField ? (
     <FormField
-      error={error ? "Please select an option" : undefined}
+      message={error ? "Please select an option" : undefined}
       required={required}
     >
       <FormField.Label>Choose an option</FormField.Label>

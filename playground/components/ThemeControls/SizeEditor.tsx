@@ -2,9 +2,9 @@ import { useEffect, useMemo, useState } from "react";
 import type { SizeToken, ThemeOverride } from "@splenddev/kreativ-core/types";
 import { cn } from "@/utils/cn";
 import { SIZE_KEYS } from "./theme.constants";
-import { Input, Select } from "../../../src";
 import { TextField } from "../shared/TextField";
 import { ChevronDown, Plus, Trash2 } from "lucide-react";
+import { Input, Select } from "@/components";
 
 interface SizeEditorProps {
   theme: ThemeOverride;

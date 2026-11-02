@@ -20,6 +20,7 @@ import { CardPlayground } from "./CardPlayground";
 import { ScrollAreaPlayground } from "./ScrollareaPlayground";
 import { Box } from "@/components/layout/Box/Box";
 import {  MarkdownEditor } from "@/components";
+import { RepeaterPlayground } from "./RepeaterPlayground";
 
 const SECTIONS = [
   { key: "card", label: "Card", render: () => <CardPlayground /> },
@@ -47,11 +48,20 @@ const SECTIONS = [
   { key: "radio", label: "Radio", render: () => <RadioDemo /> },
   { key: "switch", label: "Switch", render: () => <SwitchDemo /> },
   { key: "combobox", label: "Combobox", render: () => <ComboboxDemo /> },
-  { key: "scroll-area", label: "ScrollArea", render: () => <ScrollAreaPlayground /> },
+  {
+    key: "scroll-area",
+    label: "ScrollArea",
+    render: () => <ScrollAreaPlayground />,
+  },
   {
     key: "multiselect",
     label: "MultiSelect",
     render: () => <MultiSelectDemo />,
+  },
+  {
+    key: "repeater",
+    label: "Repeater",
+    render: () => <RepeaterPlayground />,
   },
 ] as const;
 

@@ -4,7 +4,7 @@ import { COLOR_GROUPS } from "./theme.constants";
 import { extendTheme } from "@/theme";
 import {
   resolveSemanticTokenReferences,
-  ThemeOverride,
+  type ThemeOverride,
 } from "@splenddev/kreativ-core";
 
 interface TokenEditorProps {

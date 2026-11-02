@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { Checkbox } from "@/components/forms/Checkbox";
 import { InputSize } from "@/components/forms/Input/Input.types";
-import { FormField, } from "@/components/forms/FormField";
+import { FormField } from "@/components/forms/FormField";
 
 import { Playground } from "./shared/Playground";
 import { SegmentedControl } from "./shared/SegmentedControl";
@@ -50,6 +50,7 @@ export function CheckboxDemo() {
     <FormField
       message={error ? "This field is required" : undefined}
       required={required}
+      disabled={disabled}
     >
       <FormField.Control>{checkboxElement}</FormField.Control>
     </FormField>

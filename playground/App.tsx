@@ -29,14 +29,13 @@ export function App() {
       background="rgb(var(--kui-background, 255 255 255))"
       textColor="rgb(var(--kui-text, 0 0 0))"
     >
-      <PersistMode />
       <ThemeStudio
         theme={theme}
         onChange={(nextTheme) => {
           setTheme(extendTheme(nextTheme));
         }}
       />
-
+      <PersistMode />
       <ComponentsPlayground />
     </KreativUIProvider>
   );

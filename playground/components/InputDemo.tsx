@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { User, Mail, Search, Lock, Eye, Loader2 } from "lucide-react";
 
-import { Input, FormField, useUndoRedo } from "../../src";
+import { Input, FormField } from "@/components";
 
-import type { InputKind, InputProps, InputSize, InputVariant } from "../../src";
+import type { InputKind, InputProps, InputSize, InputVariant } from "@/components";
 
 import { Playground } from "./shared/Playground";
 import { SegmentedControl } from "./shared/SegmentedControl";
@@ -14,6 +14,7 @@ import type {
   FormFieldStatus,
   ValidateOn,
 } from "@splenddev/kreativ-core/types";
+import { useUndoRedo } from "@/hooks";
 
 const VARIANTS: InputVariant[] = ["outline", "filled", "ghost"];
 

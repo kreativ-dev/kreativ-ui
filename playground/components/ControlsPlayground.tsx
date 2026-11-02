@@ -6,7 +6,7 @@ import {
   type InputVariant,
   type InputSize,
   SwitchSize,
-} from "../../src";
+} from "@/components";
 import { Playground } from "./shared/Playground";
 import { SegmentedControl } from "./shared/SegmentedControl";
 import { Chip } from "./shared/Chip";

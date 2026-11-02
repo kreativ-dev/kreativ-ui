@@ -16,7 +16,6 @@ import { getAttrs } from "./shared/getAttributes";
 
 type Direction = "vertical" | "horizontal" | "both";
 type ShowScrollbar = "auto" | "always" | "never";
-// type Snap = "none" | "proximity" | "mandatory";
 type SnapAlign = "start" | "center" | "end";
 
 const ITEMS = Array.from({ length: 8 }, (_, i) => `Item ${i + 1}`);
