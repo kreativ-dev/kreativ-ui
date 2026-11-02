@@ -1,4 +1,4 @@
-import type { RecipeVariant, SemanticTokens } from "@splenddev/kreativ-core/types";
+import type {  SemanticTokens } from "@splenddev/kreativ-core/types";
 import { defineSemanticToken } from "@splenddev/kreativ-core";
 
 export const defaultSemanticTokens = {
