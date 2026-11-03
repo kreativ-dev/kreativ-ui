@@ -24,47 +24,17 @@ import {
   useStatusTransition,
 } from "@/hooks";
 
-import { ClearIcon, Spinner } from "./Input.icons";
+import { Spinner } from "./Input.icons";
 import { Adornment } from "../../Adornment";
 import { useOptionalFormField } from "../FormField/FormField.context";
 import { BaseInputProps } from "./Input.types";
-
-function StaticSpinnerMark({ size }: { size: number | string }) {
-  return (
-    <span
-      aria-hidden="true"
-      className="inline-block rounded-full border-2 border-current opacity-70"
-      style={{ width: size, height: size }}
-    />
-  );
-}
+import { ClearButton, StaticSpinnerMark } from "./_components";
 
 function iconButtonClass(motion: boolean) {
   return cn(
     "flex items-center justify-center text-kui-text-muted hover:text-kui-text",
     "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
     motion && "transition-colors",
-  );
-}
-
-function ClearButton({
-  size,
-  className,
-  onClear,
-}: {
-  size: number | string;
-  className: string;
-  onClear: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClear}
-      aria-label="Clear input"
-      className={className}
-    >
-      <ClearIcon style={{ width: size, height: size }} />
-    </button>
   );
 }
 

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ThemeStudio } from "./components/ThemeStudio";
 import { ThemeOverride } from "@splenddev/kreativ-core/types";
 import { extendTheme } from "@/theme/extendTheme";
-import { KreativUIProvider, PersistMode } from "@/provider";
+import { KreativUIProvider } from "@/provider";
 import { Input } from "@/components";
 import { User } from "lucide-react";
 
@@ -30,6 +30,7 @@ export function App() {
       theme={theme}
       background="rgb(var(--kui-colors-background, 255 255 255))"
       textColor="rgb(var(--kui-colors-text, 0 0 0))"
+      persistMode
     >
       <ThemeStudio
         theme={theme}
@@ -37,7 +38,6 @@ export function App() {
           setTheme(extendTheme(nextTheme));
         }}
       />
-      <PersistMode />
       <Input startIcon={<User />} endIcon={<User />} size="lg" />
       <ComponentsPlayground />
     </KreativUIProvider>

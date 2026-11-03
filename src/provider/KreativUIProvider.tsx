@@ -1,18 +1,26 @@
 "use client";
+
 import { useEffect, useMemo, useState, type JSX, type ReactNode } from "react";
+
 import { isDev } from "@/utils/env";
+
 import {
   ColorMode,
   ThemeContext,
   ThemeOverride,
 } from "@splenddev/kreativ-core";
-import { extendTheme } from "@/theme";
+
 import { resolveTokens, tokensToCssVars } from "@splenddev/kreativ-core/utils";
+
+import { useThemeModePersistence } from "@splenddev/kreativ-core/hooks";
+import { extendTheme } from "@/theme";
 
 export interface UIProviderProps {
   children: ReactNode;
   theme?: ThemeOverride;
   defaultMode?: ColorMode;
+  persistMode?: boolean;
+  storageKey?: string;
   as?: keyof JSX.IntrinsicElements;
   fallbackSize?: string;
   background?: string;
@@ -23,13 +31,18 @@ export interface UIProviderProps {
 
 function useSystemPrefersDark() {
   const [prefersDark, setPrefersDark] = useState(false);
+
   useEffect(() => {
-    const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    setPrefersDark(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setPrefersDark(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+    const update = () => setPrefersDark(mediaQuery.matches);
+
+    update();
+    mediaQuery.addEventListener("change", update);
+
+    return () => mediaQuery.removeEventListener("change", update);
   }, []);
+
   return prefersDark;
 }
 
@@ -37,6 +50,8 @@ export function KreativUIProvider({
   children,
   theme: themeOverride,
   defaultMode = "system",
+  persistMode = false,
+  storageKey = "kreativ-ui-color-mode",
   as = "div",
   fallbackSize = "md",
   textColor,
@@ -46,15 +61,20 @@ export function KreativUIProvider({
 }: UIProviderProps) {
   const [mode, setMode] = useState<ColorMode>(defaultMode);
 
+  useThemeModePersistence(mode, setMode, storageKey, persistMode);
+
   const systemPrefersDark = useSystemPrefersDark();
+
   const resolvedMode: "light" | "dark" =
     mode === "system" ? (systemPrefersDark ? "dark" : "light") : mode;
 
   const theme = useMemo(() => extendTheme(themeOverride), [themeOverride]);
+
   const resolvedTokens = useMemo(
     () => resolveTokens(theme.tokens, theme.semanticTokens, resolvedMode),
     [theme.tokens, theme.semanticTokens, resolvedMode],
   );
+
   const cssVars = useMemo(
     () => tokensToCssVars(resolvedTokens, resolvedMode, theme.intensity),
     [resolvedTokens, resolvedMode, theme.intensity],
