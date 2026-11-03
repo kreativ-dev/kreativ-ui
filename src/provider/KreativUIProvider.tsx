@@ -45,7 +45,6 @@ export function KreativUIProvider({
   className,
 }: UIProviderProps) {
   const [mode, setMode] = useState<ColorMode>(defaultMode);
-  console.log("mode is now:", mode);
 
   const systemPrefersDark = useSystemPrefersDark();
   const resolvedMode: "light" | "dark" =
