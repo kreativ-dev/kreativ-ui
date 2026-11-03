@@ -4,6 +4,8 @@ import { ThemeStudio } from "./components/ThemeStudio";
 import { ThemeOverride } from "@splenddev/kreativ-core/types";
 import { extendTheme } from "@/theme/extendTheme";
 import { KreativUIProvider, PersistMode } from "@/provider";
+import { Input } from "@/components";
+import { User } from "lucide-react";
 
 export function App() {
   const [theme, setTheme] = useState<ThemeOverride>(() =>
@@ -26,8 +28,8 @@ export function App() {
       defaultMode="system"
       fallbackSize="lg"
       theme={theme}
-      background="rgb(var(--kui-background, 255 255 255))"
-      textColor="rgb(var(--kui-text, 0 0 0))"
+      background="rgb(var(--kui-colors-background, 255 255 255))"
+      textColor="rgb(var(--kui-colors-text, 0 0 0))"
     >
       <ThemeStudio
         theme={theme}
@@ -36,6 +38,7 @@ export function App() {
         }}
       />
       <PersistMode />
+      <Input startIcon={<User />} endIcon={<User />} size="lg" />
       <ComponentsPlayground />
     </KreativUIProvider>
   );

@@ -3,32 +3,37 @@
     [data-kui-button-group-item-embedded]:focus-within
   ) {
   z-index: 10;
-  background: rgb(var(--kui-surface-raised));
-  box-shadow: 0 0 0 2px mix(in srgb, rgb(var(--kui-brand)) 20%, transparent);
+  background: rgb(var(--kui-colors-surface-raised));
+  box-shadow: 0 0 0 2px
+    mix(in srgb, rgb(var(--kui-colors-brand)) 20%, transparent);
 }
 
 @utility kui-text {
-  color: var(--kui-text);
+  color: rgb(var(--kui-colors-text));
   margin: 0;
 }
 
 @utility kui-heading {
-  color: var(--kui-text);
+  color: rgb(var(--kui-colors-text));
   margin: 0;
 }
 
 @utility kui-link {
-  color: rgb(var(--kui-brand));
-  text-decoration-color: mix(in srgb, rgb(var(--kui-brand)) 50%, transparent);
+  color: rgb(var(--kui-colors-brand));
+  text-decoration-color: mix(
+    in srgb,
+    rgb(var(--kui-colors-brand)) 50%,
+    transparent
+  );
   transition: color var(--kui-duration-fast, 150ms)
     var(--kui-ease-default, ease);
 
   &:hover {
-    color: rgb(var(--kui-brand-hover, rgb(var(--kui-brand))));
+    color: rgb(var(--kui-colors-brand-hover, rgb(var(--kui-colors-brand))));
   }
 
   &:focus-visible {
-    outline: 2px solid rgb(var(--kui-brand));
+    outline: 2px solid rgb(var(--kui-colors-brand));
     outline-offset: 2px;
     border-radius: var(--kui-radius-sm, 2px);
   }
@@ -42,33 +47,33 @@
 @utility kui-form-section {
   display: flex;
   flex-direction: column;
-  gap: var(--kui-space-3, 0.75rem);
+  gap: var(--kui-spacing-3, 0.75rem);
 }
 
 @utility kui-form-section__label {
   font-family: var(--font-sans);
   font-size: 0.9375rem;
   font-weight: 600;
-  color: var(--color-kui-text);
+  color: rgb(var(--kui-colors-text));
   margin: 0;
 }
 
 @utility kui-form-section__description {
   font-family: var(--font-sans);
   font-size: 0.8125rem;
-  color: var(--color-kui-text-muted);
+  color: rgb(var(--kui-colors-text-muted));
   margin: 0;
 }
 
 @utility kui-form-section__stack {
   display: flex;
   flex-direction: column;
-  gap: var(--kui-space-4, 1rem);
+  gap: var(--kui-spacing-4, 1rem);
 }
 
 @utility kui-form-section__grid {
   display: grid;
-  gap: var(--kui-space-4, 1rem);
+  gap: var(--kui-spacing-4, 1rem);
   grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
 }
 
@@ -81,12 +86,12 @@
 @utility kui-form-from-schema-array-label {
   font-size: 0.875rem;
   font-weight: 500;
-  color: rgb(var(--kui-text));
+  color: rgb(var(--kui-colors-text));
 }
 
 @utility kui-form-from-schema-array-description {
   font-size: 0.875rem;
-  color: rgb(var(--kui-text-muted));
+  color: rgb(var(--kui-colors-text-muted));
 }
 
 @utility kui-number-stepper {
@@ -112,7 +117,7 @@
   flex-shrink: 0;
   align-self: stretch;
   order: 2;
-  border-left: 1px solid rgb(var(--kui-border));
+  border-left: 1px solid rgb(var(--kui-colors-border));
 }
 
 @utility kui-number-stepper--horizontal {
@@ -122,7 +127,7 @@
 
   & .kui-number-stepper__button[data-action="decrement"] {
     order: 1;
-    border-right: 1px solid rgb(var(--kui-border));
+    border-right: 1px solid rgb(var(--kui-colors-border));
   }
 
   & .kui-number-stepper__button[data-action="increment"] {
@@ -142,7 +147,7 @@
 
   & .kui-number-stepper__button[data-action="increment"] {
     order: 1;
-    border-bottom: 1px solid rgb(var(--kui-border));
+    border-bottom: 1px solid rgb(var(--kui-colors-border));
   }
 
   & .kui-number-stepper__button[data-action="decrement"] {
@@ -164,17 +169,17 @@
   width: 2em;
   border: none;
   background: transparent;
-  color: rgb(var(--kui-text));
+  color: rgb(var(--kui-colors-text));
   cursor: pointer;
   user-select: none;
   transition: background-color var(--duration-fast) var(--ease-kui);
 
   &:hover:not(:disabled) {
-    background: rgb(var(--kui-surface-raised));
+    background: rgb(var(--kui-colors-surface-raised));
   }
 
   &:active:not(:disabled) {
-    background: rgb(var(--kui-surface-sunken));
+    background: rgb(var(--kui-colors-surface-sunken));
   }
 
   &:disabled {
@@ -191,13 +196,13 @@
   background-color: transparent;
   border-width: 0;
   outline: none;
-  color: var(--kui-text);
+  color: rgb(var(--kui-colors-text));
   transition:
     color var(--duration-fast),
     background-color var(--duration-fast);
 
   &::placeholder {
-    color: rgb(var(--kui-text-muted));
+    color: rgb(var(--kui-colors-text-muted));
   }
 
   &:disabled {
@@ -224,20 +229,20 @@
 
 @utility kui-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: rgb(var(--kui-text-muted) / 0.45) transparent;
+  scrollbar-color: rgb(var(--kui-colors-text-muted) / 0.45) transparent;
 
   &::-webkit-scrollbar-track {
     background: transparent;
   }
   &::-webkit-scrollbar-thumb {
-    background: rgb(var(--kui-text-muted) / 0.45);
+    background: rgb(var(--kui-colors-text-muted) / 0.45);
     border-radius: 999px;
   }
   &::-webkit-scrollbar-thumb:hover {
-    background: rgb(var(--kui-text-muted) / 0.65);
+    background: rgb(var(--kui-colors-text-muted) / 0.65);
   }
   &:hover {
-    scrollbar-color: rgb(var(--kui-text-muted) / 0.65) transparent;
+    scrollbar-color: rgb(var(--kui-colors-text-muted) / 0.65) transparent;
   }
 }
 

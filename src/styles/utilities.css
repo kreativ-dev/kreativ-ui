@@ -5,27 +5,27 @@
 }
 
 @utility shadow-kui-brand {
-  --kui-shadow-color: rgb(var(--kui-brand));
+  --kui-shadow-color: rgb(var(--kui-colors-brand));
 }
 
 @utility shadow-kui-destructive {
-  --kui-shadow-color: rgb(var(--kui-destructive));
+  --kui-shadow-color: rgb(var(--kui-colors-destructive));
 }
 
 @utility shadow-kui-success {
-  --kui-shadow-color: rgb(var(--kui-success));
+  --kui-shadow-color: rgb(var(--kui-colors-success));
 }
 
 @utility shadow-kui-warning {
-  --kui-shadow-color: rgb(var(--kui-warning));
+  --kui-shadow-color: rgb(var(--kui-colors-warning));
 }
 
 @utility shadow-kui-info {
-  --kui-shadow-color: rgb(var(--kui-info));
+  --kui-shadow-color: rgb(var(--kui-colors-info));
 }
 
 @utility shadow-kui-border {
-  --kui-shadow-color: rgb(var(--kui-border));
+  --kui-shadow-color: rgb(var(--kui-colors-border));
 }
 
 @utility shadow-r-1 {

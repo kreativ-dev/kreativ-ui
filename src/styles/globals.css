@@ -5,46 +5,97 @@
 @import "./components.css";
 
 @theme inline {
-  --color-kui-brand: rgb(var(--kui-brand));
-  --color-kui-brand-hover: rgb(var(--kui-brand-hover));
-  --color-kui-brand-fg: rgb(var(--kui-brand-fg));
+  /* Semantic colors */
+  --color-kui-brand: rgb(var(--kui-colors-brand));
+  --color-kui-brand-hover: rgb(var(--kui-colors-brand-hover));
+  --color-kui-brand-fg: rgb(var(--kui-colors-brand-fg));
 
-  --color-kui-surface: rgb(var(--kui-surface));
-  --color-kui-surface-raised: rgb(var(--kui-surface-raised));
-  --color-kui-surface-sunken: rgb(var(--kui-surface-sunken));
-  --color-kui-background: rgb(var(--kui-background));
+  --color-kui-surface: rgb(var(--kui-colors-surface));
+  --color-kui-surface-raised: rgb(var(--kui-colors-surface-raised));
+  --color-kui-surface-sunken: rgb(var(--kui-colors-surface-sunken));
+  --color-kui-background: rgb(var(--kui-colors-background));
 
-  --color-kui-border: rgb(var(--kui-border));
+  --color-kui-border: rgb(var(--kui-colors-border));
 
-  --color-kui-text: rgb(var(--kui-text));
-  --color-kui-text-muted: rgb(var(--kui-text-muted));
+  --color-kui-text: rgb(var(--kui-colors-text));
+  --color-kui-text-muted: rgb(var(--kui-colors-text-muted));
 
-  --color-kui-destructive: rgb(var(--kui-destructive));
-  --color-kui-destructive-fg: rgb(var(--kui-destructive-fg));
-  --color-kui-destructive-hover: rgb(var(--kui-destructive-hover));
+  --color-kui-destructive: rgb(var(--kui-colors-destructive));
+  --color-kui-destructive-fg: rgb(var(--kui-colors-destructive-fg));
+  --color-kui-destructive-hover: rgb(var(--kui-colors-destructive-hover));
 
-  --color-kui-success: rgb(var(--kui-success));
-  --color-kui-success-fg: rgb(var(--kui-success-fg));
-  --color-kui-success-hover: rgb(var(--kui-success-hover));
+  --color-kui-success: rgb(var(--kui-colors-success));
+  --color-kui-success-fg: rgb(var(--kui-colors-success-fg));
+  --color-kui-success-hover: rgb(var(--kui-colors-success-hover));
 
-  --color-kui-warning: rgb(var(--kui-warning));
-  --color-kui-warning-fg: rgb(var(--kui-warning-fg));
-  --color-kui-warning-hover: rgb(var(--kui-warning-hover));
+  --color-kui-warning: rgb(var(--kui-colors-warning));
+  --color-kui-warning-fg: rgb(var(--kui-colors-warning-fg));
+  --color-kui-warning-hover: rgb(var(--kui-colors-warning-hover));
 
-  --color-kui-info: rgb(var(--kui-info));
-  --color-kui-info-fg: rgb(var(--kui-info-fg));
-  --color-kui-info-hover: rgb(var(--kui-info-hover));
+  --color-kui-info: rgb(var(--kui-colors-info));
+  --color-kui-info-fg: rgb(var(--kui-colors-info-fg));
+  --color-kui-info-hover: rgb(var(--kui-colors-info-hover));
 
-  --radius: var(--kui-radii-md);
-  --font-sans: var(--kui-font);
+  /* Primitive tokens */
+  --spacing-kui-1: var(--kui-spacing-1);
+  --spacing-kui-2: var(--kui-spacing-2);
+  --spacing-kui-3: var(--kui-spacing-3);
+  --spacing-kui-4: var(--kui-spacing-4);
+  --spacing-kui-5: var(--kui-spacing-5);
+  --spacing-kui-6: var(--kui-spacing-6);
+  --spacing-kui-8: var(--kui-spacing-8);
+  --spacing-kui-10: var(--kui-spacing-10);
+  --spacing-kui-12: var(--kui-spacing-12);
+  --spacing-kui-16: var(--kui-spacing-16);
 
-  --duration-fast: var(--kui-duration-fast);
-  --duration-normal: var(--kui-duration-normal);
-  --duration-slow: var(--kui-duration-slow);
+  /* Radii */
+  --radius-kui-sm: var(--kui-radii-sm);
+  --radius-kui-md: var(--kui-radii-md);
+  --radius-kui-lg: var(--kui-radii-lg);
+  --radius-kui-xl: var(--kui-radii-xl);
+  --radius-kui-full: var(--kui-radii-full);
 
-  --ease-kui: var(--kui-ease-default);
-  --ease-kui-in: var(--kui-ease-in);
-  --ease-kui-out: var(--kui-ease-out);
+  /* Typography */
+  --font-kui-body: var(--kui-fonts-body);
+  --font-kui-heading: var(--kui-fonts-heading);
+  --font-kui-mono: var(--kui-fonts-mono);
+
+  --text-kui-xs: var(--kui-font-sizes-xs);
+  --text-kui-sm: var(--kui-font-sizes-sm);
+  --text-kui-md: var(--kui-font-sizes-md);
+  --text-kui-lg: var(--kui-font-sizes-lg);
+  --text-kui-xl: var(--kui-font-sizes-xl);
+  --text-kui-2xl: var(--kui-font-sizes-2xl);
+  --text-kui-3xl: var(--kui-font-sizes-3xl);
+  --text-kui-4xl: var(--kui-font-sizes-4xl);
+
+  --font-weight-kui-normal: var(--kui-font-weights-normal);
+  --font-weight-kui-medium: var(--kui-font-weights-medium);
+  --font-weight-kui-semibold: var(--kui-font-weights-semibold);
+  --font-weight-kui-bold: var(--kui-font-weights-bold);
+
+  /* Animations */
+  --animate-kui-spin: var(--kui-animations-spin);
+  --animate-kui-fade-in: var(--kui-animations-fade-in);
+  --animate-kui-fade-out: var(--kui-animations-fade-out);
+  --animate-kui-scale-in: var(--kui-animations-scale-in);
+  --animate-kui-scale-out: var(--kui-animations-scale-out);
+  --animate-kui-slide-up: var(--kui-animations-slide-up);
+  --animate-kui-slide-down: var(--kui-animations-slide-down);
+  --animate-kui-slide-left: var(--kui-animations-slide-left);
+  --animate-kui-slide-right: var(--kui-animations-slide-right);
+  --animate-kui-slide-in-next: var(--kui-animations-slide-in-next);
+  --animate-kui-slide-in-prev: var(--kui-animations-slide-in-prev);
+  --animate-kui-bounce: var(--kui-animations-bounce);
+  --animate-kui-pulse: var(--kui-animations-pulse);
+  --animate-kui-shake: var(--kui-animations-shake);
+  --animate-kui-shimmer: var(--kui-animations-shimmer);
+  --animate-kui-expand: var(--kui-animations-expand);
+  --animate-kui-collapse: var(--kui-animations-collapse);
+  --animate-kui-ping: var(--kui-animations-ping);
+  --animate-kui-state-error: var(--kui-animations-state-error);
+  --animate-kui-state-success: var(--kui-animations-state-success);
+  --animate-kui-state-warning: var(--kui-animations-state-warning);
 }
 
 @theme inline {
@@ -81,7 +132,8 @@
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
-  -webkit-text-fill-color: var(--kui-text);
-  -webkit-box-shadow: 0 0 0px 1000px var(--kui-surface) inset;
+  -webkit-text-fill-color: rgb(var(--kui-colors-text));
+  -webkit-box-shadow: 0 0 0 1000px rgb(var(--kui-colors-surface)) inset;
+  caret-color: rgb(var(--kui-colors-text));
   transition: background-color 9999s ease-in-out 0s;
 }

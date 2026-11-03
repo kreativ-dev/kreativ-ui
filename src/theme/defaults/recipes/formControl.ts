@@ -6,11 +6,7 @@ export const formControlBase =
   "transition-[border-color,box-shadow] duration-[var(--kui-duration-fast)] " +
   "focus-within:outline-none ";
 export const formControlVariants = {
-  outline: {
-    border: "1px solid rgb(var(--kui-border))",
-    backgroundColor: "transparent",
-    color: "rgb(var(--kui-text))",
-  },
+  outline: "border border-kui-border bg-transparent text-kui-text",
 
   filled: "border border-transparent bg-kui-surface-raised text-kui-text",
 
