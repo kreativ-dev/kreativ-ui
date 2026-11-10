@@ -192,6 +192,7 @@ const PRESETS: Record<string, ThemeOverride> = {
           light: "{colors.white}",
           dark: "{colors.gray.900}",
         },
+        light: { light: "{colors.white}", dark: "{colors.black}" },
       }),
     },
   },

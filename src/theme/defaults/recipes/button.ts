@@ -15,7 +15,7 @@ export const buttonBase =
   "focus-visible:ring-kui-brand " +
   "focus-visible:ring-offset-2 " +
   "focus-visible:ring-offset-surface " +
-  "disabled:opacity-60 disabled:pointer-events-none disabled:active:scale-100";
+  "disabled:opacity-60 disabled:cursor-not-allowed disabled:pointer-events-none disabled:active:scale-100";
 
 export const buttonVariants = {
   solid: "ease-[cubic-bezier(0.34,1.56,0.64,1)] active:scale-[0.97]",

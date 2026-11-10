@@ -100,6 +100,7 @@ export function TextareaPlayground() {
       required={required}
       message={error ? "This field has an error" : undefined}
       status={state}
+      disabled={disabled}
     >
       <FormField.Label>Message</FormField.Label>
 

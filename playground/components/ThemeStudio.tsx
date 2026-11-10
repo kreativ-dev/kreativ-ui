@@ -42,7 +42,7 @@ export function ThemeStudio({ theme, onChange }: Props) {
       <div className="p-5 space-y-5">
         <ThemePresetManager theme={theme} onChange={onChange} />
 
-        <div className="border-t border-kui-border pt-6">
+        {/* <div className="border-t border-kui-border pt-6">
           <TokenEditor theme={theme} onChange={onChange} />
         </div>
 
@@ -56,7 +56,7 @@ export function ThemeStudio({ theme, onChange }: Props) {
             Raw class overrides — advanced usage, applied on top of everything
             above.
           </p>
-        </div>
+        </div> */}
       </div>
     </section>
   );

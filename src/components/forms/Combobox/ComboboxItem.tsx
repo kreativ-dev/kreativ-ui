@@ -48,7 +48,7 @@ export function ComboboxItem({
         "flex cursor-pointer items-center rounded-[calc(var(--kui-radii-md)-2px)] px-2.5 py-1.5 text-sm text-kui-text transition-colors",
         active && "bg-kui-brand/15 text-kui-brand",
         selected && !active && "bg-kui-surface-raised",
-        disabled && "pointer-events-none cursor-not-allowed opacity-50",
+        disabled && "cursor-not-allowed opacity-50",
         className,
       )}
     >
