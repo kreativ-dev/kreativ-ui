@@ -30,9 +30,7 @@ import {
   useTooltipContext,
   type TooltipDelay,
 } from "./Tooltip.context";
-import { tooltipArrowRecipe, tooltipContentRecipe } from "./Tooltip.recipe";
 import { resolveRecipe } from "@/theme/recipes/resolveRecipe";
-import { cn } from "@/utils";
 
 const DEFAULT_DELAY: TooltipDelay = { open: 500, close: 0 };
 
