@@ -6,7 +6,7 @@ import { cn } from "@/utils/cn";
 import { resolveRecipe } from "@/theme/recipes/resolveRecipe";
 
 import type { ButtonProps } from "./Button.types";
-import { ResponsiveStyle } from "../internal/ResponsiveStyle";
+import { ResponsiveStyle } from "../../internal/ResponsiveStyle";
 import { useOptionalButtonGroupContext } from "../ButtonGroup";
 import { useTheme } from "@splenddev/kreativ-core";
 import {

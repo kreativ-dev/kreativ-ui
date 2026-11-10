@@ -8,8 +8,9 @@ import { inputKindDefaults } from "./Input.constants";
 import { inputKindIcons } from "./Input.icons";
 import type { InputProps } from "./Input.types";
 import { renderBaseInput } from "./Input.base";
+import { SingleFormControlComponent } from "@/types";
 
-export const Input = createComponent<InputProps, HTMLInputElement>({
+const InputBase = createComponent<InputProps, HTMLInputElement>({
   displayName: "Input",
   __kui: {
     role: "formControl",
@@ -54,6 +55,7 @@ export const Input = createComponent<InputProps, HTMLInputElement>({
       autoComplete: autoCompleteProp,
       placeholder: placeholderProp,
       startIcon,
+      value,
       ...rest
     },
     ref,
@@ -69,6 +71,7 @@ export const Input = createComponent<InputProps, HTMLInputElement>({
         ...rest,
         type: typeProp! ?? kindDefaults.type,
         inputMode: inputModeProp ?? kindDefaults.inputMode,
+        value: value ?? "",
         autoComplete: autoCompleteProp ?? kindDefaults.autoComplete,
         placeholder: placeholderProp ?? kindDefaults.placeholder,
         startIcon: resolvedStartIcon,
@@ -77,3 +80,6 @@ export const Input = createComponent<InputProps, HTMLInputElement>({
     );
   },
 });
+
+export const Input = InputBase as typeof InputBase &
+  SingleFormControlComponent<InputProps>;

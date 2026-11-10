@@ -1,5 +1,5 @@
-import { Container } from "@/components";
-import { Check, Copy,  X } from "lucide-react";
+import { Button, Container } from "@/components";
+import { Check, Code, Copy, X } from "lucide-react";
 import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 
 interface PlaygroundProps {
@@ -94,17 +94,22 @@ export function Playground({
         <div className="min-w-0">
           <div
             ref={wrapperRef}
-            className="relative flex min-h-35 items-center justify-center rounded-xl border border-kui-border bg-kui-surface p-6"
+            className="relative flex min-h-35 items-center justify-center rounded-xl border border-kui-border bg-kui-surface px-6 pb-8 pt-13"
           >
             <div className="w-full max-w-sm">{preview}</div>
 
-            <button
+            <Button
               type="button"
+              variant="outline"
+              color="neutral"
+              size="sm"
+              typography=""
               onClick={() => setIsCodeOpen(true)}
-              className="absolute right-3 top-3 rounded-md border border-kui-border bg-kui-surface/90 px-2.5 py-1.5 font-mono text-[11px] text-kui-text-muted backdrop-blur transition-colors hover:border-kui-brand hover:text-kui-brand focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kui-brand"
+              className="absolute right-3 top-3 items-center"
             >
-              {"</>"} view code
-            </button>
+              <Code size={12} />
+              <p>view code</p>
+            </Button>
           </div>
 
           {getAttributes && (
@@ -173,7 +178,7 @@ export function Playground({
                   aria-label="Close code preview"
                   className="rounded-md border border-kui-border px-2.5 py-2 font-mono text-[11px] text-kui-text-muted transition-colors hover:border-kui-brand hover:text-kui-brand"
                 >
-                  <X size={16}/>
+                  <X size={16} />
                 </button>
               </div>
             </header>

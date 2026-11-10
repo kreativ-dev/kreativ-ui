@@ -7,7 +7,6 @@ export type SingleFormControlComponent<P extends object = any> = KuiComponent<
   __kui: { formControl: "single" };
 };
 
-
 export type ValuePropConvention = "value" | "checked";
 
 /** Token names that map to `--kui-spacing-<token>`. */
@@ -42,3 +41,24 @@ export type RadiusValue =
   | "2xl"
   | "full"
   | (string & {});
+
+/*
+ * Use this to suppress kui warning of components that supports it
+ */
+export interface SuppressKuiWarningProps {
+  suppressKuiWarning?: boolean;
+}
+
+/** Shared feedback status enum (same one Feedback/Toast/TopBar use). */
+
+export type FeedbackStatus =
+  | "neutral"
+  | "info"
+  | "success"
+  | "warning"
+  | "error"
+  | "brand";
+
+export interface FeedbackStatusProps {
+  status?: FeedbackStatus;
+}

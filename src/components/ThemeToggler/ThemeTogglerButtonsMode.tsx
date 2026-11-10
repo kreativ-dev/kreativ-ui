@@ -1,4 +1,4 @@
-import { Button } from "@/components/Button";
+import { Button } from "@/components/action/Button";
 import { motion } from "framer-motion";
 import { cn } from "@/utils";
 

@@ -177,9 +177,25 @@ export function renderBaseInput(
     ],
   );
 
+  const hasLeftAdornment = Boolean(startIcon);
+
+  const hasRightAdornment =
+    Boolean(endIcon) ||
+    Boolean(extraEndAdornment) ||
+    isLoading ||
+    (clearable && hasValue && !isDisabled);
+
   const inputClasses = useMemo(
-    () => cn(resolveRecipe(theme.recipes.Input, { variant }), inputClassName),
-    [theme, variant, inputClassName],
+    () =>
+      cn(
+        resolveRecipe(theme.recipes.Input, {
+          variant,
+          hasRightAdornment,
+          hasLeftAdornment,
+        }),
+        inputClassName,
+      ),
+    [theme, variant, inputClassName, hasRightAdornment, hasLeftAdornment],
   );
 
   const resolvedStyle = useMemo(

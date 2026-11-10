@@ -19,8 +19,13 @@ import { GridPlayground } from "./GridPlayground";
 import { CardPlayground } from "./CardPlayground";
 import { ScrollAreaPlayground } from "./ScrollareaPlayground";
 import { Box } from "@/components/layout/Box/Box";
-import {  MarkdownEditor } from "@/components";
+import { MarkdownEditor } from "@/components";
 import { RepeaterPlayground } from "./RepeaterPlayground";
+import { ToastDemo } from "./ToastDemo";
+import { TooltipDemo } from "./TooltipDemo";
+import { MenuDemo } from "./MenuDemo";
+import { ConfirmDemo } from "./ConfirmDemo";
+import { ActionGuardDemo } from "./ActionGuardDemo";
 
 const SECTIONS = [
   { key: "card", label: "Card", render: () => <CardPlayground /> },
@@ -48,6 +53,15 @@ const SECTIONS = [
   { key: "radio", label: "Radio", render: () => <RadioDemo /> },
   { key: "switch", label: "Switch", render: () => <SwitchDemo /> },
   { key: "combobox", label: "Combobox", render: () => <ComboboxDemo /> },
+  { key: "toast", label: "Toast", render: () => <ToastDemo /> },
+  { key: "tooltip", label: "Tooltip", render: () => <TooltipDemo /> },
+  { key: "menu", label: "Menu", render: () => <MenuDemo /> },
+  { key: "confirm", label: "Confirm", render: () => <ConfirmDemo /> },
+  {
+    key: "actionGuard",
+    label: "Action Guard",
+    render: () => <ActionGuardDemo />,
+  },
   {
     key: "scroll-area",
     label: "ScrollArea",
@@ -99,7 +113,9 @@ export function ComponentsPlayground() {
 
         `}
       >
-        <p className="mb-1 font-mono text-xs text-kui-brand">kui / playground</p>
+        <p className="mb-1 font-mono text-xs text-kui-brand">
+          kui / playground
+        </p>
         <h1 className="text-xl font-medium">Component Explorer</h1>
 
         <nav className={cn("flex flex-wrap gap-1.5 pb-4 mt-4")}>
@@ -114,10 +130,10 @@ export function ComponentsPlayground() {
           ))}
         </nav>
       </header>
-      
+
       <div className="p-5">{activeSection.render()}</div>
       <Box className="p-4">
-        <MarkdownEditor/>
+        <MarkdownEditor />
       </Box>
     </div>
   );

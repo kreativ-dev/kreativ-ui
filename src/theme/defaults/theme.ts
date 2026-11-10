@@ -39,6 +39,10 @@ import { scrollAreaRecipe } from "./recipes/scrollArea";
 import { boxRecipe } from "./recipes/box";
 import { flexRecipe } from "./recipes/flex";
 import { gridRecipe } from "./recipes/grid";
+import { toastRecipes } from "@/components/feedback/Toast/Toast.recipe";
+import { tooltipRecipes } from "@/components/overlays/Tooltip/Tooltip.recipe";
+import { confirmRecipes } from "../../components/overlays/Confirm/Confirm.recipe";
+import { menuRecipes } from "@/components/overlays/Menu/Menu.recipe";
 
 export const defaultRecipes = {
   Box: boxRecipe,
@@ -70,6 +74,10 @@ export const defaultRecipes = {
   Card: cardRecipe,
   ScrollArea: scrollAreaRecipe,
   Grid: gridRecipe,
+  ...toastRecipes,
+  ...tooltipRecipes,
+  ...confirmRecipes,
+  ...menuRecipes,
 } satisfies RecipeCollection;
 
 export const defaultTheme = defineTheme({

@@ -1,14 +1,8 @@
-import { InputField } from "@/components";
-import type { ComponentProps } from "react";
-
-type InputFieldProps = ComponentProps<typeof InputField>;
+import { FormField, Input, InputProps } from "@/components";
 
 export interface TextFieldProps extends Omit<
-  InputFieldProps,
-  | "onChange"
-  | "value"
-  | "label"
-  | "onBlur"
+  InputProps,
+  "onChange" | "value" | "label" | "onBlur"
 > {
   label?: string;
   value: any;
@@ -24,21 +18,22 @@ export function TextField({
   placeholder = "",
   size = "sm",
   clearable = true,
-  labelClassName = "text-kui-text-muted font-normal text-xs font-mono",
   ...rest
 }: TextFieldProps) {
   return (
-    <InputField
+    <FormField
       className="mb-2"
-      onChange={(e) => onChange(e.target.value)}
+      as={Input}
+      controlProps={{
+        onValueChange: onChange,
+        value,
+        placeholder,
+        size,
+        clearable,
+        onBlur,
+        ...rest,
+      }}
       label={label}
-      value={value}
-      placeholder={placeholder}
-      size={size}
-      clearable={clearable}
-      labelClassName={labelClassName}
-      onBlur={onBlur}
-      {...rest}
     />
   );
 }

@@ -1,4 +1,4 @@
-import { Button } from "@/components/Button/Button";
+import { Button } from "@/components/action/Button/Button";
 import { cn } from "@/utils";
 
 export function Chip({

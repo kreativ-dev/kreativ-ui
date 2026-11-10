@@ -5,7 +5,7 @@ import type {
   ThemeTogglerTransition,
   VariantProps,
 } from "@splenddev/kreativ-core/types";
-import type { ButtonVariant, ButtonProps } from "../Button/Button.types";
+import type { ButtonVariant, ButtonProps } from "../action/Button/Button.types";
 import type { CSSProperties, ReactNode } from "react";
 
 export type ThemeTogglerVariant = Exclude<ButtonVariant, "link">;

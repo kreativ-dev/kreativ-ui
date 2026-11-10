@@ -1,5 +1,5 @@
 // CycleMode.tsx
-import { Button } from "@/components/Button";
+import { Button } from "@/components/action/Button";
 import { motion } from "framer-motion";
 import { cn } from "@/utils";
 import type { ThemeTogglerProps } from "./ThemeToggler.types";
@@ -47,7 +47,11 @@ export const CycleMode = ({
       color={color}
       onClick={onCycle}
       aria-label={`Current theme: ${currentMode.label}`}
-      className={cn(rounded && "rounded-full", "py-5 overflow-hidden", buttonProps?.className)}
+      className={cn(
+        rounded && "rounded-full",
+        "py-5 overflow-hidden",
+        buttonProps?.className,
+      )}
       {...buttonProps}
     >
       <motion.span

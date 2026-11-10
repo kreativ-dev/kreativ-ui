@@ -14,9 +14,8 @@ export interface ButtonGroupItemContextValue {
   embedded: true;
 }
 
-
 const defaultButtonGroupContext: ButtonGroupContextValue = {
-  orientation: 'horizontal',
+  orientation: "horizontal",
   attached: false,
   spacing: "md",
   size: "md",
@@ -29,7 +28,6 @@ export const ButtonGroupContext = createContext<ButtonGroupContextValue>(
 // to differentiate between being inside an item or not.
 export const ButtonGroupItemContext =
   createContext<ButtonGroupItemContextValue | null>(null);
-
 
 /**
  * Hook to consume the button group context.

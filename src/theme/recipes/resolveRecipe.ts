@@ -22,8 +22,9 @@ function matchesConditions(
 export function resolveRecipe(
   recipe: RecipeDefinition | undefined,
   props: RecipeProps = {},
+  className?: string,
 ): string {
-  if (!recipe) return "";
+  if (!recipe) return className ?? "";
 
   const resolvedProps: RecipeProps = {
     ...recipe.defaultVariants,
@@ -58,6 +59,10 @@ export function resolveRecipe(
         classes.push(resolveStyle(compound.className as RecipeStyle));
       }
     }
+  }
+
+  if (className) {
+    classes.push(className);
   }
 
   return cn(...classes);

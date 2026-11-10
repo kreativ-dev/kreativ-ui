@@ -11,6 +11,14 @@ export const inputRecipe = defineRecipe({
       filled: "",
       ghost: "",
     },
+    hasRightAdornment: {
+      true: "pr-2",
+      false: "",
+    },
+    hasLeftAdornment: {
+      true: "pl-2",
+      false: "",
+    },
   },
 
   defaultVariants: {

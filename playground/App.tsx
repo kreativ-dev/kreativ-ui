@@ -4,8 +4,7 @@ import { ThemeStudio } from "./components/ThemeStudio";
 import { ThemeOverride } from "@splenddev/kreativ-core/types";
 import { extendTheme } from "@/theme/extendTheme";
 import { KreativUIProvider } from "@/provider";
-import { Input } from "@/components";
-import { User } from "lucide-react";
+import { ToastProvider } from "@/components";
 
 export function App() {
   const [theme, setTheme] = useState<ThemeOverride>(() =>
@@ -32,14 +31,13 @@ export function App() {
       textColor="rgb(var(--kui-colors-text, 0 0 0))"
       persistMode
     >
-      <ThemeStudio
-        theme={theme}
-        onChange={(nextTheme) => {
-          setTheme(extendTheme(nextTheme));
-        }}
-      />
-      <Input startIcon={<User />} endIcon={<User />} size="lg" />
-      <ComponentsPlayground />
+        {/* <ThemeStudio
+          theme={theme}
+          onChange={(nextTheme) => {
+            setTheme(extendTheme(nextTheme));
+          }}
+        /> */}
+        <ComponentsPlayground />
     </KreativUIProvider>
   );
 }

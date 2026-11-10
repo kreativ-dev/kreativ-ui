@@ -35,6 +35,8 @@
   --color-kui-info: rgb(var(--kui-colors-info));
   --color-kui-info-fg: rgb(var(--kui-colors-info-fg));
   --color-kui-info-hover: rgb(var(--kui-colors-info-hover));
+  --color-kui-white: rgb(var(--kui-colors-white));
+  --color-kui-black: rgb(var(--kui-colors-black));
 
   /* Primitive tokens */
   --spacing-kui-1: var(--kui-spacing-1);

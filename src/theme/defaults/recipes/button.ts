@@ -64,10 +64,10 @@ export const buttonColors = {
     link: "text-kui-info",
   },
   white: {
-    solid: "bg-white text-black hover:bg-gray-50",
-    outline: "border-white/30 text-white hover:bg-white/10",
-    ghost: "text-white hover:bg-white/10",
-    soft: "bg-white/10 text-white hover:bg-white/20",
+    solid: "bg-kui-white text-black hover:bg-gray-50",
+    outline: "border-white/30 text-white hover:bg-kui-white/10",
+    ghost: "text-white hover:bg-kui-white/10",
+    soft: "bg-kui-white/10 text-white hover:bg-kui-white/20",
     link: "text-white",
   },
   black: {

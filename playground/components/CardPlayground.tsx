@@ -56,7 +56,7 @@ export function ProfileCardTop() {
       <Card.Media src="/mountains.jpg" alt="" aspectRatio={4 / 3}>
         <Card.Overlay gradient="bottom" color="black" opacity={0.3} />
 
-        <button className="absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full bg-white/90">
+        <button className="absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full bg-kui-white/90">
           🔖
         </button>
 
@@ -107,7 +107,7 @@ export function ProfileCardBottom() {
           }}
         />
 
-        <button className="absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full bg-white/90">
+        <button className="absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full bg-kui-white/90">
           🔖
         </button>
 
@@ -130,7 +130,7 @@ export function ProfileCardBottom() {
             <span>7 days duration</span>
             <span>$44/hr rate</span>
           </div>
-          <button className="rounded-full bg-white px-4 py-1.5 text-xs font-medium shadow">
+          <button className="rounded-full bg-kui-white px-4 py-1.5 text-xs font-medium shadow">
             Get in touch
           </button>
         </div>
@@ -185,7 +185,7 @@ function PricingCardGradientHeader() {
           <p className="mt-2 text-sm text-muted">
             Best for large multiple teams that need maximum capabilities.
           </p>
-          <Button className="mt-4" fullWidth size="" >
+          <Button className="mt-4" fullWidth size="">
             Start Free
           </Button>
         </div>

@@ -2,11 +2,10 @@ import { useState } from "react";
 import { Textarea } from "@/components/forms/Textarea";
 import { InputSize, InputVariant } from "@/components/forms/Input/Input.types";
 import { TextareaResize } from "@/components/forms/Textarea/Textarea.types";
-import { FormField } from "@/components/forms/FormField";
 import { Playground } from "./shared/Playground";
 import { SegmentedControl } from "./shared/SegmentedControl";
 import { Chip } from "./shared/Chip";
-import { InputField } from "@/components";
+import { FormField, Input } from "@/components";
 import { TextField } from "./shared/TextField";
 import { ValidateOn } from "@splenddev/kreativ-core/types";
 import { getAttrs } from "./shared/getAttributes";
@@ -147,58 +146,64 @@ export function TextareaPlayground() {
         />
 
         <div className="grid grid-cols-2 gap-2">
-          <InputField
+          <FormField
+            as={Input}
             label="minRows"
-            labelClassName="block text-xs font-mono text-kui-text-muted"
-            size="sm"
-            kind="number"
-            placeholder="2"
-            hideKindIcon
-            clearable
-            value={minRows ?? ""}
-            onChange={(e) =>
-              setMinRows(e.target.value ? Number(e.target.value) : undefined)
-            }
+            controlProps={{
+              size: "sm",
+              kind: "number",
+              placeholder: "2",
+              hideKindIcon: true,
+              clearable: true,
+              value: minRows ?? "",
+              onChange: (e) =>
+                setMinRows(e.target.value ? Number(e.target.value) : undefined),
+            }}
           />
-          <InputField
+          <FormField
+            as={Input}
             label="maxRows"
-            labelClassName="block text-xs font-mono text-kui-text-muted"
-            size="sm"
-            kind="number"
-            placeholder="10"
-            hideKindIcon
-            clearable
-            value={maxRows ?? ""}
-            onChange={(e) =>
-              setMaxRows(e.target.value ? Number(e.target.value) : undefined)
-            }
+            controlProps={{
+              size: "sm",
+              kind: "number",
+              placeholder: "10",
+              hideKindIcon: true,
+              clearable: true,
+              value: maxRows ?? "",
+              onChange: (e) =>
+                setMaxRows(e.target.value ? Number(e.target.value) : undefined),
+            }}
           />
         </div>
         <div className="grid grid-cols-2 gap-2">
-          <InputField
+          <FormField
+            as={Input}
             label="maxLength"
-            labelClassName="block text-xs font-mono text-kui-text-muted"
-            size="sm"
-            kind="number"
-            placeholder="500"
-            hideKindIcon
-            clearable
-            value={maxLength ?? ""}
-            onChange={(e) =>
-              setMaxLength(e.target.value ? Number(e.target.value) : undefined)
-            }
+            controlProps={{
+              size: "sm",
+              kind: "number",
+              placeholder: "500",
+              hideKindIcon: true,
+              clearable: true,
+              value: maxLength ?? "",
+              onChange: (e) =>
+                setMaxLength(
+                  e.target.value ? Number(e.target.value) : undefined,
+                ),
+            }}
           />
-
-          <InputField
+          <FormField
+            as={Input}
             label="debounceDelay"
-            labelClassName="block text-xs font-mono text-kui-text-muted"
-            size="sm"
-            kind="number"
-            placeholder="0"
-            hideKindIcon
-            clearable
-            value={debounceDelay ?? ""}
-            onChange={(e) => setDebounceDelay(Number(e.target.value) || 0)}
+            controlProps={{
+              size: "sm",
+              kind: "number",
+              placeholder: "0",
+              hideKindIcon: true,
+              clearable: true,
+              value: debounceDelay ?? "",
+              onValueChange: (value) => setDebounceDelay(Number(value) || 0),
+            }}
           />
         </div>
       </div>

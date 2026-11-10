@@ -131,7 +131,7 @@ export const Switch = createComponent<
           >
             <div
               className={cn(
-                "absolute left-1 rounded-full bg-white shadow top-1/2 -translate-y-1/2",
+                "absolute left-1 rounded-full bg-kui-white shadow top-1/2 -translate-y-1/2",
                 !motionGated &&
                   "transition-transform duration-(--kui-duration-fast)",
                 thumb,

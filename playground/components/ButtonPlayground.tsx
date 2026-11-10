@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { Button } from "@/components/Button/Button";
+import { Button } from "@/components/action/Button/Button";
 import { MailIcon, PlusIcon, SearchIcon } from "lucide-react";
 import { SegmentedControl } from "./shared/SegmentedControl";
 import { Chip } from "./shared/Chip";
 import { Playground } from "./shared/Playground";
 import type { ResponsiveValue } from "@splenddev/kreativ-core/types";
-import { ButtonColor, ButtonVariant } from "@/components/Button/Button.types";
+import {
+  ButtonColor,
+  ButtonVariant,
+} from "@/components/action/Button/Button.types";
 import { getAttrs } from "./shared/getAttributes";
 import { buttonColors, buttonVariants } from "@/theme/defaults/recipes/button";
 import { useSizes } from "@/hooks";

@@ -1,4 +1,4 @@
-import type {  SemanticTokens } from "@splenddev/kreativ-core/types";
+import type { SemanticTokens } from "@splenddev/kreativ-core/types";
 import { defineSemanticToken } from "@splenddev/kreativ-core";
 
 export const defaultSemanticTokens = {
@@ -13,12 +13,19 @@ export const defaultSemanticTokens = {
 
     surface: defineSemanticToken("{colors.white}", "{colors.gray.900}"),
 
-    surfaceRaised: defineSemanticToken("{colors.gray.50}", "{colors.gray.800}"),
+    surfaceRaised: defineSemanticToken(
+      "{colors.gray.100}",
+      "{colors.gray.800}",
+    ),
 
     surfaceSunken: defineSemanticToken(
-      "{colors.gray.100}",
+      "{colors.gray.200}",
       "{colors.gray.950}",
     ),
+
+    light: defineSemanticToken("{colors.white}"),
+
+    dark: defineSemanticToken("{colors.black}"),
 
     border: defineSemanticToken("{colors.gray.200}", "{colors.gray.600}"),
 
@@ -62,4 +69,3 @@ export const defaultSemanticTokens = {
     shadowColor: defineSemanticToken("{colors.gray.200}", "{colors.gray.600}"),
   },
 } satisfies SemanticTokens;
-

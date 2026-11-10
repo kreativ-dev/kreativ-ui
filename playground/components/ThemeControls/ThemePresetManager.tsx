@@ -275,7 +275,9 @@ export function ThemePresetManager({ theme, onChange }: Props) {
   return (
     <section className="space-y-3">
       <div>
-        <h3 className="font-mono text-xs uppercase text-kui-text-muted">Presets</h3>
+        <h3 className="font-mono text-xs uppercase text-kui-text-muted">
+          Presets
+        </h3>
 
         <p className="mt-1 text-xs text-kui-text-muted">
           Start with a predefined visual direction, then customize it below.
@@ -311,9 +313,7 @@ export function ThemePresetManager({ theme, onChange }: Props) {
                   "flex h-5 w-5 items-center justify-center",
                   "rounded-full bg-kui-brand text-kui-brand-fg",
                   "transition-all duration-200",
-                  isActive
-                    ? "scale-100 opacity-100"
-                    : "scale-75 opacity-0",
+                  isActive ? "scale-100 opacity-100" : "scale-75 opacity-0",
                 ].join(" ")}
                 aria-hidden="true"
               >
@@ -355,7 +355,9 @@ export function ThemePresetManager({ theme, onChange }: Props) {
                 className={[
                   "flex items-center justify-between",
                   "border-t px-3 py-2.5",
-                  isActive ? "border-kui-brand/20 bg-kui-brand/5" : "border-kui-border",
+                  isActive
+                    ? "border-kui-brand/20 bg-kui-brand/5"
+                    : "border-kui-border",
                 ].join(" ")}
               >
                 <span className="text-sm font-medium capitalize text-kui-text">

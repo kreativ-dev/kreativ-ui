@@ -13,8 +13,9 @@ import { useFormField } from "./FormField.context";
 import { useFormContext } from "../form/Form.context";
 import { isDev } from "@/utils/env";
 import { FormControlProps } from "../form/Form.types";
+import { SuppressKuiWarningProps } from "@/types";
 
-export interface FormFieldControlProps {
+export interface FormFieldControlProps extends SuppressKuiWarningProps {
   children: React.ReactElement;
 }
 
@@ -54,7 +55,7 @@ export const FormFieldControl = createComponent<FormFieldControlProps, unknown>(
       skeleton: "preserve",
     },
 
-    render({ children }, forwardedRef) {
+    render({ children, suppressKuiWarning = false }, forwardedRef) {
       const ctx = useFormField("FormField.Control");
       const form = useFormContext();
       const controlRef = React.useRef<HTMLElement | null>(null);
@@ -72,7 +73,7 @@ export const FormFieldControl = createComponent<FormFieldControlProps, unknown>(
       const child = children as React.ReactElement<Record<string, unknown>>;
       const childType = child.type;
 
-      if (isDev() && !hasKuiMeta(childType)) {
+      if (isDev() && !hasKuiMeta(childType) && !suppressKuiWarning) {
         console.warn(
           "[kreativ-ui/FormField.Control]: child component doesn't carry Kreativ UI's __kui metadata. " +
             "Make sure it forwards both the injected form-control props (id, aria-invalid, " +

@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useState, type JSX, type ReactNode } from "react";
+import {
+  type ElementType,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from "react";
 
 import { isDev } from "@/utils/env";
 
@@ -14,6 +20,13 @@ import { resolveTokens, tokensToCssVars } from "@splenddev/kreativ-core/utils";
 
 import { useThemeModePersistence } from "@splenddev/kreativ-core/hooks";
 import { extendTheme } from "@/theme";
+import { OverlayRootContext } from "@/components/overlays/overlay/overlay.context";
+import {
+  ConfirmHost,
+  DialogProvider,
+  ToastProvider,
+  ToastViewport,
+} from "@/components";
 
 export interface UIProviderProps {
   children: ReactNode;
@@ -21,7 +34,7 @@ export interface UIProviderProps {
   defaultMode?: ColorMode;
   persistMode?: boolean;
   storageKey?: string;
-  as?: keyof JSX.IntrinsicElements;
+  as?: ElementType;
   fallbackSize?: string;
   background?: string;
   textColor?: string;
@@ -60,6 +73,7 @@ export function KreativUIProvider({
   className,
 }: UIProviderProps) {
   const [mode, setMode] = useState<ColorMode>(defaultMode);
+  const [overlayRoot, setOverlayRoot] = useState<HTMLDivElement | null>(null);
 
   useThemeModePersistence(mode, setMode, storageKey, persistMode);
 
@@ -100,24 +114,36 @@ export function KreativUIProvider({
     [theme, mode, resolvedMode, fallbackSize, resolvedTokens],
   );
 
-  const Tag = as as keyof JSX.IntrinsicElements;
+  const Tag = as ?? "div";
 
   return (
     <ThemeContext.Provider value={contextValue}>
-      <Tag
-        data-kreativ-theme={resolvedMode}
-        className={[resolvedMode === "dark" ? "dark" : undefined, className]
-          .filter(Boolean)
-          .join(" ")}
-        style={{
-          ...cssVars,
-          ...(background && { background }),
-          ...(textColor && { color: textColor }),
-          ...style,
-        }}
-      >
-        {children}
-      </Tag>
+      <OverlayRootContext.Provider value={overlayRoot}>
+        <DialogProvider>
+          <ToastProvider>
+            <Tag
+              ref={setOverlayRoot}
+              data-kreativ-theme={resolvedMode}
+              className={[
+                resolvedMode === "dark" ? "dark" : undefined,
+                className,
+              ]
+                .filter(Boolean)
+                .join(" ")}
+              style={{
+                ...cssVars,
+                ...(background && { background }),
+                ...(textColor && { color: textColor }),
+                ...style,
+              }}
+            >
+              {children}
+              <ConfirmHost />
+              <ToastViewport placement="bottom-end" container={overlayRoot} />
+            </Tag>
+          </ToastProvider>
+        </DialogProvider>
+      </OverlayRootContext.Provider>
     </ThemeContext.Provider>
   );
 }
