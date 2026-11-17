@@ -69,7 +69,7 @@ const InputBase = createComponent<InputProps, HTMLInputElement>({
     return renderBaseInput(
       {
         ...rest,
-        type: typeProp! ?? kindDefaults.type,
+        type: typeProp ?? kindDefaults.type ?? "text",
         inputMode: inputModeProp ?? kindDefaults.inputMode,
         value,
         autoComplete: autoCompleteProp ?? kindDefaults.autoComplete,
