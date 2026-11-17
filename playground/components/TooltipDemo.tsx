@@ -3,9 +3,9 @@
 import { useCallback, useMemo, useState } from "react";
 
 import type { Placement } from "@floating-ui/react";
-import { Button } from "@splenddev/kreativ-ui";
 
 import {
+  Button,
   Container,
   FormField,
   Input,

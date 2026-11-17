@@ -3,3 +3,4 @@ export * from "./overlay";
 export * from "./Confirm";
 export * from "./Menu";
 export * from "./Dialog";
+export * from "./Carousel";

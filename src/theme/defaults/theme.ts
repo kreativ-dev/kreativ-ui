@@ -43,6 +43,7 @@ import { toastRecipes } from "@/components/feedback/Toast/Toast.recipe";
 import { tooltipRecipes } from "@/components/overlays/Tooltip/Tooltip.recipe";
 import { confirmRecipes } from "../../components/overlays/Confirm/Confirm.recipe";
 import { menuRecipes } from "@/components/overlays/Menu/Menu.recipe";
+import { carouselRecipes } from "@/components/overlays/Carousel/Carousel.recipe";
 
 export const defaultRecipes = {
   Box: boxRecipe,
@@ -78,6 +79,7 @@ export const defaultRecipes = {
   ...tooltipRecipes,
   ...confirmRecipes,
   ...menuRecipes,
+  ...carouselRecipes,
 } satisfies RecipeCollection;
 
 export const defaultTheme = defineTheme({

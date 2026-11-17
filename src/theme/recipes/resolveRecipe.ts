@@ -5,6 +5,14 @@ import type {
 } from "@splenddev/kreativ-core/types";
 import { resolveStyle } from "@splenddev/kreativ-core";
 import { cn } from "@/utils/cn";
+import { isDev } from "@/utils/env";
+
+const warned = new Set<string>();
+function warnOnce(key: string, message: string) {
+  if (warned.has(key)) return;
+  warned.add(key);
+  console.warn(message);
+}
 
 export interface RecipeProps {
   [key: string]: RecipeVariantValue | undefined;
@@ -23,33 +31,49 @@ export function resolveRecipe(
   recipe: RecipeDefinition | undefined,
   props: RecipeProps = {},
   className?: string,
+  recipeProps?: Record<string, string>,
 ): string {
   if (!recipe) return className ?? "";
 
-  const resolvedProps: RecipeProps = {
-    ...recipe.defaultVariants,
-    ...props,
-  };
+  const resolvedProps: RecipeProps = { ...recipe.defaultVariants };
+
+  if (recipeProps) {
+    for (const [key, value] of Object.entries(recipeProps)) {
+      resolvedProps[key] = value;
+    }
+  }
+  for (const [key, value] of Object.entries(props)) {
+    if (value === undefined) continue;
+    if (isDev() && recipeProps && key in recipeProps) {
+      console.warn(
+        `[kreativ-ui/resolve-recipe]: recipeProps.${key} is ignored: the "${key}" prop takes precedence.`,
+      );
+    }
+    resolvedProps[key] = value;
+  }
 
   const classes: string[] = [];
 
-  if (recipe.base) {
-    classes.push(resolveStyle(recipe.base as RecipeStyle));
-  }
+  if (recipe.base) classes.push(resolveStyle(recipe.base as RecipeStyle));
 
   if (recipe.variants) {
     for (const [variantName, variantValues] of Object.entries(
       recipe.variants,
     )) {
       const value = resolvedProps[variantName];
-
       if (value === undefined) continue;
 
       const variantClass = variantValues[String(value)];
-
-      if (variantClass) {
-        classes.push(resolveStyle(variantClass as RecipeStyle));
+      if (variantClass === undefined) {
+        if (typeof value !== "boolean" && isDev()) {
+          warnOnce(
+            `unknown-variant:${variantName}:${String(value)}`,
+            `[kreativ-ui/resolve-recipe]: Unknown variant "${String(value)}" for "${variantName}". Known: ${Object.keys(variantValues).join(", ")}.`,
+          );
+        }
+        continue;
       }
+      if (variantClass) classes.push(resolveStyle(variantClass as RecipeStyle));
     }
   }
 
@@ -61,9 +85,7 @@ export function resolveRecipe(
     }
   }
 
-  if (className) {
-    classes.push(className);
-  }
+  if (className) classes.push(className);
 
   return cn(...classes);
 }

@@ -26,6 +26,7 @@ import { TooltipDemo } from "./TooltipDemo";
 import { MenuDemo } from "./MenuDemo";
 import { ConfirmDemo } from "./ConfirmDemo";
 import { ActionGuardDemo } from "./ActionGuardDemo";
+import { CarouselPlayground } from "./CarouselDemo";
 
 const SECTIONS = [
   { key: "card", label: "Card", render: () => <CardPlayground /> },
@@ -66,6 +67,11 @@ const SECTIONS = [
     key: "scroll-area",
     label: "ScrollArea",
     render: () => <ScrollAreaPlayground />,
+  },
+  {
+    key: "carousel",
+    label: "Carousel",
+    render: () => <CarouselPlayground />,
   },
   {
     key: "multiselect",
