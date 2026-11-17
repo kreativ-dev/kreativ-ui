@@ -71,7 +71,7 @@ const InputBase = createComponent<InputProps, HTMLInputElement>({
         ...rest,
         type: typeProp! ?? kindDefaults.type,
         inputMode: inputModeProp ?? kindDefaults.inputMode,
-        value: value ?? "",
+        value,
         autoComplete: autoCompleteProp ?? kindDefaults.autoComplete,
         placeholder: placeholderProp ?? kindDefaults.placeholder,
         startIcon: resolvedStartIcon,

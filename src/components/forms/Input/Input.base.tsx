@@ -356,8 +356,11 @@ export function renderBaseInput(
         onBlur={handleBlur}
         disabled={isDisabled}
         aria-busy={isLoading || undefined}
-        aria-invalid={isInvalid || undefined}
-        aria-describedby={describedBy}
+        aria-invalid={isInvalid || props["aria-invalid"] || undefined}
+        aria-describedby={
+          [describedBy, props["aria-describedby"]].filter(Boolean).join(" ") ||
+          undefined
+        }
         aria-required={isRequired || undefined}
         className={inputClasses}
         data-disabled={disabled || undefined}
