@@ -28,6 +28,7 @@ function makeNavButton(name: "Previous" | "Next", dir: -1 | 1) {
         className,
         recipeProps,
         variant,
+        placement,
         ...rest
       },
       ref,
@@ -40,11 +41,11 @@ function makeNavButton(name: "Previous" | "Next", dir: -1 | 1) {
       const placementClass = resolveRecipe(
         theme.recipes.CarouselControl,
         {
-          variant,
+          placement,
           side: dir < 0 ? "previous" : "next",
-          ...recipeProps,
         },
         className,
+        recipeProps,
       );
 
       const slotProps: Record<string, unknown> = {
