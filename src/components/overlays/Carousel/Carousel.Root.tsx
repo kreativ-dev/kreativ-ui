@@ -1,9 +1,68 @@
 "use client";
 import * as React from "react";
-import { CarouselContext, type CarouselContextValue } from "./Carousel.context";
+import { CarouselContext } from "./Carousel.context";
 import { useControllableState } from "@/hooks";
 import { createComponent, useTheme } from "@splenddev/kreativ-core";
 import { resolveRecipe } from "@/theme/recipes/resolveRecipe";
+import type { CarouselWindow, CarouselContextValue } from "./Carousel.context";
+
+const MIN_VISIBLE = 0.05;
+const EPS = 1e-6;
+
+function resolveWindow(
+  visibility: number[] | undefined,
+  slidesPerViewProp: number,
+): { slidesPerView: number; window: CarouselWindow } {
+  if (visibility && visibility.length > 0) {
+    const v = visibility.map((x) =>
+      Number.isFinite(x) ? Math.min(Math.max(x, MIN_VISIBLE), 1) : 1,
+    );
+    const n = v.length;
+    const lead = n > 1 && v[0] < 1 - EPS ? v[0] : 0;
+    const trail = n > 1 && v[n - 1] < 1 - EPS ? v[n - 1] : 0;
+    const interior = v.slice(lead > 0 ? 1 : 0, n - (trail > 0 ? 1 : 0));
+
+    if (
+      process.env.NODE_ENV !== "production" &&
+      interior.some((x) => x < 1 - EPS)
+    ) {
+      console.warn(
+        "<Carousel.Root slideVisibility>: only the first and last entries may be below 1. Interior entries are treated as 1.",
+      );
+    }
+    if (interior.length >= 1) {
+      return {
+        slidesPerView: interior.length,
+        window: {
+          span: interior.length + lead + trail,
+          gapCount: n - 1,
+          lead,
+          trail,
+          padded: true,
+        },
+      };
+    }
+    if (process.env.NODE_ENV !== "production") {
+      console.warn(
+        "<Carousel.Root slideVisibility> needs at least one whole slide (a 1). Falling back to slidesPerView.",
+      );
+    }
+  }
+
+  const spv = Number.isFinite(slidesPerViewProp)
+    ? Math.max(1, slidesPerViewProp)
+    : 1;
+  return {
+    slidesPerView: spv,
+    window: {
+      span: spv,
+      gapCount: Math.ceil(spv) - 1,
+      lead: 0,
+      trail: 0,
+      padded: false,
+    },
+  };
+}
 
 export interface CarouselRootProps extends Omit<
   React.HTMLAttributes<HTMLDivElement>,
@@ -29,13 +88,20 @@ export interface CarouselRootProps extends Omit<
   /** Pause while focus is inside the carousel. Default true. */
   pauseOnFocus?: boolean;
 
-  /** Slides visible at once. Default 1. */
-  slidesPerView?: number;
+  /** Slides visible at once. Fractions peek the next slide (1.5). Default 1. */ slidesPerView?: number;
   /** Space between slides (number = px, or any CSS length). Default 0. */
   gap?: number | string;
 
   /** Extra recipe variant groups (e.g. from extendRecipe). Typed props win on collision. */
   recipeProps?: Record<string, string>;
+
+  /**
+   * Shape of the visible window: the fraction of each slide that shows, in order.
+   * `[0.3, 1, 0.3]` = one whole slide with 30% of each neighbour peeking in.
+   * Values are 0–1; only the first and last may be below 1. `index` is the first whole slide.
+   * Overrides `slidesPerView`.
+   */
+  slideVisibility?: number[];
 }
 
 function usePrefersReducedMotion(): boolean {
@@ -86,15 +152,22 @@ export const CarouselRoot = createComponent<CarouselRootProps, HTMLDivElement>({
       onBlur,
       onKeyDown,
       recipeProps,
+      slideVisibility,
       ...rest
     } = props;
 
     const id = React.useId();
     const { theme } = useTheme();
 
-    const slidesPerView = Math.max(1, Math.floor(spvProp));
+    const visibilityKey = slideVisibility?.join(",");
+    const { slidesPerView, window: slideWindow } = React.useMemo(
+      () => resolveWindow(slideVisibility, spvProp),
+      [visibilityKey, spvProp],
+    );
     const [count, setCount] = React.useState(0);
-    const maxIndex = Math.max(count - slidesPerView, 0);
+    const maxIndex = slideWindow.padded
+      ? Math.max(count - slidesPerView, 0)
+      : Math.max(Math.ceil(count - slidesPerView - 1e-6), 0);
 
     const [rawIndex, setIndex] = useControllableState<number>({
       value: indexProp,
@@ -202,6 +275,7 @@ export const CarouselRoot = createComponent<CarouselRootProps, HTMLDivElement>({
         canPrevious,
         indexRef,
         maxIndexRef,
+        window: slideWindow,
       }),
       [
         id,
@@ -222,6 +296,7 @@ export const CarouselRoot = createComponent<CarouselRootProps, HTMLDivElement>({
         previous,
         canNext,
         canPrevious,
+        slideWindow,
       ],
     );
 

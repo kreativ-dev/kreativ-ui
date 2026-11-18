@@ -85,6 +85,13 @@ export interface CarouselIndicatorsInfo {
   goTo: (index: number) => void;
 }
 
+export type CarouselIndicatorsVariant =
+  | "dots"
+  | "pill"
+  | "bars"
+  | "numbers"
+  | "fraction";
+
 export interface CarouselIndicatorsProps extends Omit<
   React.HTMLAttributes<HTMLDivElement>,
   "children"
@@ -94,6 +101,7 @@ export interface CarouselIndicatorsProps extends Omit<
     | ((info: CarouselIndicatorsInfo) => React.ReactNode);
   placement?: "below" | "overlay";
   recipeProps?: Record<string, string>;
+  variant?: CarouselIndicatorsVariant;
 }
 
 /** Public compound part. Renders one dot per reachable position; renders nothing when there is only one. */
@@ -103,12 +111,36 @@ export const CarouselIndicators = createComponent<
 >({
   displayName: "Carousel.Indicators",
   __kui: { role: "navigation", groupSlot: "Carousel", skeleton: "rect" },
-  render: ({ children, placement, recipeProps, className, ...rest }, ref) => {
+  render: (
+    { children, variant, placement, recipeProps, className, ...rest },
+    ref,
+  ) => {
     const ctx = useCarouselContext("Carousel.Indicators");
     const { theme } = useTheme();
     const positions = ctx.maxIndex + 1;
 
     if (positions <= 1) return null;
+
+    const wrapperClass = resolveRecipe(
+      theme.recipes.CarouselIndicators,
+      { variant, placement },
+      className,
+      recipeProps,
+    );
+
+    if (
+      variant === "fraction" &&
+      typeof children !== "function" &&
+      children == null
+    ) {
+      return (
+        <div ref={ref} className={wrapperClass} {...rest}>
+          <span aria-hidden="true" data-part="indicator-fraction">
+            {ctx.index + 1} / {positions}
+          </span>
+        </div>
+      );
+    }
 
     const info = { index: ctx.index, count: positions, goTo: ctx.goTo };
     const body =
@@ -119,29 +151,26 @@ export const CarouselIndicators = createComponent<
             <button
               key={i}
               type="button"
-              className={resolveRecipe(theme.recipes.CarouselIndicator, {})}
+              className={resolveRecipe(theme.recipes.CarouselIndicator, {
+                variant,
+              })}
               data-part="indicator"
               data-state={i === ctx.index ? "active" : "inactive"}
               aria-label={`Go to slide ${i + 1}`}
               aria-current={i === ctx.index ? "true" : undefined}
               aria-controls={ctx.viewportId}
               onClick={() => ctx.goTo(i)}
-            />
+            >
+              {variant === "numbers" ? i + 1 : null}
+            </button>
           )));
 
     return (
       <div
         ref={ref}
         role="group"
-        className={resolveRecipe(
-          theme.recipes.CarouselIndicators,
-          {
-            placement,
-            ...recipeProps,
-          },
-          className,
-        )}
         aria-label="Choose slide"
+        className={wrapperClass}
         {...rest}
       >
         {body}

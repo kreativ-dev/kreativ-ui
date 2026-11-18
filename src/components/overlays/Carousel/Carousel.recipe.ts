@@ -35,24 +35,50 @@ export const carouselControlRecipe = defineRecipe({
   ],
 });
 
+const indicatorTone =
+  "bg-kui-border hover:bg-kui-text-muted data-[state=active]:bg-kui-brand";
+
+const indicatorHit =
+  "relative after:absolute after:-inset-2 after:content-['']";
+
 export const carouselIndicatorsRecipe = defineRecipe({
-  base: "kui-carousel-indicators flex items-center justify-center gap-2",
+  base: "kui-carousel-indicators flex items-center justify-center",
   variants: {
+    variant: {
+      dots: "gap-2",
+      pill: "gap-2",
+      bars: "gap-1.5",
+      numbers: "gap-1",
+      fraction: "text-sm tabular-nums text-kui-text-muted",
+    },
     placement: {
       below: "mt-3",
       overlay: "absolute inset-x-0 bottom-3 z-10",
     },
   },
-  defaultVariants: { placement: "below" },
+  defaultVariants: { variant: "dots", placement: "below" },
 });
 
 export const carouselIndicatorRecipe = defineRecipe({
   base: [
-    "size-2 rounded-full bg-kui-border transition-colors",
-    "hover:bg-kui-text-muted data-[state=active]:bg-kui-brand",
+    "transition-all",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kui-brand",
     "focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
   ].join(" "),
+  variants: {
+    variant: {
+      dots: `size-2 rounded-full ${indicatorTone} ${indicatorHit}`,
+      pill: `h-2 w-2 rounded-full ${indicatorTone} ${indicatorHit} data-[state=active]:w-6`,
+      bars: `h-1 w-6 rounded-full ${indicatorTone} ${indicatorHit}`,
+      numbers: [
+        "inline-flex size-7 items-center justify-center rounded-full text-xs tabular-nums",
+        "text-kui-text-muted hover:bg-kui-surface-sunken",
+        "data-[state=active]:bg-kui-brand data-[state=active]:text-kui-brand-fg",
+      ].join(" "),
+      fraction: "",
+    },
+  },
+  defaultVariants: { variant: "dots" },
 });
 
 export const carouselRecipes = {

@@ -3,3 +3,4 @@ export * from "./typography";
 export * from "./token";
 export { extendTheme } from "./extendTheme";
 export { defineTheme, composeRefs } from "@splenddev/kreativ-core";
+export { cn } from "@/utils/cn";

@@ -24,8 +24,21 @@ function slideOffset(viewport: HTMLElement, i: number): number | null {
   );
 }
 
-// ───────────────────────── Slide ─────────────────────────
-// (unchanged)
+function slideTarget(
+  viewport: HTMLElement,
+  i: number,
+  padded: boolean,
+): number | null {
+  const off = slideOffset(viewport, i);
+  if (off == null) return null;
+  const base = padded ? slideOffset(viewport, 0) : 0;
+  if (base == null) return null;
+  return Math.max(
+    0,
+    Math.min(off - base, viewport.scrollWidth - viewport.clientWidth),
+  );
+}
+
 export type CarouselSlideProps = React.HTMLAttributes<HTMLDivElement>;
 export const CarouselSlide = createComponent<
   CarouselSlideProps,
@@ -42,7 +55,17 @@ export const CarouselSlide = createComponent<
       );
     const { slideStyle } = useCarouselSnap();
     const { theme } = useTheme();
-    const active = index >= ctx.index && index < ctx.index + ctx.slidesPerView;
+
+    const { lead, trail, padded } = ctx.window;
+    const EPS = 1e-6;
+    const startU = padded
+      ? ctx.index - lead
+      : Math.max(Math.min(ctx.index, ctx.count - ctx.slidesPerView), 0);
+    const endU = padded
+      ? ctx.index + ctx.slidesPerView + trail
+      : startU + ctx.slidesPerView;
+    const active = index + 1 > startU + EPS && index < endU - EPS;
+
     return (
       <div
         ref={ref}
@@ -57,7 +80,7 @@ export const CarouselSlide = createComponent<
         className={resolveRecipe(theme.recipes.CarouselSlide, {}, className)}
         style={{
           flexBasis:
-            "calc((100% - (var(--kui-carousel-per-view) - 1) * var(--kui-carousel-gap)) / var(--kui-carousel-per-view))",
+            "calc((100% - var(--kui-carousel-gaps) * var(--kui-carousel-gap)) / var(--kui-carousel-per-view))",
           ...slideStyle,
           ...style,
         }}
@@ -67,7 +90,6 @@ export const CarouselSlide = createComponent<
   },
 });
 
-// ───────────────────────── Viewport ─────────────────────────
 export interface CarouselViewportProps extends Omit<
   React.HTMLAttributes<HTMLDivElement>,
   "children" | "onScroll" | "onScrollEnd"
@@ -94,19 +116,15 @@ export const CarouselViewport = createComponent<
 
     const handleRef = React.useRef<ScrollAreaHandle>(null);
 
-    /** The scrollport element. Read in effects/handlers only; the handle is null before mount. */
     const getScroller = React.useCallback(
       () => handleRef.current?.getElement() ?? null,
       [],
     );
 
-    // Expose the scrollport (not the handle) through the forwarded ref.
-    // Child refs attach before this runs, so the handle is available.
     React.useImperativeHandle(ref, () => getScroller() as HTMLElement, [
       getScroller,
     ]);
 
-    // Direct-child walk by component identity (forwardRef components are objects at runtime).
     let n = -1;
     const slides = React.Children.map(children, (child) => {
       if (React.isValidElement(child) && child.type === CarouselSlide) {
@@ -126,15 +144,16 @@ export const CarouselViewport = createComponent<
       return () => setCount(0);
     }, [count, setCount]);
 
-    // ---- index -> scroll ----
     const mounted = React.useRef(false);
     React.useLayoutEffect(() => {
       const vp = getScroller();
+
       if (!vp || count === 0 || ctx.count !== count) return;
-      const left = slideOffset(vp, ctx.index);
+      const left = slideTarget(vp, ctx.index, ctx.window.padded);
       if (left == null) return;
       const first = !mounted.current;
       mounted.current = true;
+
       if (Math.abs(vp.scrollLeft - left) < 1) return;
       handleRef.current?.scrollTo({
         left,
@@ -145,12 +164,12 @@ export const CarouselViewport = createComponent<
       ctx.count,
       count,
       ctx.slidesPerView,
+      ctx.window,
       ctx.gap,
       ctx.prefersReducedMotion,
       getScroller,
     ]);
 
-    // ---- scroll -> index (debounced settle) ----
     const settleTimer = React.useRef<ReturnType<typeof setTimeout> | undefined>(
       undefined,
     );
@@ -163,10 +182,11 @@ export const CarouselViewport = createComponent<
         let best = 0;
         let bestDist = Infinity;
         for (let i = 0; i <= ctx.maxIndexRef.current; i++) {
-          const off = slideOffset(vp, i);
+          const off = slideTarget(vp, i, ctx.window.padded);
           if (off == null) continue;
           const d = Math.abs(off - vp.scrollLeft);
-          if (d < bestDist) {
+
+          if (d <= bestDist) {
             bestDist = d;
             best = i;
           }
@@ -175,31 +195,72 @@ export const CarouselViewport = createComponent<
       }, 100);
     }, [ctx, getScroller]);
 
+    const SLIDE_W =
+      "(100% - var(--kui-carousel-gaps) * var(--kui-carousel-gap)) / var(--kui-carousel-per-view)";
+    const { lead, trail, span, gapCount, padded } = ctx.window;
+    const g = toCss(ctx.gap);
+
+    const snapPad: React.CSSProperties | null =
+      padded && lead > 0
+        ? {
+            scrollPaddingLeft: `calc(${lead} * (100% - ${gapCount} * ${g}) / ${span} + ${g})`,
+          }
+        : null;
+
     return (
       <ScrollArea
         ref={handleRef}
         direction="horizontal"
-        overscrollBehavior="contain"
+        overscrollBehavior="auto"
         showScrollbar="never"
         onScroll={onScroll}
         id={ctx.viewportId}
         aria-live={ctx.autoplayRunning ? "off" : "polite"}
         className={className}
-        style={{ ...viewportStyle, ...style }}
+        style={{
+          ...viewportStyle,
+          ...snapPad,
+          overscrollBehaviorX: "contain",
+          overscrollBehaviorY: "auto",
+          ...style,
+        }}
         {...rest}
       >
         <div
           data-part="track"
-          className={resolveRecipe(theme.recipes.CarouselTrack, {}, className)}
+          className={resolveRecipe(theme.recipes.CarouselTrack, {})}
           style={
             {
-              gap: toCss(ctx.gap),
-              "--kui-carousel-gap": toCss(ctx.gap),
-              "--kui-carousel-per-view": ctx.slidesPerView,
+              gap: g,
+              "--kui-carousel-gap": g,
+              "--kui-carousel-per-view": span,
+              "--kui-carousel-gaps": gapCount,
+              "--kui-carousel-lead": lead,
+              "--kui-carousel-trail": trail,
             } as React.CSSProperties
           }
         >
+          {lead > 0 && (
+            <div
+              aria-hidden="true"
+              data-part="spacer"
+              className="shrink-0 grow-0"
+              style={{
+                flexBasis: `calc(var(--kui-carousel-lead) * (${SLIDE_W}))`,
+              }}
+            />
+          )}
           {slides}
+          {trail > 0 && (
+            <div
+              aria-hidden="true"
+              data-part="spacer"
+              className="shrink-0 grow-0"
+              style={{
+                flexBasis: `calc(var(--kui-carousel-trail) * (${SLIDE_W}))`,
+              }}
+            />
+          )}
         </div>
       </ScrollArea>
     );

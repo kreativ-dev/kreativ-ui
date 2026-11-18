@@ -1,7 +1,21 @@
 import * as React from "react";
 import type { ScrollAreaHandle } from "@/components/layout/ScrollArea/ScrollArea.types";
 
+export interface CarouselWindow {
+  /** Visible slide-widths across the viewport. The divisor for slide width. */
+  span: number;
+  /** Gaps that fit in the viewport. */
+  gapCount: number;
+  /** Visible fraction of the slide peeking in at the start. 0 = none. */
+  lead: number;
+  /** Visible fraction of the slide peeking in at the end. 0 = none. */
+  trail: number;
+  /** True when built from `slideVisibility`: slide-aligned positions, ends padded with spacers. */
+  padded: boolean;
+}
+
 export interface CarouselContextValue {
+  window: CarouselWindow;
   id: string;
   viewportId: string;
 
@@ -38,7 +52,9 @@ export interface CarouselContextValue {
   maxIndexRef: React.MutableRefObject<number>;
 }
 
-export const CarouselContext = React.createContext<CarouselContextValue | null>(null);
+export const CarouselContext = React.createContext<CarouselContextValue | null>(
+  null,
+);
 
 export function useCarouselContext(part: string): CarouselContextValue {
   const ctx = React.useContext(CarouselContext);
